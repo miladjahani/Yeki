@@ -3,61 +3,49 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>معدن‌بان | پنل مدیریت HSE و محیط زیست معادن</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Vazirmatn:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-<script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-<script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+<title>معدن‌بان | سامانه صنعتی HSE و محیط زیست معادن</title>
 <style>
+@font-face{font-family:'Vazirmatn';src:url('assets/fonts/vazirmatn.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Lalezar';src:url('assets/fonts/lalazar.ttf') format('truetype');font-display:swap}
 :root{
   --bg:#12161b; --panel:#1a2129; --panel2:#1c242e; --line:#2a3340; --line2:#33404f;
   --text:#e9eef4; --mut:#93a1b0; --faint:#5c6b7a;
   --amber:#ffb62e; --amber2:#ffd23f; --green:#3ecf8e; --red:#ff5d5d;
   --blue:#4cc3ff; --orange:#ff9f43; --teal:#35d0ba;
-  --ff-body:'Vazirmatn',sans-serif; --ff-disp:'Lalezar',cursive;
+  --ff-body:'Vazirmatn','Segoe UI',Tahoma,sans-serif; --ff-disp:'Lalezar','Vazirmatn',sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family:var(--ff-body);font-size:14px;line-height:1.7;color:var(--text);min-height:100vh;
-  background:
-    radial-gradient(900px 500px at 85% -10%, rgba(255,182,46,.09), transparent 60%),
-    radial-gradient(700px 500px at 0% 110%, rgba(62,207,142,.06), transparent 60%),
-    var(--bg);
-}
+body{font-family:var(--ff-body);font-size:14px;line-height:1.7;color:var(--text);min-height:100vh;
+  background:radial-gradient(900px 500px at 85% -10%, rgba(255,182,46,.09), transparent 60%),
+  radial-gradient(700px 500px at 0% 110%, rgba(62,207,142,.06), transparent 60%), var(--bg)}
 body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.6;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cg fill='none' stroke='%23aab8c5' stroke-opacity='0.05'%3E%3Ccircle cx='110' cy='120' r='36'/%3E%3Ccircle cx='110' cy='120' r='66'/%3E%3Ccircle cx='110' cy='120' r='96'/%3E%3Ccircle cx='110' cy='120' r='126'/%3E%3Ccircle cx='330' cy='340' r='28'/%3E%3Ccircle cx='330' cy='340' r='58'/%3E%3Ccircle cx='330' cy='340' r='88'/%3E%3Ccircle cx='330' cy='340' r='118'/%3E%3C/g%3E%3C/svg%3E");}
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cg fill='none' stroke='%23aab8c5' stroke-opacity='0.05'%3E%3Ccircle cx='110' cy='120' r='36'/%3E%3Ccircle cx='110' cy='120' r='66'/%3E%3Ccircle cx='110' cy='120' r='96'/%3E%3Ccircle cx='110' cy='120' r='126'/%3E%3Ccircle cx='330' cy='340' r='28'/%3E%3Ccircle cx='330' cy='340' r='58'/%3E%3Ccircle cx='330' cy='340' r='88'/%3E%3Ccircle cx='330' cy='340' r='118'/%3E%3C/g%3E%3C/svg%3E")}
 #root{position:relative;z-index:1}
 ::selection{background:rgba(255,182,46,.35)}
-::-webkit-scrollbar{width:10px;height:10px}
-::-webkit-scrollbar-thumb{background:#2c3540;border-radius:99px}
-::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:#2c3540;border-radius:99px}
 button{font-family:inherit}
-
 .app{display:flex;min-height:100vh}
-/* ── سایدبار ── */
-.sidebar{width:270px;flex-shrink:0;background:linear-gradient(180deg,#161c23,#12171d);
-  border-inline-end:1px solid var(--line);display:flex;flex-direction:column;height:100vh;position:sticky;top:0}
+.sidebar{width:270px;flex-shrink:0;background:linear-gradient(180deg,#161c23,#12171d);border-inline-end:1px solid var(--line);display:flex;flex-direction:column;height:100vh;position:sticky;top:0}
 .brand{display:flex;align-items:center;gap:12px;padding:18px 18px 14px}
-.brand-mark{width:44px;height:44px;border-radius:12px;background:#0f1317;border:1px solid var(--line2);
-  display:grid;place-items:center;font-size:22px;box-shadow:0 0 0 3px rgba(255,182,46,.14)}
+.brand-mark{width:44px;height:44px;border-radius:12px;background:#0f1317;border:1px solid var(--line2);display:grid;place-items:center;font-size:22px;box-shadow:0 0 0 3px rgba(255,182,46,.14)}
 .brand b{font-family:var(--ff-disp);font-weight:400;font-size:25px;color:var(--amber2);display:block;line-height:1.1}
 .brand span{font-size:8.5px;letter-spacing:3px;color:var(--faint)}
 .brand-hazard{height:5px;margin:0 18px 8px;border-radius:99px}
-nav{flex:1;overflow-y:auto;padding:4px 14px 18px}
+nav{flex:1;overflow-y:auto;padding:4px 14px 10px}
 .nav-label{font-size:10.5px;color:var(--faint);font-weight:800;margin:15px 8px 6px}
-.nav-item{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;border-radius:10px;background:none;
-  border:1px solid transparent;color:var(--mut);font-size:13px;cursor:pointer;transition:.18s;text-align:right}
+.nav-item{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;border-radius:10px;background:none;border:1px solid transparent;color:var(--mut);font-size:13px;cursor:pointer;transition:.18s;text-align:right}
 .nav-item:hover{background:#ffffff07;color:var(--text);transform:translateX(-2px)}
-.nav-item.active{background:linear-gradient(270deg,rgba(255,182,46,.13),rgba(255,182,46,.03));
-  color:var(--amber2);border-color:rgba(255,182,46,.28)}
+.nav-item.active{background:linear-gradient(270deg,rgba(255,182,46,.13),rgba(255,182,46,.03));color:var(--amber2);border-color:rgba(255,182,46,.28)}
 .nav-ico{width:30px;height:30px;flex-shrink:0;display:grid;place-items:center;background:#ffffff08;border-radius:8px;font-size:15px}
 .nav-item.active .nav-ico{background:rgba(255,182,46,.16)}
 .nav-name{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nav-cnt{background:#ffffff0d;border:1px solid var(--line);padding:1px 8px;border-radius:99px;font-size:10.5px;color:var(--mut)}
 .nav-cnt.hot{background:rgba(255,93,93,.14);color:#ff8b8b;border-color:rgba(255,93,93,.4)}
-.side-foot{padding:13px 18px;border-top:1px solid var(--line);font-size:10.5px;color:var(--faint);display:flex;flex-direction:column;gap:4px}
-/* ── بدنه اصلی ── */
+.side-foot{padding:13px 18px;border-top:1px solid var(--line);font-size:10.5px;color:var(--faint);display:flex;flex-direction:column;gap:8px}
+.user-row{display:flex;align-items:center;gap:10px}
+.user-avatar{width:34px;height:34px;border-radius:10px;background:rgba(255,182,46,.16);border:1px solid rgba(255,182,46,.3);display:grid;place-items:center;color:var(--amber2);font-weight:800}
+.user-row b{font-size:12.5px;display:block}.user-row small{color:var(--faint);font-size:10.5px}
+.ver{font-size:10px}
 .main{flex:1;min-width:0;display:flex;flex-direction:column}
 .topbar{display:flex;align-items:center;gap:14px;padding:18px 26px 12px;flex-wrap:wrap}
 .tb-title h1{font-family:var(--ff-disp);font-weight:400;font-size:30px;line-height:1}
@@ -65,8 +53,7 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 18px}
 .tb-side{margin-inline-start:auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .chip{background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:7px 14px;font-size:12px;color:var(--mut)}
 .chip-mine{border-color:rgba(255,182,46,.35);color:var(--amber2);background:rgba(255,182,46,.07)}
-.burger{display:none;width:40px;height:40px;place-items:center;background:#ffffff08;border:1px solid var(--line);
-  border-radius:10px;color:var(--text);font-size:17px;cursor:pointer}
+.burger{display:none;width:40px;height:40px;place-items:center;background:#ffffff08;border:1px solid var(--line);border-radius:10px;color:var(--text);font-size:17px;cursor:pointer}
 .topbar-edge{height:6px;margin:0 26px;border-radius:99px;opacity:.85}
 .hazard-anim{background:repeating-linear-gradient(-45deg,var(--amber2) 0 10px,#15181c 10px 20px);animation:hzmove 2.4s linear infinite}
 @keyframes hzmove{to{background-position:28.28px 0}}
@@ -80,37 +67,31 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 18px}
 .page-head h2{font-family:var(--ff-disp);font-weight:400;font-size:26px}
 .page-head p{color:var(--mut);font-size:12.5px}
 .ph-actions{display:flex;gap:8px}
-/* ── دکمه‌ها ── */
-.btn{border:none;font-size:13px;font-weight:700;border-radius:10px;padding:10px 18px;cursor:pointer;transition:.18s;
-  display:inline-flex;align-items:center;gap:6px}
-.btn:active{transform:scale(.97)}
+.btn{border:none;font-size:13px;font-weight:700;border-radius:10px;padding:10px 18px;cursor:pointer;transition:.18s;display:inline-flex;align-items:center;gap:6px}
+.btn:active{transform:scale(.97)}.btn:disabled{opacity:.4;cursor:not-allowed}
 .btn-amber{background:linear-gradient(180deg,var(--amber2),var(--amber));color:#221a04;box-shadow:0 8px 20px -8px rgba(255,182,46,.55)}
-.btn-amber:hover{transform:translateY(-1px);box-shadow:0 12px 26px -8px rgba(255,182,46,.6)}
+.btn-amber:hover{transform:translateY(-1px)}
 .btn-ghost{background:#ffffff08;border:1px solid var(--line2);color:var(--text)}
 .btn-ghost:hover{background:#ffffff12;border-color:var(--amber)}
 .btn-red{background:rgba(255,93,93,.12);border:1px solid rgba(255,93,93,.4);color:#ff8b8b}
 .btn-red:hover{background:rgba(255,93,93,.22)}
-/* ── نوار ابزار ── */
+.btn-block{width:100%;justify-content:center}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
 .search{flex:1;min-width:200px;background:#151b22;border:1px solid var(--line);border-radius:10px;padding:10px 14px;color:var(--text);font:inherit;transition:.2s}
 .search:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(255,182,46,.14)}
 .filter{background:#151b22;border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--text);font:inherit;cursor:pointer}
 .count-chip{font-size:11.5px;color:var(--mut);background:#ffffff08;border:1px solid var(--line);padding:6px 12px;border-radius:99px}
-/* ── کارت ── */
-.card{background:linear-gradient(180deg,#1b222b,#181f27);border:1px solid var(--line);border-radius:14px;transition:border-color .2s,transform .2s,box-shadow .2s}
+.card{background:linear-gradient(180deg,#1b222b,#181f27);border:1px solid var(--line);border-radius:14px;transition:border-color .2s}
 .card:hover{border-color:#3a4655}
 .card-head{display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid var(--line)}
 .card-head .ci{width:28px;height:28px;border-radius:8px;background:#ffffff08;display:grid;place-items:center;font-size:14px}
 .card-head h3{font-size:13.5px;font-weight:800}
-.card-body{padding:16px}
-.pad{padding:18px}
+.card-body{padding:16px}.pad{padding:18px}
 .card-h{font-size:14px;font-weight:800;margin-bottom:12px}
-/* ── KPI ── */
-.kpi-band{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:12px;margin-bottom:16px}
-.kpi{position:relative;text-align:right;background:linear-gradient(180deg,#1c232d,#181f27);border:1px solid var(--line);
-  border-block-start:3px solid var(--acc,var(--amber));border-radius:14px;padding:15px 16px;display:flex;flex-direction:column;gap:5px;
-  color:var(--text);font-family:inherit;cursor:pointer;transition:.2s}
+.kpi-band{display:grid;grid-template-columns:1.5fr repeat(5,1fr);gap:12px;margin-bottom:16px}
+.kpi{position:relative;text-align:right;background:linear-gradient(180deg,#1c232d,#181f27);border:1px solid var(--line);border-block-start:3px solid var(--acc,var(--amber));border-radius:14px;padding:15px 16px;display:flex;flex-direction:column;gap:5px;color:var(--text);font-family:inherit;cursor:pointer;transition:.2s}
 .kpi:hover{transform:translateY(-3px);border-color:var(--acc,var(--amber));box-shadow:0 14px 30px -16px rgba(0,0,0,.7)}
+.k-static{cursor:default}.k-static:hover{transform:none;box-shadow:none;border-color:var(--line);border-block-start-color:var(--acc)}
 .kpi-label{font-size:11.5px;color:var(--mut);font-weight:600}
 .kpi-num{font-family:var(--ff-disp);font-weight:400;font-size:34px;line-height:1.1}
 .kpi-sub{font-size:10.5px;color:var(--faint)}
@@ -118,7 +99,6 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 18px}
 .kpi-big{flex-direction:row;align-items:center;gap:16px;--acc:var(--green);cursor:default}
 .kpi-edge{align-self:stretch;width:8px;border-radius:99px}
 .kpi-big .kpi-num{font-size:54px;color:var(--green)}
-/* ── شبکه داشبورد ── */
 .dash-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
 .dash-grid>*{grid-column:span 6;animation:pageIn .5s both}
 .dash-grid>*:nth-child(2){animation-delay:.06s}.dash-grid>*:nth-child(3){animation-delay:.12s}
@@ -127,8 +107,7 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 18px}
 .donut-wrap{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
 .legend{list-style:none;flex:1;min-width:150px}
 .legend li{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--mut);padding:7px 2px;border-bottom:1px dashed var(--line)}
-.legend li:last-child{border:none}
-.legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.legend li:last-child{border:none}.legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
 .legend b{margin-inline-start:auto;color:var(--text)}
 .gauge{display:flex;justify-content:center}
 .score-note{font-size:10.5px;color:var(--faint);text-align:center;margin-top:8px}
@@ -143,28 +122,21 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 18px}
 .vbar-val{font-size:11px;color:var(--mut);font-weight:700}
 .vbar-fill{width:70%;max-width:44px;border-radius:7px 7px 3px 3px;transition:height .9s cubic-bezier(.22,1,.36,1)}
 .vbar-lab{font-size:10.5px;color:var(--faint);text-align:center}
-.alert-item{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-radius:10px;background:#ffffff05;
-  border:1px solid var(--line);margin-bottom:8px;transition:.15s;animation:pageIn .4s both}
+.alert-item{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-radius:10px;background:#ffffff05;border:1px solid var(--line);margin-bottom:8px;transition:.15s;animation:pageIn .4s both}
 .alert-item:hover{transform:translateX(-3px)}
-.alert-item b{display:block;font-size:12.5px}
-.alert-item small{color:var(--faint);font-size:11px}
+.alert-item b{display:block;font-size:12.5px}.alert-item small{color:var(--faint);font-size:11px}
 .al-red{border-inline-start:3px solid var(--red)}.al-amber{border-inline-start:3px solid var(--amber)}.al-blue{border-inline-start:3px solid var(--blue)}
 .alert-ico{font-size:16px}
 .empty-mini{color:var(--mut);font-size:12.5px;padding:20px 6px;text-align:center}
-/* ── جدول ── */
-.table-card{overflow:hidden}
-.table-wrap{overflow-x:auto}
+.table-card{overflow:hidden}.table-wrap{overflow-x:auto}
 .tbl{width:100%;border-collapse:collapse;font-size:12.8px;min-width:640px}
 .tbl th{background:#151b22;color:var(--mut);font-size:11px;font-weight:700;text-align:right;padding:11px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
 .tbl td{padding:12px 14px;border-bottom:1px solid #212a34;text-align:right;vertical-align:middle}
-.tbl tbody tr{transition:background .15s}
-.tbl tbody tr:hover{background:rgba(255,182,46,.045)}
+.tbl tbody tr{transition:background .15s}.tbl tbody tr:hover{background:rgba(255,182,46,.045)}
 .tbl tbody tr:last-child td{border-bottom:none}
-.cell-title{font-weight:700}
-.dim{color:var(--faint)}
+.cell-title{font-weight:700}.dim{color:var(--faint)}
 .row-actions{display:flex;gap:6px}
-.ico-btn{background:#ffffff08;border:1px solid var(--line);border-radius:8px;width:30px;height:30px;cursor:pointer;font-size:13px;
-  transition:.15s;display:grid;place-items:center;color:var(--text)}
+.ico-btn{background:#ffffff08;border:1px solid var(--line);border-radius:8px;width:30px;height:30px;cursor:pointer;font-size:13px;transition:.15s;display:grid;place-items:center;color:var(--text)}
 .ico-btn:hover{border-color:var(--amber);transform:translateY(-1px)}
 .ico-btn.del:hover{border-color:var(--red);background:rgba(255,93,93,.12)}
 .bdg{display:inline-flex;align-items:center;padding:3px 11px;border-radius:99px;font-size:11px;font-weight:700;border:1px solid;white-space:nowrap}
@@ -175,7 +147,6 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 18px}
 .bdg-mut{color:var(--mut);background:#ffffff08;border-color:var(--line)}
 .empty{padding:56px 20px;text-align:center;color:var(--mut)}
 .empty span{font-size:44px;display:block;margin-bottom:10px;filter:grayscale(.3)}
-/* ── مودال ── */
 .overlay{position:fixed;inset:0;background:rgba(7,10,13,.72);display:flex;align-items:center;justify-content:center;z-index:150;padding:18px;animation:fadeIn .2s}
 @keyframes fadeIn{from{opacity:0}}
 .modal{width:min(700px,100%);max-height:90vh;overflow-y:auto;background:var(--panel2);border:1px solid var(--line2);border-radius:16px;animation:pop .28s cubic-bezier(.22,1,.36,1)}
@@ -187,270 +158,320 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 18px}
 .risk-prev b{font-family:var(--ff-disp);font-weight:400;font-size:20px;color:var(--amber2)}
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px;padding:18px 20px}
 .fgrid-flat{padding:0 0 8px}
-.fitem{display:flex;flex-direction:column;gap:5px}
-.fitem.wide{grid-column:1/-1}
+.fitem{display:flex;flex-direction:column;gap:5px}.fitem.wide{grid-column:1/-1}
 .fitem label{font-size:11.5px;color:var(--mut);font-weight:700}
 .req{color:var(--red);font-style:normal;margin-inline-start:3px}
 .fitem input,.fitem select,.fitem textarea{background:#141a21;border:1px solid var(--line);border-radius:9px;padding:9px 12px;color:var(--text);font:inherit;font-size:13px;transition:.2s;width:100%}
 .fitem textarea{resize:vertical;min-height:64px}
 .fitem input:focus,.fitem select:focus,.fitem textarea:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(255,182,46,.13)}
-.form-err{margin:0 20px 10px;padding:9px 12px;background:rgba(255,93,93,.1);border:1px solid rgba(255,93,93,.35);border-radius:9px;color:#ff9c9c;font-size:12px}
+.form-err{margin:12px 0 0;padding:9px 12px;background:rgba(255,93,93,.1);border:1px solid rgba(255,93,93,.35);border-radius:9px;color:#ff9c9c;font-size:12px}
+.modal .form-err{margin:0 20px 10px}
 .modal-foot{display:flex;justify-content:flex-start;gap:10px;padding:0 20px 20px}
 .confirm-box{padding:26px 22px;text-align:center;width:min(420px,100%)}
-.cf-ico{font-size:40px}
-.confirm-box p{color:var(--mut);font-size:12.5px;margin:8px 0 18px}
-/* ── توست ── */
+.cf-ico{font-size:40px}.confirm-box p{color:var(--mut);font-size:12.5px;margin:8px 0 18px}
 .toasts{position:fixed;bottom:18px;left:18px;z-index:300;display:flex;flex-direction:column;gap:8px}
-.toast{background:var(--panel2);border:1px solid var(--line2);border-radius:10px;padding:11px 16px;font-size:12.5px;
-  box-shadow:0 14px 34px -14px rgba(0,0,0,.8);animation:toastIn .35s cubic-bezier(.22,1,.36,1)}
-.t-ok{border-inline-start:3px solid var(--green)}
-.t-err{border-inline-start:3px solid var(--red)}
+.toast{background:var(--panel2);border:1px solid var(--line2);border-radius:10px;padding:11px 16px;font-size:12.5px;box-shadow:0 14px 34px -14px rgba(0,0,0,.8);animation:toastIn .35s cubic-bezier(.22,1,.36,1)}
+.t-ok{border-inline-start:3px solid var(--green)}.t-err{border-inline-start:3px solid var(--red)}
 @keyframes toastIn{from{opacity:0;transform:translateY(10px) scale(.96)}}
-/* ── تنظیمات ── */
 .set-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .set-grid>*:last-child{grid-column:1/-1}
-.days-note{margin:10px 0 14px;font-size:12.5px;color:var(--mut)}
-.days-note b{color:var(--green);font-family:var(--ff-disp);font-weight:400;font-size:19px}
 .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 14px}
 .file-btn{cursor:pointer}
-.stat-line{font-size:12px;color:var(--mut)}
-.mut-txt{font-size:12px;color:var(--mut);margin-bottom:6px}
+.stat-line{font-size:12px;color:var(--mut)}.mut-txt{font-size:12px;color:var(--mut);margin-bottom:6px}
 .about{list-style:none;font-size:12.5px;color:var(--mut)}
-.about li{padding:7px 0;border-bottom:1px dashed var(--line);display:flex;gap:8px}
-.about li:last-child{border:none}
-/* ── ریسپانسیو ── */
-@media(max-width:960px){.kpi-band{grid-template-columns:1fr 1fr}.kpi-big{grid-column:1/-1}.set-grid{grid-template-columns:1fr}}
+.about li{padding:7px 0;border-bottom:1px dashed var(--line);display:flex;gap:8px}.about li:last-child{border:none}
+/* احراز هویت و راه‌اندازی */
+.auth{min-height:100vh;display:grid;place-items:center;padding:24px}
+.auth-card{width:min(430px,100%);background:linear-gradient(180deg,#1c232d,#181f27);border:1px solid var(--line2);border-radius:18px;padding:30px 28px;animation:pop .4s cubic-bezier(.22,1,.36,1);box-shadow:0 30px 80px -30px rgba(0,0,0,.8)}
+.auth-card.wide{width:min(680px,100%)}
+.auth-brand{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.auth-brand b{font-family:var(--ff-disp);font-weight:400;font-size:30px;color:var(--amber2)}
+.auth-sub{color:var(--mut);font-size:12.5px;margin-bottom:16px}
+.auth-hazard{height:6px;border-radius:99px;margin:14px 0 20px}
+.auth-foot{margin-top:16px;font-size:10.5px;color:var(--faint);text-align:center}
+.steps{display:flex;align-items:center;gap:8px;margin-bottom:22px}
+.step-dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--line2);color:var(--faint);font-weight:800;font-size:13px;transition:.3s;background:#141a21;flex-shrink:0}
+.step-dot.on{border-color:var(--amber);color:#221a04;background:linear-gradient(180deg,var(--amber2),var(--amber));box-shadow:0 0 18px -4px rgba(255,182,46,.6)}
+.step-line{flex:1;height:2px;background:var(--line);border-radius:9px}
+.step-title{font-family:var(--ff-disp);font-weight:400;font-size:20px;margin-bottom:4px}
+.setup-actions{display:flex;justify-content:space-between;margin-top:20px}
+.pw-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.summary{background:#151b22;border:1px solid var(--line);border-radius:12px;padding:14px}
+.summary h4{font-size:12.5px;color:var(--amber2);margin-bottom:8px}
+.summary ul{list-style:none}
+.summary li{font-size:12px;color:var(--mut);padding:4px 0;border-bottom:1px dashed var(--line)}
+.summary li:last-child{border:none}
+/* پروفایل فرد */
+.profile-hero{display:flex;gap:18px;align-items:center;padding:22px;margin-bottom:14px;flex-wrap:wrap}
+.avatar{width:72px;height:72px;border-radius:20px;background:linear-gradient(160deg,var(--amber2),var(--amber));display:grid;place-items:center;font-family:var(--ff-disp);font-size:30px;color:#221a04;box-shadow:0 10px 26px -10px rgba(255,182,46,.6)}
+.ph-info h2{font-family:var(--ff-disp);font-weight:400;font-size:26px;line-height:1.2}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.chips .chip{font-size:11.5px;padding:5px 12px}
+.mini-tbl{width:100%;border-collapse:collapse;font-size:12.3px}
+.mini-tbl th{color:var(--faint);font-size:10.5px;text-align:right;padding:8px 10px;border-bottom:1px solid var(--line)}
+.mini-tbl td{padding:9px 10px;border-bottom:1px solid #212a34;text-align:right}
+.mini-tbl tr:last-child td{border-bottom:none}
+.empty-row{color:var(--faint);font-size:12px;text-align:center;padding:18px 0}
+.splash{min-height:100vh;display:grid;place-items:center;text-align:center}
+.splash-logo{font-size:52px;animation:float 2s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@media(max-width:960px){.kpi-band{grid-template-columns:1fr 1fr}.kpi-big{grid-column:1/-1}.set-grid{grid-template-columns:1fr}.prof-band{grid-template-columns:1fr 1fr}}
 @media(max-width:900px){
   .sidebar{position:fixed;inset-block:0;right:0;z-index:180;transform:translateX(100%);transition:transform .3s cubic-bezier(.22,1,.36,1);box-shadow:-20px 0 60px rgba(0,0,0,.5)}
   .sidebar.open{transform:none}
   .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:170}
   .burger{display:grid}
-  .topbar{padding:14px}.content{padding:14px}.ticker{margin:10px 14px 0}.topbar-edge{margin:0 14px}
-}
-@media(max-width:640px){.kpi-band{grid-template-columns:1fr}.fgrid{grid-template-columns:1fr}.tb-side{width:100%}}
-@media print{
-  .sidebar,.topbar,.ticker,.toasts,.no-print,.foot,.topbar-edge,.backdrop{display:none!important}
-  body{background:#fff;color:#000}
-  .card{border-color:#bbb;background:#fff}
-  .tbl th{background:#eee;color:#333}
-  .tbl td{color:#111;border-color:#ddd}
-  .content{padding:0}
-}
+  .topbar{padding:14px}.content{padding:14px}.ticker{margin:10px 14px 0}.topbar-edge{margin:0 14px}}
+@media(max-width:640px){.kpi-band{grid-template-columns:1fr}.fgrid{grid-template-columns:1fr}.pw-grid{grid-template-columns:1fr}.tb-side{width:100%}.prof-band{grid-template-columns:1fr}}
+@media print{.sidebar,.topbar,.ticker,.toasts,.no-print,.foot,.topbar-edge,.backdrop{display:none!important}
+  body{background:#fff;color:#000}.card{border-color:#bbb;background:#fff}
+  .tbl th{background:#eee;color:#333}.tbl td{color:#111;border-color:#ddd}.content{padding:0}}
 </style>
 </head>
 <body>
 <div id="root"></div>
+<!-- کتابخانه‌ها: اول محلی (آفلاین)، در نبود فایل به‌صورت خودکار از CDN -->
+<script src="assets/react.production.min.js"></script>
+<script>window.React||document.write('<script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"><\/script>')</script>
+<script src="assets/react-dom.production.min.js"></script>
+<script>window.ReactDOM||document.write('<script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"><\/script>')</script>
+<script src="assets/babel.min.js"></script>
+<script>window.Babel||document.write('<script src="https://unpkg.com/@babel/standalone@7/babel.min.js"><\/script>')</script>
 <script type="text/babel" data-presets="react">
 const {useState,useEffect,useMemo}=React;
-/* ═════════ ابزارها ═════════ */
-const KEY='minesafe-hse-v1';
+/* ═══════ ابزارها و ذخیره‌سازی ═══════ */
+const KEY='minesafe-hse-v2';
+const isDesktop=typeof window.api!=='undefined';
 const uid=()=>Math.random().toString(36).slice(2,9)+Date.now().toString(36);
 const faNum=n=>Number(n||0).toLocaleString('fa-IR');
 const todayFa=()=>new Intl.DateTimeFormat('fa-IR-u-ca-persian',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date());
 function faDate(iso){try{return new Intl.DateTimeFormat('fa-IR-u-ca-persian',{year:'numeric',month:'long',day:'numeric'}).format(new Date(iso))}catch(e){return iso||'—'}}
 function daysWithout(iso){if(!iso)return 0;const d=new Date(iso);return isNaN(d)?0:Math.max(0,Math.floor((Date.now()-d.getTime())/864e5))}
+function weakHash(s){let h1=0xdeadbeef,h2=0x41c6ce57;for(let i=0;i<s.length;i++){const ch=s.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return (4294967296*(2097151&h2)+(h1>>>0)).toString(36)}
 const RISK_LEVELS=[{name:'بحرانی',min:16,color:'#ff5d5d'},{name:'زیاد',min:10,color:'#ff9f43'},{name:'متوسط',min:5,color:'#ffd23f'},{name:'کم',min:0,color:'#3ecf8e'}];
 function riskInfo(sev,prob){const sc=(+sev||0)*(+prob||0);const lvl=RISK_LEVELS.find(l=>sc>=l.min)||RISK_LEVELS[3];return{sc,name:lvl.name,color:lvl.color}}
 function toneOf(v){const s=String(v==null?'':v);
-  if(!s||s==='—')return'mut';
-  if(/بحرانی|منقضی|عدم|معیوب|خارج از خدمت|تاخیر|فوت|کمبود|نیازمند خرید|اصلاحی باز|^باز$/.test(s))return'red';
-  if(/شبه|برنامه‌ریزی|نیازمند ارزیابی|در حال صدور|در حال بررسی|محیط‌زیستی/.test(s))return'blue';
-  if(/زیاد|متوسط|در حال|نیازمند|جرحی|خسارتی|^ب$|^ج$/.test(s))return'amber';
-  return'green'}
-function loadState(){try{const r=localStorage.getItem(KEY);if(r)return JSON.parse(r)}catch(e){}return null}
-/* ═════════ تعریف ماژول‌ها ═════════ */
+ if(!s||s==='—')return'mut';
+ if(/بحرانی|منقضی|عدم|معیوب|خارج از خدمت|تاخیر|فوت|کمبود|نیازمند خرید|اصلاحی باز|^باز$|فاقد بیمه|نیازمند معاینه/.test(s))return'red';
+ if(/شبه|برنامه‌ریزی|نیازمند ارزیابی|در حال صدور|در حال بررسی|محیط‌زیستی|نیازمند تمدید|مشروط|در انتظار/.test(s))return'blue';
+ if(/زیاد|متوسط|در حال|نیازمند|جرحی|خسارتی|^ب$|^ج$|مستهلک/.test(s))return'amber';
+ return'green'}
+function loadLocal(){try{const r=localStorage.getItem(KEY);if(r)return JSON.parse(r)}catch(e){}return null}
+function saveLocal(st){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+const store={
+ async load(){return isDesktop?await window.api.load():loadLocal()},
+ async save(st){if(isDesktop)await window.api.save(st);else saveLocal(st)},
+ async setup(mine,admin){
+  if(isDesktop)return await window.api.setup({mine,admin});
+  const settings={mine,users:[{name:admin.name,username:admin.username,role:'admin',salt:'web',hash:weakHash('web::'+admin.password)}],createdAt:new Date().toISOString()};
+  saveLocal({settings,data:emptyData()});return settings},
+ async login(u,p){
+  if(isDesktop)return await window.api.login({username:u,password:p});
+  const st=loadLocal();const us=st&&st.settings&&st.settings.users;const f=us&&us.find(x=>x.username===u);
+  return f&&f.hash===weakHash(f.salt+'::'+p)?{name:f.name,username:f.username,role:f.role}:null},
+ async changePass(cur,next){
+  if(isDesktop)return await window.api.changePass({current:cur,next:next});
+  const st=loadLocal();const f=st.settings.users[0];
+  if(!f||f.hash!==weakHash(f.salt+'::'+cur))return false;
+  f.hash=weakHash(f.salt+'::'+next);saveLocal(st);return true},
+ async info(){return isDesktop?await window.api.info():{dbPath:'localStorage مرورگر (حالت دمو)',version:'web',platform:'web'}}
+};
+/* ═══════ تعریف ماژول‌ها ═══════ */
 const LOCATIONS=['سینه‌کار استخراج','تونل دسترسی','سنگ‌شکن','بارگیری و حمل','کارگاه تعمیرات','محل دپوی باطله','انبار و تاسیسات'];
+const UNITS=['استخراج','بارگیری و حمل','سنگ‌شکن و فرآوری','تعمیر و نگهداری','HSE','بهداشت','اداری','انبار','برق و تاسیسات'];
 const MODULES=[
+ {id:'personnel',name:'پرسنل و افراد',icon:'👷',group:'پرسنل',desc:'ثبت و مدیریت کارکنان معدن — برای مشاهده فرم کامل هر فرد روی 👤 کلیک کنید',fields:[
+  {key:'fname',label:'نام',type:'text',col:true,req:true},
+  {key:'lname',label:'نام خانوادگی',type:'text',col:true,req:true},
+  {key:'pid',label:'کد ملی',type:'text',col:true},
+  {key:'code',label:'کد پرسنلی',type:'text',col:true},
+  {key:'job',label:'شغل',type:'select',options:['اپراتور ماشین‌آلات','معدنچی','تکنسین تعمیرات','مهندس ناظر','سرپرست','راننده','کارگر عمومی','اداری'],col:true,filter:true},
+  {key:'unit',label:'واحد سازمانی',type:'select',options:UNITS,col:true},
+  {key:'hire',label:'تاریخ استخدام',type:'text',ph:'۱۴۰۴-۰۲-۰۱'},
+  {key:'contract',label:'نوع قرارداد',type:'select',options:['رسمی','قراردادی','پیمانی','فصلی']},
+  {key:'phone',label:'شماره تماس',type:'text'},
+  {key:'emergency',label:'تماس اضطراری',type:'text'},
+  {key:'insurance',label:'وضعیت بیمه',type:'select',options:['فعال','نیازمند تمدید','فاقد بیمه'],badge:true},
+  {key:'medical',label:'وضعیت معاینات',type:'select',options:['تایید شده','در انتظار','نیازمند معاینه'],badge:true},
+  {key:'note',label:'توضیحات',type:'textarea'}]},
+ {id:'exams',name:'معاینات شغلی افراد',icon:'🩺',group:'پرسنل',desc:'معاینات بدو استخدام، ادواری و خروج از کار به تفکیک هر فرد',fields:[
+  {key:'personId',label:'فرد',type:'person',col:true,req:true,filter:true},
+  {key:'kind',label:'نوع معاینه',type:'select',options:['بدو استخدام','ادواری (سالانه)','خروج از کار','موردی'],col:true},
+  {key:'date',label:'تاریخ',type:'text',col:true},
+  {key:'center',label:'مرکز طب کار',type:'text',col:true},
+  {key:'result',label:'نتیجه',type:'select',options:['تایید سلامت','مشروط','عدم تایید','در انتظار جواب'],col:true,badge:true},
+  {key:'doctor',label:'پزشک معاین',type:'text'},
+  {key:'note',label:'یافته‌ها',type:'textarea'}]},
+ {id:'persontraining',name:'سوابق آموزشی افراد',icon:'📖',group:'پرسنل',desc:'دوره‌های گذرانده‌شده هر فرد به همراه گواهینامه',fields:[
+  {key:'personId',label:'فرد',type:'person',col:true,req:true,filter:true},
+  {key:'course',label:'دوره آموزشی',type:'text',col:true,req:true},
+  {key:'date',label:'تاریخ',type:'text',col:true},
+  {key:'hours',label:'ساعت',type:'number',col:true},
+  {key:'cert',label:'گواهینامه',type:'select',options:['صادر شد','در حال صدور','نیاز به تمدید'],badge:true,col:true},
+  {key:'expire',label:'اعتبار تا',type:'text'},
+  {key:'note',label:'توضیحات',type:'textarea'}]},
+ {id:'ppedelivery',name:'تجهیزات تحویلی افراد',icon:'🦺',group:'پرسنل',desc:'PPE تحویل‌شده به هر فرد و تاریخ تعویض',fields:[
+  {key:'personId',label:'فرد',type:'person',col:true,req:true,filter:true},
+  {key:'item',label:'تجهیز',type:'text',col:true,req:true},
+  {key:'qty',label:'تعداد',type:'number',col:true},
+  {key:'date',label:'تاریخ تحویل',type:'text',col:true},
+  {key:'expire',label:'انقضا/تعویض',type:'text',col:true},
+  {key:'status',label:'وضعیت',type:'select',options:['تحویل شد','در انتظار','مستهلک/تعویض'],badge:true},
+  {key:'note',label:'توضیحات',type:'textarea'}]},
  {id:'risks',name:'ارزیابی ریسک',icon:'⚠️',group:'ایمنی',desc:'شناسایی خطرات و ارزیابی ریسک با ماتریس شدت × احتمال',fields:[
-   {key:'title',label:'عنوان خطر',type:'text',col:true,req:true},
-   {key:'loc',label:'محل',type:'select',options:LOCATIONS,col:true},
-   {key:'sev',label:'شدت (۱ تا ۵)',type:'number',col:true},
-   {key:'prob',label:'احتمال (۱ تا ۵)',type:'number',col:true},
-   {key:'level',label:'سطح ریسک',type:'computed',col:true},
-   {key:'ctrl',label:'اقدام کنترلی',type:'text'},
-   {key:'owner',label:'مسئول پیگیری',type:'text'},
-   {key:'status',label:'وضعیت',type:'select',options:['باز','در حال کنترل','رفع شده'],col:true,badge:true,filter:true},
-   {key:'date',label:'تاریخ ارزیابی',type:'text',ph:'۱۴۰۵-۰۵-۰۱'},
-   {key:'note',label:'توضیحات',type:'textarea'}]},
- {id:'incidents',name:'حوادث و رویدادها',icon:'🚨',group:'ایمنی',desc:'ثبت و پیگیری حوادث، شبه‌حوادث و رویدادهای ایمنی و محیط‌زیستی',fields:[
-   {key:'title',label:'شرح رویداد',type:'text',col:true,req:true},
-   {key:'type',label:'نوع',type:'select',options:['شبه‌حادثه','جرحی','خسارتی','محیط‌زیستی','منجر به فوت'],col:true,badge:true,filter:true},
-   {key:'date',label:'تاریخ',type:'text',col:true,ph:'۱۴۰۵-۰۵-۱۰'},
-   {key:'loc',label:'محل',type:'select',options:LOCATIONS,col:true},
-   {key:'shift',label:'شیفت',type:'select',options:['روزکاری','عصرکاری','شب‌کاری']},
-   {key:'injured',label:'افراد درگیر',type:'text'},
-   {key:'cause',label:'علت ریشه‌ای',type:'text',col:true},
-   {key:'status',label:'وضعیت پرونده',type:'select',options:['در حال بررسی','اقدام اصلاحی باز','بسته شده'],col:true,badge:true},
-   {key:'note',label:'اقدامات انجام‌شده',type:'textarea'}]},
+  {key:'title',label:'عنوان خطر',type:'text',col:true,req:true},
+  {key:'loc',label:'محل',type:'select',options:LOCATIONS,col:true},
+  {key:'sev',label:'شدت (۱ تا ۵)',type:'number',col:true},
+  {key:'prob',label:'احتمال (۱ تا ۵)',type:'number',col:true},
+  {key:'level',label:'سطح ریسک',type:'computed',col:true},
+  {key:'ctrl',label:'اقدام کنترلی',type:'text'},
+  {key:'owner',label:'مسئول پیگیری',type:'text'},
+  {key:'status',label:'وضعیت',type:'select',options:['باز','در حال کنترل','رفع شده'],col:true,badge:true,filter:true},
+  {key:'date',label:'تاریخ ارزیابی',type:'text'},
+  {key:'note',label:'توضیحات',type:'textarea'}]},
+ {id:'incidents',name:'حوادث و رویدادها',icon:'🚨',group:'ایمنی',desc:'ثبت و پیگیری حوادث، شبه‌حوادث و رویدادهای HSE',fields:[
+  {key:'title',label:'شرح رویداد',type:'text',col:true,req:true},
+  {key:'type',label:'نوع',type:'select',options:['شبه‌حادثه','جرحی','خسارتی','محیط‌زیستی','منجر به فوت'],col:true,badge:true,filter:true},
+  {key:'date',label:'تاریخ',type:'text',col:true},
+  {key:'loc',label:'محل',type:'select',options:LOCATIONS,col:true},
+  {key:'personId',label:'فرد مصدوم/مرتبط',type:'person'},
+  {key:'shift',label:'شیفت',type:'select',options:['روزکاری','عصرکاری','شب‌کاری']},
+  {key:'cause',label:'علت ریشه‌ای',type:'text',col:true},
+  {key:'status',label:'وضعیت پرونده',type:'select',options:['در حال بررسی','اقدام اصلاحی باز','بسته شده'],col:true,badge:true},
+  {key:'note',label:'اقدامات انجام‌شده',type:'textarea'}]},
  {id:'inspections',name:'بازرسی و ممیزی',icon:'🔍',group:'ایمنی',desc:'بازرسی‌های دوره‌ای، موردی و ممیزی‌های HSE',fields:[
-   {key:'title',label:'موضوع بازرسی',type:'text',col:true,req:true},
-   {key:'kind',label:'نوع',type:'select',options:['دوره‌ای','موردی','مشترک کمیته','ممیزی پیمانکار'],col:true,filter:true},
-   {key:'inspector',label:'بازرس',type:'text',col:true},
-   {key:'loc',label:'محل',type:'select',options:LOCATIONS},
-   {key:'date',label:'تاریخ',type:'text',col:true},
-   {key:'finds',label:'موارد یافت‌شده',type:'number',col:true},
-   {key:'fixed',label:'موارد رفع‌شده',type:'number'},
-   {key:'status',label:'وضعیت',type:'select',options:['تکمیل شده','در حال پیگیری','برنامه‌ریزی‌شده'],col:true,badge:true},
-   {key:'note',label:'خلاصه یافته‌ها',type:'textarea'}]},
- {id:'emergency',name:'آتش‌نشانی و شرایط اضطراری',icon:'🧯',group:'ایمنی',desc:'تجهیزات اطفاء، مانورها و تیم‌های واکنش در شرایط اضطراری',fields:[
-   {key:'title',label:'موضوع',type:'text',col:true,req:true},
-   {key:'kind',label:'نوع',type:'select',options:['تجهیزات اطفاء','مانور اضطراری','سیستم اعلام حریق','تیم واکنش','پناهگاه و مسیر خروج'],col:true,filter:true},
-   {key:'loc',label:'محل',type:'select',options:LOCATIONS,col:true},
-   {key:'date',label:'تاریخ بازرسی/برگزاری',type:'text',col:true},
-   {key:'next',label:'بازرسی بعدی',type:'text'},
-   {key:'status',label:'وضعیت',type:'select',options:['سالم و آماده','نیازمند سرویس','معیوب','برگزار شد'],col:true,badge:true},
-   {key:'note',label:'توضیحات',type:'textarea'}]},
- {id:'ppe',name:'تجهیزات حفاظت فردی',icon:'🦺',group:'ایمنی',desc:'موجودی و وضعیت PPE با هشدار نقطه سفارش',fields:[
-   {key:'title',label:'تجهیز',type:'text',col:true,req:true},
-   {key:'unit',label:'واحد استفاده‌کننده',type:'text',col:true},
-   {key:'stock',label:'موجودی',type:'number',col:true},
-   {key:'min',label:'نقطه سفارش',type:'number',col:true},
-   {key:'expire',label:'تاریخ انقضا',type:'text',col:true,ph:'۱۴۰۵-۱۲-۲۹'},
-   {key:'supplier',label:'تأمین‌کننده',type:'text'},
-   {key:'status',label:'وضعیت',type:'select',options:['موجود کافی','نیازمند خرید','در حال خرید'],badge:true,filter:true},
-   {key:'note',label:'توضیحات',type:'textarea'}]},
+  {key:'title',label:'موضوع بازرسی',type:'text',col:true,req:true},
+  {key:'kind',label:'نوع',type:'select',options:['دوره‌ای','موردی','مشترک کمیته','ممیزی پیمانکار'],col:true,filter:true},
+  {key:'inspector',label:'بازرس',type:'text',col:true},
+  {key:'loc',label:'محل',type:'select',options:LOCATIONS},
+  {key:'date',label:'تاریخ',type:'text',col:true},
+  {key:'finds',label:'موارد یافت‌شده',type:'number',col:true},
+  {key:'fixed',label:'موارد رفع‌شده',type:'number'},
+  {key:'status',label:'وضعیت',type:'select',options:['تکمیل شده','در حال پیگیری','برنامه‌ریزی‌شده'],col:true,badge:true},
+  {key:'note',label:'خلاصه یافته‌ها',type:'textarea'}]},
+ {id:'emergency',name:'آتش‌نشانی و شرایط اضطراری',icon:'🧯',group:'ایمنی',desc:'تجهیزات اطفاء، مانورها و تیم‌های واکنش',fields:[
+  {key:'title',label:'موضوع',type:'text',col:true,req:true},
+  {key:'kind',label:'نوع',type:'select',options:['تجهیزات اطفاء','مانور اضطراری','سیستم اعلام حریق','تیم واکنش','پناهگاه و مسیر خروج'],col:true,filter:true},
+  {key:'loc',label:'محل',type:'select',options:LOCATIONS,col:true},
+  {key:'date',label:'تاریخ بازرسی/برگزاری',type:'text',col:true},
+  {key:'next',label:'بازرسی بعدی',type:'text'},
+  {key:'status',label:'وضعیت',type:'select',options:['سالم و آماده','نیازمند سرویس','معیوب','برگزار شد'],col:true,badge:true},
+  {key:'note',label:'توضیحات',type:'textarea'}]},
+ {id:'ppe',name:'انبار تجهیزات حفاظت فردی',icon:'🧰',group:'ایمنی',desc:'موجودی PPE با هشدار نقطه سفارش',fields:[
+  {key:'title',label:'تجهیز',type:'text',col:true,req:true},
+  {key:'unit',label:'واحد استفاده‌کننده',type:'text',col:true},
+  {key:'stock',label:'موجودی',type:'number',col:true},
+  {key:'min',label:'نقطه سفارش',type:'number',col:true},
+  {key:'expire',label:'تاریخ انقضا',type:'text',col:true},
+  {key:'supplier',label:'تأمین‌کننده',type:'text'},
+  {key:'status',label:'وضعیت',type:'select',options:['موجود کافی','نیازمند خرید','در حال خرید'],badge:true,filter:true},
+  {key:'note',label:'توضیحات',type:'textarea'}]},
  {id:'machinery',name:'ماشین‌آلات معدنی',icon:'🚜',group:'ایمنی',desc:'ناوگان معدنی، معاینه فنی و وضعیت ایمنی',fields:[
-   {key:'title',label:'ماشین‌آلات',type:'text',col:true,req:true},
-   {key:'code',label:'کد فنی',type:'text',col:true},
-   {key:'kind',label:'نوع',type:'select',options:['دامپتراک','بیل مکانیکی','لودر','بولدوزر','دریل واگن','کمپرسور','سایر'],col:true,filter:true},
-   {key:'op',label:'اپراتور',type:'text',col:true},
-   {key:'service',label:'سرویس بعدی',type:'text'},
-   {key:'inspect',label:'معاینه فنی',type:'select',options:['معتبر','منقضی شده','در حال اقدام'],col:true,badge:true},
-   {key:'status',label:'وضعیت ایمنی',type:'select',options:['سالم','نیازمند تعمیر','خارج از خدمت'],col:true,badge:true},
-   {key:'note',label:'توضیحات',type:'textarea'}]},
- {id:'health',name:'بهداشت حرفه‌ای',icon:'🩺',group:'بهداشت',desc:'معاینات شغلی و پایش عوامل زیان‌آور محیط کار',fields:[
-   {key:'title',label:'موضوع',type:'text',col:true,req:true},
-   {key:'kind',label:'نوع فعالیت',type:'select',options:['معاینات دوره‌ای','معاینات بدو استخدام','پایش عوامل زیان‌آور','بیماری شغلی','آموزش بهداشت'],col:true,filter:true},
-   {key:'agent',label:'عامل زیان‌آور',type:'select',options:['گردوغبار','صدا','ارتعاش','مواد شیمیایی','روشنایی','ارگونومی'],col:true},
-   {key:'count',label:'تعداد نفرات',type:'number',col:true},
-   {key:'date',label:'تاریخ',type:'text',col:true},
-   {key:'result',label:'نتیجه',type:'text'},
-   {key:'status',label:'وضعیت',type:'select',options:['انجام شد','در حال انجام','برنامه‌ریزی‌شده'],badge:true},
-   {key:'note',label:'توضیحات',type:'textarea'}]},
- {id:'environment',name:'محیط زیست معدن',icon:'🌿',group:'محیط زیست',desc:'پسماند، پساب، غبار هوا و بازپروری معادن',fields:[
-   {key:'title',label:'موضوع',type:'text',col:true,req:true},
-   {key:'area',label:'حوزه',type:'select',options:['مدیریت پسماند','پساب و منابع آب','هوای محیط و غبار','بازپروری و بازسازی','خاک و باطله','تنوع زیستی'],col:true,filter:true},
-   {key:'loc',label:'محل',type:'select',options:LOCATIONS},
-   {key:'date',label:'تاریخ پایش',type:'text',col:true},
-   {key:'comply',label:'انطباق با حد مجاز',type:'select',options:['منطبق','نیازمند اقدام','عدم انطباق'],col:true,badge:true},
-   {key:'action',label:'اقدام انجام‌شده',type:'text',col:true},
-   {key:'status',label:'وضعیت',type:'select',options:['در حال انجام','تکمیل شد','نیازمند بودجه'],badge:true},
-   {key:'note',label:'توضیحات',type:'textarea'}]},
- {id:'training',name:'آموزش HSE',icon:'🎓',group:'سازمانی',desc:'دوره‌های آموزشی، ساعات و گواهینامه‌ها',fields:[
-   {key:'title',label:'عنوان دوره',type:'text',col:true,req:true},
-   {key:'kind',label:'نوع',type:'select',options:['ایمنی عمومی','تخصصی معدن','امداد و نجات','محیط زیست','بدو استخدام'],col:true,filter:true},
-   {key:'teacher',label:'مدرس',type:'text'},
-   {key:'count',label:'نفرات',type:'number',col:true},
-   {key:'hours',label:'ساعت',type:'number',col:true},
-   {key:'date',label:'تاریخ',type:'text',col:true},
-   {key:'cert',label:'گواهینامه',type:'select',options:['صادر شد','در حال صدور','نیاز به تمدید'],badge:true},
-   {key:'note',label:'توضیحات',type:'textarea'}]},
- {id:'contractors',name:'پیمانکاران',icon:'🤝',group:'سازمانی',desc:'ارزیابی و پایش عملکرد HSE پیمانکاران',fields:[
-   {key:'title',label:'نام شرکت',type:'text',col:true,req:true},
-   {key:'field',label:'حوزه فعالیت',type:'text',col:true},
-   {key:'count',label:'نفرات',type:'number',col:true},
-   {key:'hse',label:'مسئول HSE',type:'text'},
-   {key:'start',label:'شروع قرارداد',type:'text',col:true},
-   {key:'end',label:'پایان قرارداد',type:'text',col:true},
-   {key:'grade',label:'ارزیابی HSE',type:'select',options:['الف','ب','ج','نیازمند ارزیابی'],badge:true,filter:true},
-   {key:'note',label:'توضیحات',type:'textarea'}]},
- {id:'committee',name:'کمیته حفاظت فنی',icon:'🛡️',group:'سازمانی',desc:'مصوبات جلسات کمیته حفاظت فنی و پیگیری آن‌ها',fields:[
-   {key:'title',label:'موضوع جلسه/مصوبه',type:'text',col:true,req:true},
-   {key:'no',label:'شماره مصوبه',type:'text',col:true},
-   {key:'date',label:'تاریخ جلسه',type:'text',col:true},
-   {key:'owner',label:'مسئول پیگیری',type:'text',col:true},
-   {key:'due',label:'مهلت اقدام',type:'text',col:true},
-   {key:'status',label:'وضعیت',type:'select',options:['در حال اقدام','انجام شد','تاخیردار'],col:true,badge:true,filter:true},
-   {key:'note',label:'متن مصوبه',type:'textarea'}]},
+  {key:'title',label:'ماشین‌آلات',type:'text',col:true,req:true},
+  {key:'code',label:'کد فنی',type:'text',col:true},
+  {key:'kind',label:'نوع',type:'select',options:['دامپتراک','بیل مکانیکی','لودر','بولدوزر','دریل واگن','کمپرسور','سایر'],col:true,filter:true},
+  {key:'op',label:'اپراتور',type:'text',col:true},
+  {key:'service',label:'سرویس بعدی',type:'text'},
+  {key:'inspect',label:'معاینه فنی',type:'select',options:['معتبر','منقضی شده','در حال اقدام'],col:true,badge:true},
+  {key:'status',label:'وضعیت ایمنی',type:'select',options:['سالم','نیازمند تعمیر','خارج از خدمت'],col:true,badge:true},
+  {key:'note',label:'توضیحات',type:'textarea'}]},
+ {id:'health',name:'بهداشت حرفه‌ای (پایش محیط کار)',icon:'🩺',group:'بهداشت',desc:'پایش عوامل زیان‌آور محیط کار',fields:[
+  {key:'title',label:'موضوع',type:'text',col:true,req:true},
+  {key:'kind',label:'نوع فعالیت',type:'select',options:['پایش عوامل زیان‌آور','بیماری شغلی','آموزش بهداشت','بهداشت عمومی کارگاه'],col:true,filter:true},
+  {key:'agent',label:'عامل زیان‌آور',type:'select',options:['گردوغبار','صدا','ارتعاش','مواد شیمیایی','روشنایی','ارگونومی'],col:true},
+  {key:'count',label:'تعداد نفرات',type:'number',col:true},
+  {key:'date',label:'تاریخ',type:'text',col:true},
+  {key:'result',label:'نتیجه',type:'text'},
+  {key:'status',label:'وضعیت',type:'select',options:['انجام شد','در حال انجام','برنامه‌ریزی‌شده'],badge:true},
+  {key:'note',label:'توضیحات',type:'textarea'}]},
+ {id:'environment',name:'محیط زیست معدن',icon:'🌿',group:'محیط زیست',desc:'پسماند، پساب، غبار و بازپروری',fields:[
+  {key:'title',label:'موضوع',type:'text',col:true,req:true},
+  {key:'area',label:'حوزه',type:'select',options:['مدیریت پسماند','پساب و منابع آب','هوای محیط و غبار','بازپروری و بازسازی','خاک و باطله','تنوع زیستی'],col:true,filter:true},
+  {key:'loc',label:'محل',type:'select',options:LOCATIONS},
+  {key:'date',label:'تاریخ پایش',type:'text',col:true},
+  {key:'comply',label:'انطباق با حد مجاز',type:'select',options:['منطبق','نیازمند اقدام','عدم انطباق'],col:true,badge:true},
+  {key:'action',label:'اقدام انجام‌شده',type:'text',col:true},
+  {key:'status',label:'وضعیت',type:'select',options:['در حال انجام','تکمیل شد','نیازمند بودجه'],badge:true},
+  {key:'note',label:'توضیحات',type:'textarea'}]},
+ {id:'training',name:'دوره‌های آموزشی',icon:'🎓',group:'سازمانی',desc:'تعریف دوره‌ها و ساعات آموزش HSE',fields:[
+  {key:'title',label:'عنوان دوره',type:'text',col:true,req:true},
+  {key:'kind',label:'نوع',type:'select',options:['ایمنی عمومی','تخصصی معدن','امداد و نجات','محیط زیست','بدو استخدام'],col:true,filter:true},
+  {key:'teacher',label:'مدرس',type:'text'},
+  {key:'count',label:'نفرات',type:'number',col:true},
+  {key:'hours',label:'ساعت',type:'number',col:true},
+  {key:'date',label:'تاریخ',type:'text',col:true},
+  {key:'cert',label:'گواهینامه',type:'select',options:['صادر شد','در حال صدور','نیاز به تمدید'],badge:true},
+  {key:'note',label:'توضیحات',type:'textarea'}]},
+ {id:'contractors',name:'پیمانکاران',icon:'🤝',group:'سازمانی',desc:'ارزیابی و پایش HSE پیمانکاران',fields:[
+  {key:'title',label:'نام شرکت',type:'text',col:true,req:true},
+  {key:'field',label:'حوزه فعالیت',type:'text',col:true},
+  {key:'count',label:'نفرات',type:'number',col:true},
+  {key:'hse',label:'مسئول HSE',type:'text'},
+  {key:'start',label:'شروع قرارداد',type:'text',col:true},
+  {key:'end',label:'پایان قرارداد',type:'text',col:true},
+  {key:'grade',label:'ارزیابی HSE',type:'select',options:['الف','ب','ج','نیازمند ارزیابی'],badge:true,filter:true},
+  {key:'note',label:'توضیحات',type:'textarea'}]},
+ {id:'committee',name:'کمیته حفاظت فنی',icon:'🛡️',group:'سازمانی',desc:'مصوبات جلسات کمیته حفاظت فنی',fields:[
+  {key:'title',label:'موضوع جلسه/مصوبه',type:'text',col:true,req:true},
+  {key:'no',label:'شماره مصوبه',type:'text',col:true},
+  {key:'date',label:'تاریخ جلسه',type:'text',col:true},
+  {key:'owner',label:'مسئول پیگیری',type:'text',col:true},
+  {key:'due',label:'مهلت اقدام',type:'text',col:true},
+  {key:'status',label:'وضعیت',type:'select',options:['در حال اقدام','انجام شد','تاخیردار'],col:true,badge:true,filter:true},
+  {key:'note',label:'متن مصوبه',type:'textarea'}]},
  {id:'docs',name:'مستندات و مدارک',icon:'📁',group:'سازمانی',desc:'دستورالعمل‌ها، روش‌های اجرایی و مجوزها',fields:[
-   {key:'title',label:'عنوان سند',type:'text',col:true,req:true},
-   {key:'kind',label:'نوع',type:'select',options:['دستورالعمل','روش اجرایی','فرم','گزارش','مجوز قانونی'],col:true,filter:true},
-   {key:'code',label:'کد سند',type:'text',col:true},
-   {key:'ver',label:'نسخه',type:'text',col:true},
-   {key:'date',label:'تاریخ انتشار',type:'text',col:true},
-   {key:'status',label:'وضعیت',type:'select',options:['معتبر','نیازمند بازنگری','بایگانی'],badge:true},
-   {key:'owner',label:'نگهدارنده',type:'text'},
-   {key:'note',label:'توضیحات',type:'textarea'}]}
+  {key:'title',label:'عنوان سند',type:'text',col:true,req:true},
+  {key:'kind',label:'نوع',type:'select',options:['دستورالعمل','روش اجرایی','فرم','گزارش','مجوز قانونی'],col:true,filter:true},
+  {key:'code',label:'کد سند',type:'text',col:true},
+  {key:'ver',label:'نسخه',type:'text',col:true},
+  {key:'date',label:'تاریخ انتشار',type:'text',col:true},
+  {key:'status',label:'وضعیت',type:'select',options:['معتبر','نیازمند بازنگری','بایگانی'],badge:true},
+  {key:'owner',label:'نگهدارنده',type:'text'},
+  {key:'note',label:'توضیحات',type:'textarea'}]}
 ];
-const DEFAULT_SETTINGS={name:'معدن سنگ‌آهن — کارگاه شماره ۲',type:'روباز سنگ‌آهن',province:'خراسان جنوبی',manager:'مهندس سارا رضایی',lastIncident:'2026-05-14'};
-/* ═════════ داده نمونه ═════════ */
-function buildSeed(){return{
- risks:[
-  {id:uid(),title:'ریزش سنگ از سقف و دیواره جبهه‌کار',loc:'سینه‌کار استخراج',sev:5,prob:4,ctrl:'پیچ‌سنگ‌گذاری منظم، شاتکریت، پایش جابه‌جایی',owner:'مهندس رضایی',status:'در حال کنترل',date:'۱۴۰۵-۰۴-۱۰'},
-  {id:uid(),title:'انباشت و انفجار گاز متان',loc:'تونل دسترسی',sev:5,prob:2,ctrl:'تهویه کمکی، متان‌سنجی پیوسته، قطع برق اتوماتیک',owner:'مهندس احمدی',status:'در حال کنترل',date:'۱۴۰۵-۰۴-۱۲'},
-  {id:uid(),title:'استنشاق گردوغبار سیلیس',loc:'سنگ‌شکن',sev:4,prob:4,ctrl:'آب‌پاشی، مکنده محلی، ماسک FFP3',owner:'واحد بهداشت',status:'در حال کنترل',date:'۱۴۰۵-۰۴-۱۵'},
-  {id:uid(),title:'واژگونی دامپتراک در رمپ',loc:'بارگیری و حمل',sev:5,prob:3,ctrl:'دیواره حفاظتی، محدودیت سرعت ۳۰، کنترل خستگی',owner:'سرپرست حمل',status:'باز',date:'۱۴۰۵-۰۵-۰۲'},
-  {id:uid(),title:'سقوط از سکوی بارگیری',loc:'بارگیری و حمل',sev:4,prob:2,ctrl:'نرده‌گذاری و هارنس نصب شد',owner:'مهندس رضایی',status:'رفع شده',date:'۱۴۰۵-۰۳-۲۰'}],
- incidents:[
-  {id:uid(),title:'ریزش جزئی سنگ بدون آسیب جانی',type:'شبه‌حادثه',date:'۱۴۰۵-۰۴-۲۸',loc:'سینه‌کار استخراج',shift:'روزکاری',injured:'—',cause:'فاصله زیاد از آخرین ردیف پیچ‌سنگ',status:'بسته شده'},
-  {id:uid(),title:'گیر کردن دست کارگر در نوار نقاله',type:'جرحی',date:'۱۴۰۵-۰۴-۰۹',loc:'سنگ‌شکن',shift:'عصرکاری',injured:'۱ نفر',cause:'تمیزکاری هنگام کار بدون قطع انرژی (LOTO)',status:'اقدام اصلاحی باز'},
-  {id:uid(),title:'نشت روغن هیدرولیک لودر روی خاک',type:'محیط‌زیستی',date:'۱۴۰۵-۰۵-۰۶',loc:'کارگاه تعمیرات',shift:'روزکاری',injured:'—',cause:'پارگی شیلنگ، فقدان سینی جمع‌آوری',status:'در حال بررسی'},
-  {id:uid(),title:'برخورد باکت بیل مکانیکی با دیواره',type:'خسارتی',date:'۱۴۰۵-۰۳-۱۷',loc:'سینه‌کار استخراج',shift:'شب‌کاری',injured:'—',cause:'روشنایی ناکافی جبهه‌کار',status:'بسته شده'}],
- inspections:[
-  {id:uid(),title:'بازرسی دوره‌ای جبهه‌های استخراج',kind:'دوره‌ای',inspector:'مهندس رضایی',loc:'سینه‌کار استخراج',date:'۱۴۰۵-۰۵-۰۵',finds:12,fixed:9,status:'در حال پیگیری'},
-  {id:uid(),title:'بازرسی مشترک کمیته حفاظت فنی',kind:'مشترک کمیته',inspector:'اعضای کمیته',loc:'تونل دسترسی',date:'۱۴۰۵-۰۴-۲۰',finds:8,fixed:8,status:'تکمیل شده'},
-  {id:uid(),title:'ممیزی HSE پیمانکار حمل‌ونقل',kind:'ممیزی پیمانکار',inspector:'واحد HSE',loc:'بارگیری و حمل',date:'۱۴۰۵-۰۴-۳۰',finds:6,fixed:2,status:'در حال پیگیری'}],
- emergency:[
-  {id:uid(),title:'مانور اضطراری ریزش تونل',kind:'مانور اضطراری',loc:'تونل دسترسی',date:'۱۴۰۵-۰۳-۳۰',next:'۱۴۰۵-۰۹-۳۰',status:'برگزار شد',note:'زمان تخلیه ۱۲ دقیقه؛ نیاز به بهبود اطلاع‌رسانی'},
-  {id:uid(),title:'شارژ و بازرسی کپسول‌های پودر و گاز',kind:'تجهیزات اطفاء',loc:'کارگاه تعمیرات',date:'۱۴۰۵-۰۴-۱۸',next:'۱۴۰۵-۱۰-۱۸',status:'سالم و آماده'},
-  {id:uid(),title:'تجهیز تیم واکنش سریع ۶ نفره',kind:'تیم واکنش',loc:'انبار و تاسیسات',date:'۱۴۰۵-۰۵-۰۱',next:'—',status:'در حال انجام'}],
- ppe:[
-  {id:uid(),title:'کلاه ایمنی',unit:'کلیه واحدها',stock:46,min:20,expire:'۱۴۰۶-۰۶-۰۱',supplier:'ایمن‌کلاه',status:'موجود کافی'},
-  {id:uid(),title:'ماسک تنفسی FFP3',unit:'سنگ‌شکن و حفاری',stock:15,min:60,expire:'۱۴۰۵-۱۱-۳۰',supplier:'پاک‌دم',status:'نیازمند خرید'},
-  {id:uid(),title:'گوشی ایمنی',unit:'سنگ‌شکن',stock:30,min:15,expire:'—',supplier:'—',status:'موجود کافی'},
-  {id:uid(),title:'دستکش ضد برش',unit:'کارگاه تعمیرات',stock:22,min:25,expire:'—',supplier:'—',status:'در حال خرید'},
-  {id:uid(),title:'کمربند ایمنی هارنس',unit:'کار در ارتفاع',stock:10,min:6,expire:'۱۴۰۵-۰۹-۱۵',supplier:'—',status:'موجود کافی'}],
- machinery:[
-  {id:uid(),title:'دامپتراک کاترپیلار 777',code:'DT-01',kind:'دامپتراک',op:'علی محمدی',service:'۱۴۰۵-۰۵-۲۰',inspect:'معتبر',status:'سالم'},
-  {id:uid(),title:'بیل مکانیکی کوماتسو PC400',code:'EX-02',kind:'بیل مکانیکی',op:'رضا کریمی',service:'۱۴۰۵-۰۶-۰۱',inspect:'معتبر',status:'سالم'},
-  {id:uid(),title:'لودر چرخ‌لاستیکی کاترپیلار 966',code:'LD-01',kind:'لودر',op:'حسین نادری',service:'۱۴۰۵-۰۴-۲۸',inspect:'منقضی شده',status:'نیازمند تعمیر'},
-  {id:uid(),title:'دریل واگن اطلس کوپکو',code:'DR-01',kind:'دریل واگن',op:'مهدی توکلی',service:'۱۴۰۵-۰۵-۲۵',inspect:'معتبر',status:'سالم'}],
- health:[
-  {id:uid(),title:'معاینات دوره‌ای ریه و شنوایی',kind:'معاینات دوره‌ای',agent:'گردوغبار',count:86,date:'۱۴۰۵-۰۴-۰۲',result:'۳ مورد نیازمند پیگیری تخصصی',status:'انجام شد'},
-  {id:uid(),title:'پایش صدای ایستگاه سنگ‌شکن',kind:'پایش عوامل زیان‌آور',agent:'صدا',count:14,date:'۱۴۰۵-۰۵-۱۰',result:'۹۲ دسی‌بل — بالاتر از حد مجاز',status:'در حال انجام'},
-  {id:uid(),title:'اندازه‌گیری گردوغبار قابل تنفس',kind:'پایش عوامل زیان‌آور',agent:'گردوغبار',count:20,date:'۱۴۰۵-۰۵-۱۲',result:'در حال ارسال به آزمایشگاه',status:'در حال انجام'}],
- environment:[
-  {id:uid(),title:'پایش کیفی پساب خروجی معدن',area:'پساب و منابع آب',loc:'انبار و تاسیسات',date:'۱۴۰۵-۰۵-۰۸',comply:'منطبق',action:'نمونه‌برداری ماهانه ادامه دارد',status:'در حال انجام'},
-  {id:uid(),title:'جمع‌آوری و امحای روغن‌های مصرفی',area:'مدیریت پسماند',loc:'کارگاه تعمیرات',date:'۱۴۰۵-۰۴-۲۵',comply:'منطبق',action:'تحویل ۸۰۰ لیتر به پیمانکار مجاز',status:'تکمیل شد'},
-  {id:uid(),title:'بازپروری پله‌های باطله — کاشت نهال',area:'بازپروری و بازسازی',loc:'محل دپوی باطله',date:'۱۴۰۵-۰۲-۱۵',comply:'نیازمند اقدام',action:'۲ هکتار آماده‌سازی شد؛ آبیاری قطره‌ای',status:'در حال انجام'},
-  {id:uid(),title:'کنترل غبار جاده‌های معدن',area:'هوای محیط و غبار',loc:'بارگیری و حمل',date:'۱۴۰۵-۰۵-۱۱',comply:'نیازمند اقدام',action:'افزایش آب‌پاشی به ۴ نوبت در روز',status:'در حال انجام'}],
- training:[
-  {id:uid(),title:'ایمنی در معادن زیرزمینی',kind:'تخصصی معدن',teacher:'مهندس احمدی',count:32,hours:16,date:'۱۴۰۵-۰۴-۱۴',cert:'صادر شد'},
-  {id:uid(),title:'کمک‌های اولیه و امداد و نجات',kind:'امداد و نجات',teacher:'هلال‌احمر استان',count:24,hours:8,date:'۱۴۰۵-۰۳-۲۵',cert:'صادر شد'},
-  {id:uid(),title:'الزامات محیط زیست و پسماند',kind:'محیط زیست',teacher:'کارشناس محیط زیست',count:40,hours:4,date:'۱۴۰۵-۰۵-۰۳',cert:'در حال صدور'},
-  {id:uid(),title:'ایمنی بدو استخدام نیروهای جدید',kind:'بدو استخدام',teacher:'واحد HSE',count:12,hours:8,date:'۱۴۰۵-۰۵-۰۹',cert:'صادر شد'}],
- contractors:[
-  {id:uid(),title:'شرکت حمل‌ونقل سنگ‌آهن پویا',field:'حمل مواد معدنی',count:35,hse:'مهندس موسوی',start:'۱۴۰۴-۱۰-۰۱',end:'۱۴۰۵-۱۰-۰۱',grade:'ب'},
-  {id:uid(),title:'پیمانکار حفاری و آتشباری کاوش',field:'حفاری چال و آتشباری',count:18,hse:'مهندس شریفی',start:'۱۴۰۵-۰۱-۱۵',end:'۱۴۰۵-۱۲-۲۹',grade:'الف'},
-  {id:uid(),title:'شرکت خدمات تعمیراتی فن‌آوران',field:'تعمیر و نگهداری ماشین‌آلات',count:12,hse:'—',start:'۱۴۰۴-۰۷-۰۱',end:'۱۴۰۵-۰۷-۰۱',grade:'نیازمند ارزیابی'}],
- committee:[
-  {id:uid(),title:'الزام نصب تهویه کمکی در تونل ۲',no:'۱۴۰۵-۱۲',date:'۱۴۰۵-۰۴-۲۰',owner:'مهندس احمدی',due:'۱۴۰۵-۰۵-۳۰',status:'انجام شد'},
-  {id:uid(),title:'بازنگری دستورالعمل LOTO سنگ‌شکن',no:'۱۴۰۵-۱۳',date:'۱۴۰۵-۰۴-۲۰',owner:'واحد HSE',due:'۱۴۰۵-۰۵-۱۵',status:'در حال اقدام'},
-  {id:uid(),title:'نصب روشنایی اضطراری رمپ اصلی',no:'۱۴۰۵-۱۴',date:'۱۴۰۵-۰۴-۲۰',owner:'واحد برق',due:'۱۴۰۵-۰۵-۱۰',status:'تاخیردار'}],
- docs:[
-  {id:uid(),title:'دستورالعمل کار در ارتفاع',kind:'دستورالعمل',code:'HSE-WI-07',ver:'۰۳',date:'۱۴۰۴-۱۱-۱۰',status:'معتبر',owner:'واحد HSE'},
-  {id:uid(),title:'روش اجرایی آتشباری ایمن',kind:'روش اجرایی',code:'HSE-PR-03',ver:'۰۲',date:'۱۴۰۴-۰۸-۲۲',status:'نیازمند بازنگری',owner:'مهندس احمدی'},
-  {id:uid(),title:'طرح مدیریت پسماند معدن',kind:'گزارش',code:'ENV-RP-01',ver:'۰۱',date:'۱۴۰۵-۰۲-۰۵',status:'معتبر',owner:'کارشناس محیط زیست'},
-  {id:uid(),title:'مجوز بهره‌برداری — تمدید',kind:'مجوز قانونی',code:'LIC-104',ver:'—',date:'۱۴۰۵-۰۱-۲۰',status:'معتبر',owner:'دفتر مدیر'}]
-}}
-/* ═════════ هوک‌ها و اجزای کوچک ═════════ */
+const emptyData=()=>Object.fromEntries(MODULES.map(m=>[m.id,[]]));
+function buildSeed(){const d=emptyData();
+ d.personnel=[
+  {id:'p1',fname:'علی',lname:'محمدی',pid:'0089234567',code:'101',job:'اپراتور ماشین‌آلات',unit:'بارگیری و حمل',hire:'۱۴۰۲-۰۳-۱۰',contract:'قراردادی',phone:'0912xxxxxxx',insurance:'فعال',medical:'تایید شده'},
+  {id:'p2',fname:'رضا',lname:'کریمی',pid:'0078123456',code:'102',job:'اپراتور ماشین‌آلات',unit:'استخراج',hire:'۱۴۰۱-۰۷-۰۱',contract:'رسمی',insurance:'فعال',medical:'تایید شده'},
+  {id:'p3',fname:'حسین',lname:'نادری',pid:'0067345678',code:'103',job:'راننده',unit:'بارگیری و حمل',hire:'۱۴۰۳-۰۱-۱۵',contract:'پیمانی',insurance:'نیازمند تمدید',medical:'در انتظار'},
+  {id:'p4',fname:'مهدی',lname:'توکلی',pid:'0056456789',code:'104',job:'تکنسین تعمیرات',unit:'تعمیر و نگهداری',hire:'۱۴۰۲-۱۱-۰۵',contract:'قراردادی',insurance:'فعال',medical:'نیازمند معاینه'}];
+ d.exams=[
+  {id:uid(),personId:'p1',kind:'ادواری (سالانه)',date:'۱۴۰۵-۰۲-۱۸',center:'مرکز طب کار استان',result:'تایید سلامت',doctor:'دکتر حسنی'},
+  {id:uid(),personId:'p2',kind:'ادواری (سالانه)',date:'۱۴۰۵-۰۲-۱۸',center:'مرکز طب کار استان',result:'مشروط',doctor:'دکتر حسنی',note:'پیگیری شنوایی‌سنجی'},
+  {id:uid(),personId:'p3',kind:'بدو استخدام',date:'۱۴۰۳-۰۱-۱۰',center:'مرکز طب کار استان',result:'تایید سلامت'}];
+ d.persontraining=[
+  {id:uid(),personId:'p1',course:'ایمنی کار با دامپتراک',date:'۱۴۰۵-۰۴-۱۴',hours:16,cert:'صادر شد',expire:'۱۴۰۷-۰۴-۱۴'},
+  {id:uid(),personId:'p2',course:'کمک‌های اولیه',date:'۱۴۰۵-۰۳-۲۵',hours:8,cert:'صادر شد'},
+  {id:uid(),personId:'p4',course:'LOTO و ایمنی برق',date:'۱۴۰۴-۱۲-۱۰',hours:8,cert:'نیاز به تمدید'}];
+ d.ppedelivery=[
+  {id:uid(),personId:'p1',item:'کلاه ایمنی + گوشی',qty:2,date:'۱۴۰۵-۰۱-۲۰',expire:'۱۴۰۶-۰۱-۲۰',status:'تحویل شد'},
+  {id:uid(),personId:'p2',item:'ماسک FFP3',qty:10,date:'۱۴۰۵-۰۲-۰۵',expire:'۱۴۰۵-۰۸-۰۵',status:'تحویل شد'},
+  {id:uid(),personId:'p4',item:'دستکش ضد برش',qty:4,date:'۱۴۰۵-۰۳-۰۱',expire:'—',status:'تحویل شد'}];
+ d.risks=[
+  {id:uid(),title:'ریزش سنگ از جبهه‌کار',loc:'سینه‌کار استخراج',sev:5,prob:4,ctrl:'پیچ‌سنگ و شاتکریت',owner:'مهندس رضایی',status:'در حال کنترل',date:'۱۴۰۵-۰۴-۱۰'},
+  {id:uid(),title:'استنشاق گردوغبار سیلیس',loc:'سنگ‌شکن',sev:4,prob:4,ctrl:'آب‌پاشی و ماسک FFP3',owner:'واحد بهداشت',status:'در حال کنترل',date:'۱۴۰۵-۰۴-۱۵'},
+  {id:uid(),title:'واژگونی دامپتراک در رمپ',loc:'بارگیری و حمل',sev:5,prob:3,ctrl:'دیواره حفاظتی، محدودیت سرعت',owner:'سرپرست حمل',status:'باز',date:'۱۴۰۵-۰۵-۰۲'}];
+ d.incidents=[
+  {id:uid(),title:'ریزش جزئی سنگ بدون آسیب',type:'شبه‌حادثه',date:'۱۴۰۵-۰۴-۲۸',loc:'سینه‌کار استخراج',personId:'p2',cause:'فاصله از پیچ‌سنگ',status:'بسته شده'},
+  {id:uid(),title:'نشت روغن هیدرولیک لودر',type:'محیط‌زیستی',date:'۱۴۰۵-۰۵-۰۶',loc:'کارگاه تعمیرات',personId:'p4',cause:'پارگی شیلنگ',status:'در حال بررسی'}];
+ d.ppe=[{id:uid(),title:'کلاه ایمنی',unit:'کلیه واحدها',stock:46,min:20,expire:'۱۴۰۶-۰۶-۰۱',supplier:'ایمن‌کلاه',status:'موجود کافی'},
+  {id:uid(),title:'ماسک FFP3',unit:'سنگ‌شکن و حفاری',stock:15,min:60,expire:'۱۴۰۵-۱۱-۳۰',supplier:'پاک‌دم',status:'نیازمند خرید'}];
+ return d}
+/* ═══════ اجزای پایه ═══════ */
 function useCountUp(target,dur=900){const[v,setV]=useState(0);
  useEffect(()=>{let raf;const t0=performance.now();
   const step=t=>{const k=Math.min(1,(t-t0)/dur);setV(Math.round((+target||0)*(1-Math.pow(1-k,3))));if(k<1)raf=requestAnimationFrame(step)};
-  raf=requestAnimationFrame(step);return()=>cancelAnimationFrame(raf)},[target]);
- return v}
+  raf=requestAnimationFrame(step);return()=>cancelAnimationFrame(raf)},[target]);return v}
 const Badge=({tone='green',children})=><span className={`bdg bdg-${tone}`}>{children}</span>;
 const EmptyNote=()=><div className="empty-mini">هنوز داده‌ای ثبت نشده است</div>;
 const Card=({icon,title,children,className=''})=>(
  <section className={'card '+className}>
   <div className="card-head"><span className="ci">{icon}</span><h3>{title}</h3></div>
-  <div className="card-body">{children}</div>
- </section>);
+  <div className="card-body">{children}</div></section>);
 function Donut({data,size=168,stroke=24,centerLabel,centerValue}){
- const total=data.reduce((a,b)=>a+b.value,0)||1;
- const r=(size-stroke)/2,c=2*Math.PI*r;let acc=0;
- const[on,setOn]=useState(false);
- useEffect(()=>{const t=setTimeout(()=>setOn(true),100);return()=>clearTimeout(t)},[]);
+ const total=data.reduce((a,b)=>a+b.value,0)||1;const r=(size-stroke)/2,c=2*Math.PI*r;let acc=0;
+ const[on,setOn]=useState(false);useEffect(()=>{const t=setTimeout(()=>setOn(true),100);return()=>clearTimeout(t)},[]);
  return <svg width={size} height={size}>
   <circle cx={size/2} cy={size/2} r={r} fill="none" stroke="#242d38" strokeWidth={stroke}/>
   {data.map((d,i)=>{const frac=d.value/total;const dash=on?frac*c:0;const off=-acc*c;acc+=frac;
@@ -458,24 +479,19 @@ function Donut({data,size=168,stroke=24,centerLabel,centerValue}){
     strokeDasharray={`${dash} ${c-dash}`} strokeDashoffset={off} transform={`rotate(-90 ${size/2} ${size/2})`}
     style={{transition:'stroke-dasharray 1s cubic-bezier(.22,1,.36,1)'}}/>})}
   <text x="50%" y="48%" textAnchor="middle" fontFamily="Lalezar" fontSize="28" fill="#e9eef4">{faNum(centerValue)}</text>
-  <text x="50%" y="63%" textAnchor="middle" fontSize="11" fill="#8b98a5">{centerLabel}</text>
- </svg>}
+  <text x="50%" y="63%" textAnchor="middle" fontSize="11" fill="#8b98a5">{centerLabel}</text></svg>}
 function HBars({data}){const max=Math.max(1,...data.map(d=>d.value));
  const[on,setOn]=useState(false);useEffect(()=>{const t=setTimeout(()=>setOn(true),120);return()=>clearTimeout(t)},[]);
  return <div className="hbars">{data.map((d,i)=>(
-  <div key={i} className="hbar-row">
-   <span className="hbar-label">{d.label}</span>
+  <div key={i} className="hbar-row"><span className="hbar-label">{d.label}</span>
    <div className="hbar-track"><div className="hbar-fill" style={{width:on?(d.value/max*100)+'%':'0%',background:d.color,transitionDelay:i*90+'ms'}}/></div>
-   <span className="hbar-val">{faNum(d.value)}</span>
-  </div>))}</div>}
+   <span className="hbar-val">{faNum(d.value)}</span></div>))}</div>}
 function VBars({data,h=118}){const max=Math.max(1,...data.map(d=>d.value));
  const[on,setOn]=useState(false);useEffect(()=>{const t=setTimeout(()=>setOn(true),120);return()=>clearTimeout(t)},[]);
  return <div className="vbars">{data.map((d,i)=>(
-  <div key={i} className="vbar-col">
-   <span className="vbar-val">{faNum(d.value)}</span>
+  <div key={i} className="vbar-col"><span className="vbar-val">{faNum(d.value)}</span>
    <div className="vbar-fill" style={{height:on?Math.max(d.value/max*h,5)+'px':'5px',background:d.color,transitionDelay:i*100+'ms'}}/>
-   <span className="vbar-lab">{d.label}</span>
-  </div>))}</div>}
+   <span className="vbar-lab">{d.label}</span></div>))}</div>}
 function Gauge({value,size=150,stroke=13}){
  const[on,setOn]=useState(false);useEffect(()=>{const t=setTimeout(()=>setOn(true),150);return()=>clearTimeout(t)},[]);
  const r=(size-stroke)/2,c=2*Math.PI*r;
@@ -487,16 +503,20 @@ function Gauge({value,size=150,stroke=13}){
    strokeDasharray={`${on?c*value/100:0} ${c}`} transform={`rotate(-90 ${size/2} ${size/2})`}
    style={{transition:'stroke-dasharray 1.2s cubic-bezier(.22,1,.36,1)'}}/>
   <text x="50%" y="48%" textAnchor="middle" fontFamily="Lalezar" fontSize="34" fill={color}>{faNum(value)}</text>
-  <text x="50%" y="65%" textAnchor="middle" fontSize="11" fill="#8b98a5">از ۱۰۰ — {label}</text>
- </svg></div>}
-const TICKS=['کلاه ایمنی، اولین همکار هر معدنچی است ⛑️','گزارش شبه‌حادثه امروز = پیشگیری از حادثه فردا','قبل از ورود به تونل، تهویه و گازسنجی را کنترل کنید','هیچ تولیدی ارزش به‌خطر انداختن جان انسان را ندارد','پایش غبار، حفاظت از ریه‌های شماست 🌿','قانون LOTO: اول قطع انرژی، بعد تعمیر'];
+  <text x="50%" y="65%" textAnchor="middle" fontSize="11" fill="#8b98a5">از ۱۰۰ — {label}</text></svg></div>}
+const TICKS=['کلاه ایمنی، اولین همکار هر معدنچی است ⛑️','گزارش شبه‌حادثه امروز = پیشگیری از حادثه فردا','قبل از ورود به تونل، تهویه و گازسنجی را کنترل کنید','هیچ تولیدی ارزش به‌خطر انداختن جان انسان را ندارد','معاینات ادواری سالانه، الزام قانونی است','قانون LOTO: اول قطع انرژی، بعد تعمیر'];
 function Ticker(){const[i,setI]=useState(0);
  useEffect(()=>{const t=setInterval(()=>setI(x=>(x+1)%TICKS.length),6000);return()=>clearInterval(t)},[]);
  return <div className="ticker"><span>🛡️</span><span key={i} className="tick-msg">{TICKS[i]}</span></div>}
-/* ═════════ داشبورد ═════════ */
+function MiniTable({headers,rows,empty}){
+ if(!rows.length)return <div className="empty-row">{empty||'موردی ثبت نشده است'}</div>;
+ return <div style={{overflowX:'auto'}}><table className="mini-tbl">
+  <thead><tr>{headers.map(h=><th key={h}>{h}</th>)}</tr></thead>
+  <tbody>{rows.map((r,i)=><tr key={i}>{r.map((c,j)=><td key={j}>{c}</td>)}</tr>)}</tbody></table></div>}
+/* ═══════ داشبورد ═══════ */
 function Dashboard({data,settings,jump}){
  const risks=data.risks||[],incidents=data.incidents||[],inspections=data.inspections||[],training=data.training||[],
-       ppe=data.ppe||[],machinery=data.machinery||[],committee=data.committee||[];
+       ppe=data.ppe||[],machinery=data.machinery||[],committee=data.committee||[],personnel=data.personnel||[],exams=data.exams||[];
  const scoreOf=r=>(+r.sev||0)*(+r.prob||0);
  const days=daysWithout(settings.lastIncident);const dAnim=useCountUp(days,1200);
  const openRisks=risks.filter(r=>r.status!=='رفع شده');
@@ -509,7 +529,8 @@ function Dashboard({data,settings,jump}){
  const fixRate=finds?Math.round(fixed/finds*100):0;
  const lowPPE=ppe.filter(p=>(+p.stock||0)<(+p.min||0));
  const expired=machinery.filter(m=>m.inspect==='منقضی شده');
- let score=100-critical.length*12-high.length*6-openInc.length*5-lowPPE.length*3-expired.length*4;
+ const needMed=personnel.filter(p=>p.medical==='نیازمند معاینه');
+ let score=100-critical.length*12-high.length*6-openInc.length*5-lowPPE.length*3-expired.length*4-needMed.length*2;
  score=Math.max(5,Math.min(99,Math.round(score)));
  const dist=RISK_LEVELS.map(l=>({label:l.name,color:l.color,value:risks.filter(r=>riskInfo(r.sev,r.prob).name===l.name).length}));
  const TYPE_COLOR={'شبه‌حادثه':'#4cc3ff','جرحی':'#ff9f43','خسارتی':'#ffd23f','محیط‌زیستی':'#35d0ba','منجر به فوت':'#ff5d5d'};
@@ -520,61 +541,54 @@ function Dashboard({data,settings,jump}){
  const alerts=[];
  critical.forEach(r=>alerts.push({tone:'red',icon:'⚠️',text:r.title,sub:`ریسک بحرانی · ${r.loc||''}`}));
  high.slice(0,2).forEach(r=>alerts.push({tone:'amber',icon:'🔶',text:r.title,sub:`ریسک زیاد · ${r.loc||''}`}));
+ needMed.forEach(p=>alerts.push({tone:'red',icon:'🩺',text:`${p.fname} ${p.lname} نیازمند معاینه شغلی`,sub:'الزام طب کار'}));
  lowPPE.forEach(p=>alerts.push({tone:'amber',icon:'🦺',text:`کمبود ${p.title}`,sub:`موجودی ${faNum(p.stock)} کمتر از نقطه سفارش`}));
- expired.forEach(m=>alerts.push({tone:'red',icon:'🚜',text:`معاینه فنی «${m.title}» منقضی شده`,sub:'نیاز به اقدام فوری'}));
- committee.filter(c=>c.status==='تاخیردار').forEach(c=>alerts.push({tone:'red',icon:'⏰',text:c.title,sub:'مصوبه تاخیردار کمیته حفاظت فنی'}));
+ expired.forEach(m=>alerts.push({tone:'red',icon:'🚜',text:`معاینه فنی «${m.title}» منقضی شده`,sub:'اقدام فوری'}));
+ committee.filter(c=>c.status==='تاخیردار').forEach(c=>alerts.push({tone:'red',icon:'⏰',text:c.title,sub:'مصوبه تاخیردار'}));
  const Stat=({icon,label,value,sub,tone,onClick})=>{const v=useCountUp(+value||0);
   return <button className={'kpi k-'+(tone||'amber')} onClick={onClick}>
-   <span className="kpi-label">{icon} {label}</span>
-   <span className="kpi-num">{faNum(v)}</span>
-   {sub&&<span className="kpi-sub">{sub}</span>}
-  </button>};
+   <span className="kpi-label">{icon} {label}</span><span className="kpi-num">{faNum(v)}</span>
+   {sub&&<span className="kpi-sub">{sub}</span>}</button>};
  return <div>
-  <div className="page-head"><div><h2>داشبورد فرماندهی HSE</h2><p>نمای زنده ایمنی، بهداشت حرفه‌ای و محیط زیست — {settings.name}</p></div></div>
+  <div className="page-head"><div><h2>داشبورد فرماندهی HSE</h2><p>نمای زنده ایمنی، بهداشت و محیط زیست — {settings.mine.name}</p></div></div>
   <div className="kpi-band">
-   <div className="kpi kpi-big">
-    <div className="kpi-edge hazard-anim"/>
+   <div className="kpi kpi-big"><div className="kpi-edge hazard-anim"/>
     <div style={{display:'flex',flexDirection:'column',gap:4}}>
      <span className="kpi-label">🕐 روزهای بدون حادثه</span>
      <span className="kpi-num">{faNum(dAnim)}</span>
-     <span className="kpi-sub">آخرین حادثه: {faDate(settings.lastIncident)}</span>
-    </div>
-   </div>
+     <span className="kpi-sub">آخرین حادثه: {faDate(settings.lastIncident)}</span></div></div>
+   <Stat icon="👷" label="پرسنل ثبت‌شده" value={personnel.length} sub={`${faNum(exams.length)} معاینه ثبت‌شده`} tone="amber" onClick={()=>jump('personnel')}/>
    <Stat icon="⚠️" label="ریسک‌های باز" value={openRisks.length} sub={`${faNum(critical.length)} بحرانی · ${faNum(high.length)} زیاد`} tone={critical.length?'red':'amber'} onClick={()=>jump('risks')}/>
-   <Stat icon="🚨" label="حوادث در جریان" value={openInc.length} sub={`از ${faNum(incidents.length)} حادثه ثبت‌شده`} tone="red" onClick={()=>jump('incidents')}/>
-   <Stat icon="🎓" label="ساعات آموزش" value={totalHours} sub={`${faNum(training.length)} دوره برگزارشده`} tone="blue" onClick={()=>jump('training')}/>
-   <Stat icon="🔍" label="نرخ رفع موارد بازرسی" value={fixRate} sub={`${faNum(fixed)} از ${faNum(finds)} مورد`} tone="green" onClick={()=>jump('inspections')}/>
+   <Stat icon="🚨" label="حوادث در جریان" value={openInc.length} sub={`از ${faNum(incidents.length)} حادثه`} tone="red" onClick={()=>jump('incidents')}/>
+   <Stat icon="🎓" label="ساعات آموزش" value={totalHours} sub={`${faNum(training.length)} دوره`} tone="blue" onClick={()=>jump('training')}/>
+   <Stat icon="🔍" label="نرخ رفع بازرسی" value={fixRate} sub={`${faNum(fixed)} از ${faNum(finds)} مورد`} tone="green" onClick={()=>jump('inspections')}/>
   </div>
   <div className="dash-grid">
    <Card className="sp4" icon="⚠️" title="توزیع ریسک‌ها بر اساس سطح">
-    <div className="donut-wrap">
-     <Donut data={dist} centerValue={risks.length} centerLabel="کل ریسک‌ها"/>
-     <ul className="legend">{dist.map(d=><li key={d.label}><i style={{background:d.color}}/>{d.label}<b>{faNum(d.value)}</b></li>)}</ul>
-    </div>
-   </Card>
-   <Card className="sp2" icon="🛡️" title="شاخص وضعیت HSE">
-    <Gauge value={score}/>
-    <p className="score-note">برآورد خودکار از ریسک‌های باز، حوادث فعال، کمبود PPE و معاینه‌های منقضی</p>
-   </Card>
+    <div className="donut-wrap"><Donut data={dist} centerValue={risks.length} centerLabel="کل ریسک‌ها"/>
+     <ul className="legend">{dist.map(d=><li key={d.label}><i style={{background:d.color}}/>{d.label}<b>{faNum(d.value)}</b></li>)}</ul></div></Card>
+   <Card className="sp2" icon="🛡️" title="شاخص وضعیت HSE"><Gauge value={score}/>
+    <p className="score-note">برآورد خودکار از ریسک‌ها، حوادث، کمبودها و معاینات</p></Card>
    <Card className="sp2" icon="🚨" title="حوادث به تفکیک نوع">{incByType.length?<HBars data={incByType}/>:<EmptyNote/>}</Card>
    <Card className="sp2" icon="🎓" title="ساعات آموزش به تفکیک نوع">{trByKind.length?<VBars data={trByKind}/>:<EmptyNote/>}</Card>
    <Card className="sp2" icon="🔔" title="هشدارهای فعال">
-    {alerts.length===0?<div className="empty-mini">✅ وضعیت پایدار است؛ هشدار فعالی وجود ندارد</div>:
+    {alerts.length===0?<div className="empty-mini">✅ وضعیت پایدار است</div>:
      alerts.slice(0,7).map((a,i)=><div key={i} className={`alert-item al-${a.tone}`} style={{animationDelay:i*60+'ms'}}>
-      <span className="alert-ico">{a.icon}</span><div><b>{a.text}</b><small>{a.sub}</small></div></div>)}
-   </Card>
+      <span className="alert-ico">{a.icon}</span><div><b>{a.text}</b><small>{a.sub}</small></div></div>)}</Card>
   </div>
  </div>}
-/* ═════════ سلول و فرم ═════════ */
-function Cell({f,row}){
+/* ═══════ فرم و جدول ═══════ */
+function Cell({f,row,people}){
  if(f.type==='computed'){const ri=riskInfo(row.sev,row.prob);return <Badge tone={toneOf(ri.name)}>{ri.name} ({faNum(ri.sc)})</Badge>}
  const v=row[f.key];
+ if(f.type==='person'){const p=(people||[]).find(x=>x.id===v);
+  return p?<span className="cell-title">👤 {p.fname} {p.lname}</span>:<span className="dim">—</span>}
  if(f.badge&&v)return <Badge tone={toneOf(v)}>{v}</Badge>;
  if(v==null||v==='')return <span className="dim">—</span>;
  if(f.type==='number')return <span>{faNum(v)}</span>;
- if(f.key==='title')return <span className="cell-title">{v}</span>;
+ if(f.key==='title'||f.key==='fname'||f.key==='lname')return <span className="cell-title">{v}</span>;
  return <span>{String(v)}</span>}
-function FormModal({mod,initial,onSave,onClose}){
+function FormModal({mod,initial,people,onSave,onClose}){
  const[f,setF]=useState(()=>initial?{...initial}:Object.fromEntries(mod.fields.filter(x=>x.type!=='computed').map(x=>[x.key,x.type==='number'?0:''])));
  const[err,setErr]=useState('');
  const set=(k,v)=>setF(p=>({...p,[k]:v}));
@@ -590,7 +604,13 @@ function FormModal({mod,initial,onSave,onClose}){
     {mod.fields.filter(fd=>fd.type!=='computed').map(fd=>(
      <div key={fd.key} className={'fitem'+(fd.type==='textarea'?' wide':'')}>
       <label>{fd.label}{fd.req&&<i className="req">*</i>}</label>
-      {fd.type==='select'?
+      {fd.type==='person'?<>
+        <select value={f[fd.key]||''} onChange={e=>set(fd.key,e.target.value)}>
+         <option value="">انتخاب فرد…</option>
+         {people.map(p=><option key={p.id} value={p.id}>{p.fname} {p.lname}{p.code?` — ${p.code}`:''}</option>)}
+        </select>
+        {!people.length&&<small style={{color:'var(--orange)',fontSize:10.5}}>ابتدا فرد را در ماژول «پرسنل و افراد» ثبت کنید</small>}
+       </>:fd.type==='select'?
        <select value={f[fd.key]||''} onChange={e=>set(fd.key,e.target.value)}>
         <option value="">انتخاب کنید…</option>{fd.options.map(o=><option key={o}>{o}</option>)}
        </select>:
@@ -604,10 +624,8 @@ function FormModal({mod,initial,onSave,onClose}){
     <button className="btn btn-ghost" onClick={onClose}>انصراف</button>
     <button className="btn btn-amber" onClick={submit}>{initial?'ذخیره تغییرات':'ثبت رکورد'}</button>
    </div>
-  </div>
- </div>}
-/* ═════════ نمای ماژول ═════════ */
-function ModuleView({mod,rows,onAdd,onUpdate,onDelete}){
+  </div></div>}
+function ModuleView({mod,rows,people,onAdd,onUpdate,onDelete,onOpenPerson}){
  const[q,setQ]=useState('');const[fv,setFv]=useState('');const[modal,setModal]=useState(null);
  const filterField=mod.fields.find(f=>f.filter);
  const cols=mod.fields.filter(f=>f.col);
@@ -619,14 +637,16 @@ function ModuleView({mod,rows,onAdd,onUpdate,onDelete}){
   <div className="page-head">
    <div><h2>{mod.icon} {mod.name}</h2><p>{mod.desc}</p></div>
    <div className="ph-actions no-print">
-    <button className="btn btn-ghost" title="چاپ گزارش" onClick={()=>window.print()}>🖨️ چاپ</button>
-    <button className="btn btn-amber" onClick={()=>setModal({})}>＋ ثبت جدید</button>
-   </div>
+    <button className="btn btn-ghost" onClick={()=>window.print()}>🖨️ چاپ</button>
+    <button className="btn btn-amber" onClick={()=>setModal({})}>＋ ثبت جدید</button></div>
   </div>
   <div className="toolbar no-print">
    <input className="search" placeholder={`جستجو در ${mod.name}…`} value={q} onChange={e=>setQ(e.target.value)}/>
    {filterField&&<select className="filter" value={fv} onChange={e=>setFv(e.target.value)}>
-    <option value="">همه موارد</option>{filterField.options.map(o=><option key={o}>{o}</option>)}</select>}
+    <option value="">{filterField.type==='person'?'همه افراد':(filterField.key==='job'?'همه مشاغل':'همه موارد')}</option>
+    {filterField.type==='person'?people.map(p=><option key={p.id} value={p.id}>{p.fname} {p.lname}</option>)
+     :filterField.options.map(o=><option key={o}>{o}</option>)}
+   </select>}
    <span className="count-chip">{faNum(shown.length)} رکورد</span>
   </div>
   <div className="card table-card">
@@ -636,138 +656,340 @@ function ModuleView({mod,rows,onAdd,onUpdate,onDelete}){
     <div className="table-wrap"><table className="tbl">
      <thead><tr>{cols.map(c=><th key={c.key}>{c.label}</th>)}<th className="no-print">عملیات</th></tr></thead>
      <tbody>{shown.map(r=><tr key={r.id}>
-      {cols.map(c=><td key={c.key}><Cell f={c} row={r}/></td>)}
+      {cols.map(c=><td key={c.key}><Cell f={c} row={r} people={people}/></td>)}
       <td className="no-print"><div className="row-actions">
+       {mod.id==='personnel'&&<button className="ico-btn" title="فرم کامل فرد" onClick={()=>onOpenPerson(r.id)}>👤</button>}
        <button className="ico-btn" title="ویرایش" onClick={()=>setModal({row:r})}>✏️</button>
        <button className="ico-btn del" title="حذف" onClick={()=>onDelete(mod.id,r)}>🗑️</button>
-      </div></td>
-     </tr>)}</tbody>
-    </table></div>}
+      </div></td></tr>)}</tbody></table></div>}
   </div>
-  {modal&&<FormModal mod={mod} initial={modal.row} onSave={save} onClose={()=>setModal(null)}/>}
+  {modal&&<FormModal mod={mod} initial={modal.row} people={people} onSave={save} onClose={()=>setModal(null)}/>}
  </div>}
-/* ═════════ تنظیمات ═════════ */
+/* ═══════ پروفایل کامل فرد ═══════ */
+function PersonProfile({person,data,onBack,onUpdate,onDeletePerson}){
+ const[edit,setEdit]=useState(false);
+ const personnelMod=MODULES.find(m=>m.id==='personnel');
+ const exams=(data.exams||[]).filter(x=>x.personId===person.id);
+ const trs=(data.persontraining||[]).filter(x=>x.personId===person.id);
+ const ppe=(data.ppedelivery||[]).filter(x=>x.personId===person.id);
+ const incs=(data.incidents||[]).filter(x=>x.personId===person.id);
+ const hours=trs.reduce((a,t)=>a+(+t.hours||0),0);
+ const alerts=[];
+ if(!exams.length)alerts.push({tone:'red',icon:'🩺',text:'هیچ معاینه شغلی ثبت نشده',sub:'معاینه بدو استخدام الزامی است'});
+ if(person.medical==='نیازمند معاینه')alerts.push({tone:'red',icon:'⏳',text:'وضعیت معاینات: نیازمند معاینه',sub:'پیگیری طب کار'});
+ if(person.insurance==='فاقد بیمه')alerts.push({tone:'red',icon:'🛡️',text:'فاقد بیمه',sub:'قبل از اشتغال الزامی است'});
+ if(person.insurance==='نیازمند تمدید')alerts.push({tone:'amber',icon:'🛡️',text:'بیمه نیازمند تمدید',sub:''});
+ if(trs.some(t=>t.cert==='نیاز به تمدید'))alerts.push({tone:'amber',icon:'🎓',text:'گواهینامه آموزشی منقضی/نیازمند تمدید',sub:''});
+ const chip=(t)=> <span className="chip">{t}</span>;
+ return <div>
+  <div className="page-head">
+   <button className="btn btn-ghost" onClick={onBack}>→ بازگشت به فهرست پرسنل</button>
+   <div className="ph-actions no-print">
+    <button className="btn btn-ghost" onClick={()=>setEdit(true)}>✏️ ویرایش فرد</button>
+    <button className="btn btn-red" onClick={()=>onDeletePerson(person)}>🗑️ حذف فرد</button>
+   </div></div>
+  <div className="card profile-hero">
+   <div className="avatar">{(person.fname||'؟')[0]}{(person.lname||'')[0]||''}</div>
+   <div className="ph-info">
+    <h2>{person.fname} {person.lname}</h2>
+    <div className="chips">
+     {person.job&&chip('💼 '+person.job)}
+     {person.unit&&chip('🏭 '+person.unit)}
+     {person.code&&chip('کد پرسنلی: '+person.code)}
+     {person.pid&&chip('کد ملی: '+person.pid)}
+     {person.hire&&chip('استخدام: '+person.hire)}
+     {person.contract&&chip(person.contract)}
+     {person.phone&&chip('📞 '+person.phone)}
+     {person.insurance&&<Badge tone={toneOf(person.insurance)}>بیمه: {person.insurance}</Badge>}
+     {person.medical&&<Badge tone={toneOf(person.medical)}>معاینات: {person.medical}</Badge>}
+    </div></div></div>
+  <div className="kpi-band prof-band">
+   <div className="kpi k-static k-blue"><span className="kpi-label">🩺 معاینات ثبت‌شده</span><span className="kpi-num">{faNum(exams.length)}</span></div>
+   <div className="kpi k-static k-amber"><span className="kpi-label">🎓 ساعات آموزش</span><span className="kpi-num">{faNum(hours)}</span></div>
+   <div className="kpi k-static k-green"><span className="kpi-label">🦺 اقلام PPE تحویلی</span><span className="kpi-num">{faNum(ppe.length)}</span></div>
+   <div className="kpi k-static k-red"><span className="kpi-label">🚨 حوادث مرتبط</span><span className="kpi-num">{faNum(incs.length)}</span></div>
+  </div>
+  {alerts.length>0&&<Card icon="🔔" title="هشدارهای این فرد" className="sp4">
+   {alerts.map((a,i)=><div key={i} className={`alert-item al-${a.tone}`}>
+    <span className="alert-ico">{a.icon}</span><div><b>{a.text}</b>{a.sub&&<small>{a.sub}</small>}</div></div>)}
+  </Card>}
+  <div className="dash-grid" style={{marginTop:14}}>
+   <Card className="sp2" icon="🩺" title="معاینات شغلی">
+    <MiniTable headers={['نوع','تاریخ','مرکز','نتیجه']}
+     rows={exams.map(e=>[e.kind,e.date||'—',e.center||'—',<Badge tone={toneOf(e.result)}>{e.result}</Badge>])}/></Card>
+   <Card className="sp2" icon="🎓" title="سوابق آموزشی">
+    <MiniTable headers={['دوره','تاریخ','ساعت','گواهینامه']}
+     rows={trs.map(t=>[t.course,t.date||'—',faNum(t.hours),<Badge tone={toneOf(t.cert)}>{t.cert}</Badge>])}/></Card>
+   <Card className="sp2" icon="🦺" title="تجهیزات تحویلی">
+    <MiniTable headers={['تجهیز','تعداد','تحویل','انقضا','وضعیت']}
+     rows={ppe.map(p=>[p.item,faNum(p.qty),p.date||'—',p.expire||'—',<Badge tone={toneOf(p.status)}>{p.status}</Badge>])}/></Card>
+   <Card className="sp2" icon="🚨" title="حوادث مرتبط">
+    <MiniTable headers={['شرح','نوع','تاریخ','وضعیت']}
+     rows={incs.map(i=>[i.title,<Badge tone={toneOf(i.type)}>{i.type}</Badge>,i.date||'—',<Badge tone={toneOf(i.status)}>{i.status}</Badge>])}/></Card>
+  </div>
+  {edit&&<FormModal mod={personnelMod} initial={person} people={data.personnel||[]}
+   onSave={row=>{onUpdate('personnel',row);setEdit(false)}} onClose={()=>setEdit(false)}/>}
+ </div>}
+/* ═══════ تنظیمات ═══════ */
 function SettingsView({settings,setSettings,data,setData,toast,ask}){
- const[f,setF]=useState(settings);
+ const[mine,setMine]=useState(settings.mine||{});
+ const[cp,setCp]=useState({cur:'',next:'',confirm:''});
+ const[info,setInfo]=useState(null);
+ useEffect(()=>{(async()=>setInfo(await store.info()))()},[]);
+ const setM=(k,v)=>setMine(x=>({...x,[k]:v}));
+ const total=Object.values(data).reduce((a,arr)=>a+(Array.isArray(arr)?arr.length:0),0);
  const exportJson=()=>{const blob=new Blob([JSON.stringify({settings,data},null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='hse-backup.json';a.click()};
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='minehse-backup.json';a.click()};
  const onImport=e=>{const file=e.target.files[0];if(!file)return;const rd=new FileReader();
   rd.onload=()=>{try{const j=JSON.parse(rd.result);
-   if(j&&j.data&&j.settings){setData({...buildSeed(),...j.data});setSettings({...DEFAULT_SETTINGS,...j.settings});toast('بازیابی اطلاعات انجام شد')}
+   if(j&&j.data&&j.settings){setData({...emptyData(),...j.data});setSettings(j.settings);setMine(j.settings.mine||{});toast('بازیابی انجام شد')}
    else toast('فایل معتبر نیست','err')}catch(err){toast('فایل معتبر نیست','err')}};
   rd.readAsText(file);e.target.value=''};
- const reset=()=>ask('همه داده‌ها با نمونه پیش‌فرض جایگزین می‌شوند. ادامه می‌دهید؟',
-  ()=>{setData(buildSeed());toast('داده نمونه بارگذاری شد')});
- const total=Object.values(data).reduce((a,arr)=>a+(Array.isArray(arr)?arr.length:0),0);
+ const loadSample=()=>ask('داده نمونه جایگزین داده‌های فعلی شود؟',()=>{setData(buildSeed());toast('داده نمونه بارگذاری شد')});
+ const clearAll=()=>ask('همه رکوردها برای همیشه پاک شوند؟',()=>{setData(emptyData());toast('همه داده‌ها پاک شد','err')});
+ const changePass=async()=>{
+  if(cp.next.length<4){toast('رمز جدید حداقل ۴ کاراکتر','err');return}
+  if(cp.next!==cp.confirm){toast('تکرار رمز مطابقت ندارد','err');return}
+  const ok=await store.changePass(cp.cur,cp.next);
+  if(ok){setCp({cur:'',next:'',confirm:''});toast('رمز عبور تغییر کرد')}else toast('رمز فعلی اشتباه است','err')};
  return <div>
-  <div className="page-head"><div><h2>⚙️ تنظیمات و پشتیبان‌گیری</h2><p>شناسنامه معدن، مدیریت داده‌ها و انتقال بین دستگاه‌ها</p></div></div>
+  <div className="page-head"><div><h2>⚙️ تنظیمات، دیتابیس و پشتیبان‌گیری</h2><p>مدیریت صنعتی داده‌ها و حساب کاربری</p></div></div>
   <div className="set-grid">
    <div className="card pad">
     <h3 className="card-h">🏔️ شناسنامه معدن</h3>
     <div className="fgrid fgrid-flat">
-     <div className="fitem wide"><label>نام معدن / کارگاه</label><input value={f.name||''} onChange={e=>setF({...f,name:e.target.value})}/></div>
+     <div className="fitem wide"><label>نام معدن / کارگاه</label><input value={mine.name||''} onChange={e=>setM('name',e.target.value)}/></div>
      <div className="fitem"><label>نوع بهره‌برداری</label>
-      <select value={f.type||''} onChange={e=>setF({...f,type:e.target.value})}>
-       {['روباز سنگ‌آهن','زیرزمینی زغال‌سنگ','روباز مس','زیرزمینی فلزی','شن و ماسه و سنگ لاشه','سایر'].map(o=><option key={o}>{o}</option>)}
-      </select></div>
-     <div className="fitem"><label>استان</label><input value={f.province||''} onChange={e=>setF({...f,province:e.target.value})}/></div>
-     <div className="fitem"><label>مسئول HSE</label><input value={f.manager||''} onChange={e=>setF({...f,manager:e.target.value})}/></div>
+      <select value={mine.type||''} onChange={e=>setM('type',e.target.value)}>
+       {['روباز سنگ‌آهن','زیرزمینی زغال‌سنگ','روباز مس','زیرزمینی فلزی','شن و ماسه و سنگ لاشه','سایر'].map(o=><option key={o}>{o}</option>)}</select></div>
+     <div className="fitem"><label>استان</label><input value={mine.province||''} onChange={e=>setM('province',e.target.value)}/></div>
+     <div className="fitem"><label>شهر</label><input value={mine.city||''} onChange={e=>setM('city',e.target.value)}/></div>
+     <div className="fitem"><label>شماره پروانه بهره‌برداری</label><input value={mine.license||''} onChange={e=>setM('license',e.target.value)}/></div>
+     <div className="fitem"><label>تعداد کارکنان</label><input type="number" value={mine.employees||''} onChange={e=>setM('employees',e.target.value)}/></div>
      <div className="fitem"><label>تاریخ آخرین حادثه (مبنای روزهای بدون حادثه)</label>
-      <input type="date" value={f.lastIncident||''} onChange={e=>setF({...f,lastIncident:e.target.value})}/></div>
+      <input type="date" value={settings.lastIncident||''} onChange={e=>setSettings({...settings,lastIncident:e.target.value})}/></div>
     </div>
-    <div className="days-note">🕐 روزهای سپری‌شده از آخرین حادثه: <b>{faNum(daysWithout(f.lastIncident))}</b></div>
-    <button className="btn btn-amber" onClick={()=>{setSettings(f);toast('تنظیمات ذخیره شد')}}>ذخیره تنظیمات</button>
+    <button className="btn btn-amber" onClick={()=>{setSettings({...settings,mine});toast('شناسنامه معدن ذخیره شد')}}>ذخیره تغییرات</button>
    </div>
    <div className="card pad">
-    <h3 className="card-h">💾 داده‌ها و پشتیبان</h3>
-    <p className="mut-txt">داده‌ها فقط در مرورگر شما (localStorage) ذخیره می‌شوند. برای انتقال بین دستگاه‌ها یا جلوگیری از حذف، نسخه پشتیبان بگیرید.</p>
-    <div className="btn-row">
+    <h3 className="card-h">🔐 تغییر رمز عبور</h3>
+    <div className="fgrid fgrid-flat">
+     <div className="fitem"><label>رمز فعلی</label><input type="password" value={cp.cur} onChange={e=>setCp({...cp,cur:e.target.value})}/></div>
+     <div className="fitem"><label>رمز جدید</label><input type="password" value={cp.next} onChange={e=>setCp({...cp,next:e.target.value})}/></div>
+     <div className="fitem"><label>تکرار رمز جدید</label><input type="password" value={cp.confirm} onChange={e=>setCp({...cp,confirm:e.target.value})}/></div>
+    </div>
+    <button className="btn btn-ghost" onClick={changePass}>🔑 تغییر رمز</button>
+    <div className="btn-row" style={{marginTop:16}}>
      <button className="btn btn-ghost" onClick={exportJson}>⬇️ خروجی JSON</button>
      <label className="btn btn-ghost file-btn">⬆️ بازیابی فایل<input type="file" accept=".json" hidden onChange={onImport}/></label>
-     <button className="btn btn-red" onClick={reset}>♻️ بازنشانی با داده نمونه</button>
+    </div>
+    <div className="btn-row">
+     <button className="btn btn-ghost" onClick={loadSample}>📦 بارگذاری داده نمونه</button>
+     <button className="btn btn-red" onClick={clearAll}>🧹 پاک‌سازی همه داده‌ها</button>
     </div>
     <div className="stat-line">کل رکوردهای ذخیره‌شده: <b>{faNum(total)}</b></div>
    </div>
    <div className="card pad">
+    <h3 className="card-h">🗄️ دیتابیس و نسخه</h3>
+    <ul className="about">
+     <li>📍 محل دیتابیس: <b style={{direction:'ltr',unicodeBidi:'embed',fontSize:11.5}}>{info?info.dbPath:'…'}</b></li>
+     <li>⚙️ موتور ذخیره‌سازی: {isDesktop?'SQLite (فایل محلی، مناسب فروش و ممیزی)':'localStorage مرورگر (حالت دمو)'}</li>
+     <li>🖥️ پلتفرم / نسخه: {info?`${info.platform} — ${info.version}`:'…'}</li>
+    </ul>
+    {isDesktop&&<button className="btn btn-ghost" style={{marginTop:10}} onClick={()=>window.api.revealDB()}>📂 نمایش پوشه دیتابیس در ویندوز</button>}
+    {!isDesktop&&<p className="mut-txt" style={{marginTop:10}}>⚠️ برای دیتابیس واقعی و خروجی exe، نسخه Electron را اجرا کنید.</p>}
+   </div>
+   <div className="card pad">
     <h3 className="card-h">ℹ️ درباره سامانه</h3>
     <ul className="about">
-     <li>⚙️ ساخته‌شده با React 18 — بدون بیلد، آماده GitHub Pages</li>
-     <li>💾 ذخیره‌سازی محلی در مرورگر؛ بدون نیاز به سرور</li>
-     <li>📦 پشتیبان‌گیری و بازیابی کامل از طریق JSON</li>
-     <li>🔌 توسعه‌پذیر: افزودن ماژول جدید فقط با یک آبجکت در آرایه MODULES</li>
-     <li>🖨️ گزارش هر بخش با دکمه «چاپ» قابل دریافت است</li>
+     <li>⛏️ معدن‌بان — سامانه صنعتی مدیریت HSE و محیط زیست معادن</li>
+     <li>🔌 کاملاً آفلاین؛ بدون نیاز به اینترنت و سرور</li>
+     <li>🗃️ دیتابیس SQLite با تاریخچه تغییرات (جدول audit)</li>
+     <li>📦 پشتیبان‌گیری/بازیابی کامل با یک فایل JSON</li>
+     <li>🔐 رمز عبور به‌صورت هش SHA-256 با salt ذخیره می‌شود</li>
     </ul>
    </div>
   </div>
  </div>}
-/* ═════════ سایدبار ═════════ */
-function Sidebar({view,setView,counts,critN,open,close}){
+/* ═══════ سایدبار ═══════ */
+function Sidebar({activeId,setView,counts,critN,open,close,user,onLogout}){
  const items=[{id:'dashboard',name:'داشبورد',icon:'📊',group:'نمای کلی'},
   ...MODULES.map(m=>({id:m.id,name:m.name,icon:m.icon,group:m.group})),
-  {id:'settings',name:'تنظیمات و پشتیبان',icon:'⚙️',group:'سیستم'}];
- const groups=['نمای کلی','ایمنی','بهداشت','محیط زیست','سازمانی','سیستم'];
+  {id:'settings',name:'تنظیمات و دیتابیس',icon:'⚙️',group:'سیستم'}];
+ const groups=['نمای کلی','پرسنل','ایمنی','بهداشت','محیط زیست','سازمانی','سیستم'];
  return <aside className={'sidebar'+(open?' open':'')}>
-  <div className="brand">
-   <div className="brand-mark">⛏️</div>
-   <div><b>معدن‌بان</b><span>MINING HSE &amp; ENV PANEL</span></div>
-  </div>
+  <div className="brand"><div className="brand-mark">⛏️</div>
+   <div><b>معدن‌بان</b><span>MINING HSE &amp; ENV</span></div></div>
   <div className="brand-hazard hazard-anim"/>
-  <nav>
-   {groups.map(g=><div key={g}>
-    <div className="nav-label">{g}</div>
-    {items.filter(i=>i.group===g).map(i=>(
-     <button key={i.id} className={'nav-item'+(view===i.id?' active':'')} onClick={()=>{setView(i.id);close()}}>
-      <span className="nav-ico">{i.icon}</span>
-      <span className="nav-name">{i.name}</span>
-      {counts[i.id]!=null&&<span className={'nav-cnt'+(i.id==='risks'&&critN>0?' hot':'')}>{faNum(counts[i.id])}</span>}
-     </button>))}
-   </div>)}
-  </nav>
-  <div className="side-foot"><span>معدن‌بان — نسخه ۱٫۰</span><span>ذخیره‌سازی: مرورگر شما (آفلاین‌اول)</span></div>
+  <nav>{groups.map(g=><div key={g}>
+   <div className="nav-label">{g}</div>
+   {items.filter(i=>i.group===g).map(i=>(
+    <button key={i.id} className={'nav-item'+(activeId===i.id?' active':'')} onClick={()=>{setView(i.id);close()}}>
+     <span className="nav-ico">{i.icon}</span><span className="nav-name">{i.name}</span>
+     {counts[i.id]!=null&&<span className={'nav-cnt'+(i.id==='risks'&&critN>0?' hot':'')}>{faNum(counts[i.id])}</span>}
+    </button>))}</div>)}</nav>
+  <div className="side-foot">
+   <div className="user-row"><span className="user-avatar">{(user?.name||'؟')[0]}</span>
+    <div><b>{user?.name}</b><small>{user?.role==='admin'?'مدیر سامانه':'کاربر'}</small></div></div>
+   <button className="btn btn-ghost btn-block" onClick={onLogout}>🔒 خروج از حساب</button>
+   <span className="ver">نسخه ۱٫۰ · دیتابیس: {isDesktop?'SQLite':'دمو مرورگر'}</span>
+  </div>
  </aside>}
-/* ═════════ برنامه اصلی ═════════ */
+/* ═══════ ورود و راه‌اندازی ═══════ */
+function Login({settings,onSuccess}){
+ const[u,setU]=useState('');const[p,setP]=useState('');const[err,setErr]=useState('');const[busy,setBusy]=useState(false);
+ const submit=async()=>{if(busy)return;setBusy(true);const res=await store.login(u.trim(),p);setBusy(false);
+  if(res)onSuccess(res);else setErr('نام کاربری یا رمز عبور اشتباه است')};
+ return <div className="auth"><div className="auth-card">
+  <div className="auth-brand"><div className="brand-mark">⛏️</div>
+   <div><b>معدن‌بان</b><div style={{fontSize:9,letterSpacing:2,color:'var(--faint)'}}>MINING HSE &amp; ENV</div></div></div>
+  <div className="auth-hazard hazard-anim"/>
+  <div className="auth-sub">ورود به سامانه «{settings.mine?.name}»</div>
+  <div className="fgrid fgrid-flat" style={{gridTemplateColumns:'1fr'}}>
+   <div className="fitem"><label>نام کاربری</label><input value={u} onChange={e=>setU(e.target.value)} placeholder="نام کاربری مدیر"/></div>
+   <div className="fitem"><label>رمز عبور</label><input type="password" value={p} onChange={e=>setP(e.target.value)} onKeyDown={e=>e.key==='Enter'&&submit()} placeholder="••••••••"/></div>
+  </div>
+  {err&&<div className="form-err">⚠️ {err}</div>}
+  <button className="btn btn-amber btn-block" style={{marginTop:16}} onClick={submit} disabled={busy}>{busy?'در حال بررسی…':'🔓 ورود به سامانه'}</button>
+  <div className="auth-foot">{isDesktop?'🗄️ دیتابیس محلی SQLite · اجرای کاملاً آفلاین':'⚠️ حالت دموی مرورگر · نسخه صنعتی: اپلیکیشن ویندوز'}</div>
+ </div></div>}
+function Setup({onDone}){
+ const[step,setStep]=useState(1);const[err,setErr]=useState('');const[busy,setBusy]=useState(false);
+ const[mine,setMine]=useState({name:'',type:'روباز سنگ‌آهن',province:'',city:'',license:'',employees:'',startYear:''});
+ const[admin,setAdmin]=useState({name:'',username:'',password:'',confirm:''});
+ const setM=(k,v)=>setMine(x=>({...x,[k]:v}));const setA=(k,v)=>setAdmin(x=>({...x,[k]:v}));
+ const next=()=>{setErr('');
+  if(step===1){if(!mine.name.trim()||!mine.province.trim()){setErr('نام معدن و استان الزامی است');return}setStep(2)}
+  else if(step===2){if(!admin.name.trim()){setErr('نام مدیر الزامی است');return}
+   if(admin.username.trim().length<3){setErr('نام کاربری حداقل ۳ کاراکتر باشد');return}
+   if(admin.password.length<4){setErr('رمز عبور حداقل ۴ کاراکتر باشد');return}
+   if(admin.password!==admin.confirm){setErr('تکرار رمز عبور مطابقت ندارد');return}setStep(3)}};
+ const finish=async()=>{setBusy(true);
+  const settings=await store.setup(mine,admin);
+  onDone(settings,{name:admin.name,username:admin.username,role:'admin'})};
+ return <div className="auth"><div className="auth-card wide">
+  <div className="auth-brand"><div className="brand-mark">⛏️</div>
+   <div><b>راه‌اندازی معدن‌بان</b><div style={{fontSize:9,letterSpacing:2,color:'var(--faint)'}}>FIRST-RUN SETUP</div></div></div>
+  <div className="auth-hazard hazard-anim"/>
+  <div className="steps">
+   <div className={'step-dot'+(step>=1?' on':'')}>{step>1?'✓':'۱'}</div><div className="step-line"/>
+   <div className={'step-dot'+(step>=2?' on':'')}>{step>2?'✓':'۲'}</div><div className="step-line"/>
+   <div className={'step-dot'+(step>=3?' on':'')}>۳</div></div>
+  {step===1&&<>
+   <div className="step-title">🏔️ گام اول — شناسنامه معدن</div>
+   <p className="auth-sub">این اطلاعات در سربرگ، گزارش‌ها و چاپ‌ها نمایش داده می‌شود.</p>
+   <div className="pw-grid">
+    <div className="fitem wide"><label>نام معدن / کارگاه<i className="req">*</i></label><input value={mine.name} onChange={e=>setM('name',e.target.value)} placeholder="مثلاً معدن سنگ‌آهن چادرملو"/></div>
+    <div className="fitem"><label>نوع بهره‌برداری</label>
+     <select value={mine.type} onChange={e=>setM('type',e.target.value)}>
+      {['روباز سنگ‌آهن','زیرزمینی زغال‌سنگ','روباز مس','زیرزمینی فلزی','شن و ماسه و سنگ لاشه','سایر'].map(o=><option key={o}>{o}</option>)}</select></div>
+    <div className="fitem"><label>استان<i className="req">*</i></label><input value={mine.province} onChange={e=>setM('province',e.target.value)}/></div>
+    <div className="fitem"><label>شهر</label><input value={mine.city} onChange={e=>setM('city',e.target.value)}/></div>
+    <div className="fitem"><label>شماره پروانه بهره‌برداری</label><input value={mine.license} onChange={e=>setM('license',e.target.value)}/></div>
+    <div className="fitem"><label>تعداد کارکنان</label><input type="number" value={mine.employees} onChange={e=>setM('employees',e.target.value)}/></div>
+    <div className="fitem"><label>سال شروع بهره‌برداری</label><input value={mine.startYear} onChange={e=>setM('startYear',e.target.value)} placeholder="۱۴۰۰"/></div>
+   </div></>}
+  {step===2&&<>
+   <div className="step-title">🔐 گام دوم — حساب مدیریت</div>
+   <p className="auth-sub">برای ورود به سامانه استفاده می‌شود. رمز به‌صورت هش‌شده در دیتابیس ذخیره خواهد شد.</p>
+   <div className="pw-grid">
+    <div className="fitem wide"><label>نام و نام خانوادگی مدیر HSE<i className="req">*</i></label><input value={admin.name} onChange={e=>setA('name',e.target.value)}/></div>
+    <div className="fitem"><label>نام کاربری<i className="req">*</i></label><input value={admin.username} onChange={e=>setA('username',e.target.value)} style={{direction:'ltr',textAlign:'left'}}/></div>
+    <div className="fitem"><label>رمز عبور<i className="req">*</i></label><input type="password" value={admin.password} onChange={e=>setA('password',e.target.value)} style={{direction:'ltr',textAlign:'left'}}/></div>
+    <div className="fitem wide"><label>تکرار رمز عبور<i className="req">*</i></label><input type="password" value={admin.confirm} onChange={e=>setA('confirm',e.target.value)} style={{direction:'ltr',textAlign:'left'}}/></div>
+   </div></>}
+  {step===3&&<>
+   <div className="step-title">🧾 گام سوم — بازبینی و افتتاح</div>
+   <div className="pw-grid">
+    <div className="summary"><h4>مشخصات معدن</h4><ul>
+     <li>نام: {mine.name}</li><li>نوع: {mine.type}</li>
+     <li>موقعیت: {mine.province}{mine.city?` — ${mine.city}`:''}</li>
+     <li>پروانه: {mine.license||'—'}</li><li>کارکنان: {mine.employees||'—'} نفر</li></ul></div>
+    <div className="summary"><h4>حساب مدیریت</h4><ul>
+     <li>مدیر: {admin.name}</li><li>نام کاربری: {admin.username}</li><li>نقش: مدیر سامانه</li></ul></div>
+   </div>
+   <p className="auth-sub" style={{marginTop:14}}>پس از افتتاح، دیتابیس محقی ساخته شده و سامانه فقط با رمز عبور قابل دسترسی است.</p></>}
+  {err&&<div className="form-err">⚠️ {err}</div>}
+  <div className="setup-actions">
+   <button className="btn btn-ghost" onClick={()=>setStep(s=>Math.max(1,s-1))} disabled={step===1}>→ قبلی</button>
+   {step<3?<button className="btn btn-amber" onClick={next}>بعدی ←</button>
+    :<button className="btn btn-amber" onClick={finish} disabled={busy}>{busy?'در حال ایجاد دیتابیس…':'⛏️ افتتاح سامانه'}</button>}
+  </div>
+ </div></div>}
+/* ═══════ برنامه اصلی ═══════ */
 function App(){
- const[init]=useState(()=>{const s=loadState();
-  return s&&s.data?{settings:{...DEFAULT_SETTINGS,...s.settings},data:{...buildSeed(),...s.data}}
-                  :{settings:DEFAULT_SETTINGS,data:buildSeed()}});
- const[settings,setSettings]=useState(init.settings);
- const[data,setData]=useState(init.data);
+ const[phase,setPhase]=useState('boot');
+ const[settings,setSettings]=useState(null);
+ const[data,setData]=useState(null);
+ const[user,setUser]=useState(null);
  const[view,setViewRaw]=useState('dashboard');
+ const[profileId,setProfileId]=useState(null);
  const[open,setOpen]=useState(false);
  const[toasts,setToasts]=useState([]);
  const[confirmBox,setConfirmBox]=useState(null);
- useEffect(()=>{try{localStorage.setItem(KEY,JSON.stringify({settings,data}))}catch(e){}},[settings,data]);
- const setView=v=>{setViewRaw(v);window.scrollTo({top:0,behavior:'smooth'})};
+ useEffect(()=>{(async()=>{
+  const st=await store.load();
+  if(!st||!st.settings||!st.settings.mine){setPhase('setup')}
+  else{setSettings(st.settings);setData({...emptyData(),...(st.data||{})});setPhase('login')}
+ })()},[]);
+ useEffect(()=>{if(phase!=='ready'||!settings||!data)return;
+  const t=setTimeout(()=>store.save({settings,data}),400);return()=>clearTimeout(t)},[settings,data,phase]);
+ const setView=v=>{setProfileId(null);setViewRaw(v);window.scrollTo({top:0,behavior:'smooth'})};
  const toast=(msg,type='ok')=>{const id=uid();setToasts(t=>[...t,{id,msg,type}]);
-  setTimeout(()=>setToasts(t=>t.filter(x=>x.id!==id)),3000)};
+  setTimeout(()=>setToasts(t=>t.filter(x=>x.id!==id)),3200)};
  const ask=(msg,onYes)=>setConfirmBox({msg,onYes});
  const addItem=(mid,row)=>{setData(d=>({...d,[mid]:[row,...(d[mid]||[])]}));toast('با موفقیت ثبت شد')};
  const updateItem=(mid,row)=>{setData(d=>({...d,[mid]:(d[mid]||[]).map(r=>r.id===row.id?row:r)}));toast('تغییرات ذخیره شد')};
- const deleteItem=(mid,row)=>ask(`رکورد «${row.title||''}» برای همیشه حذف شود؟`,
+ const deleteItem=(mid,row)=>ask(`رکورد «${row.title||row.fname||''}» حذف شود؟`,
   ()=>{setData(d=>({...d,[mid]:(d[mid]||[]).filter(r=>r.id!==row.id)}));toast('رکورد حذف شد','err')});
- const counts=useMemo(()=>Object.fromEntries(MODULES.map(m=>[m.id,(data[m.id]||[]).length])),[data]);
- const critN=useMemo(()=>(data.risks||[]).filter(r=>r.status!=='رفع شده'&&(+r.sev||0)*(+r.prob||0)>=16).length,[data]);
+ const openPerson=id=>{setProfileId(id);setViewRaw('profile');window.scrollTo({top:0,behavior:'smooth'})};
+ const deletePerson=p=>ask(`«${p.fname} ${p.lname}» و همه سوابق مرتبطش حذف شود؟`,()=>{
+  setData(d=>{const nd={...d};
+   ['personnel','exams','persontraining','ppedelivery'].forEach(k=>
+    nd[k]=(nd[k]||[]).filter(r=>(k==='personnel'?r.id:r.personId)!==p.id));
+   nd.incidents=(nd.incidents||[]).map(i=>i.personId===p.id?{...i,personId:''}:i);return nd});
+  setProfileId(null);setViewRaw('personnel');toast('فرد و سوابق مرتبط حذف شد','err')});
+ const setupDone=(st,u)=>{setSettings({...st,lastIncident:st.lastIncident||''});setData(emptyData());
+  setUser(u);setPhase('ready');setViewRaw('personnel');
+  toast('به معدن‌بان خوش آمدید؛ ابتدا کارکنان را ثبت کنید')};
+ if(phase==='boot')return <div className="splash"><div>
+  <div className="splash-logo">⛏️</div>
+  <div style={{fontFamily:'var(--ff-disp)',fontSize:28,color:'var(--amber2)'}}>معدن‌بان</div>
+  <div className="mut-txt">در حال اتصال به دیتابیس…</div></div></div>;
+ if(phase==='setup')return <><Setup onDone={setupDone}/>
+  <div className="toasts">{toasts.map(t=><div key={t.id} className={'toast t-'+t.type}>{t.msg}</div>)}</div></>;
+ if(phase==='login')return <><Login settings={settings} onSuccess={u=>{setUser(u);setPhase('ready');toast(`خوش آمدید، ${u.name}`)}}/>
+  <div className="toasts">{toasts.map(t=><div key={t.id} className={'toast t-'+t.type}>{t.msg}</div>)}</div></>;
+ const counts=Object.fromEntries(MODULES.map(m=>[m.id,(data[m.id]||[]).length]));
+ const critN=(data.risks||[]).filter(r=>r.status!=='رفع شده'&&(+r.sev||0)*(+r.prob||0)>=16).length;
+ const people=data.personnel||[];
  const mod=MODULES.find(m=>m.id===view);
+ const profilePerson=profileId?people.find(p=>p.id===profileId):null;
+ const activeId=view==='profile'?'personnel':view;
  return <div className="app">
   {open&&<div className="backdrop" onClick={()=>setOpen(false)}/>}
-  <Sidebar view={view} setView={setView} counts={counts} critN={critN} open={open} close={()=>setOpen(false)}/>
+  <Sidebar activeId={activeId} setView={setView} counts={counts} critN={critN} open={open} close={()=>setOpen(false)}
+   user={user} onLogout={()=>{setUser(null);setPhase('login')}}/>
   <main className="main">
    <header className="topbar">
     <button className="burger no-print" onClick={()=>setOpen(true)}>☰</button>
-    <div className="tb-title"><h1>⛏️ معدن‌بان</h1><span>سامانه مدیریت HSE و محیط زیست معادن</span></div>
+    <div className="tb-title"><h1>⛏️ معدن‌بان</h1><span>سامانه صنعتی HSE و محیط زیست معادن</span></div>
     <div className="tb-side">
      <span className="chip">📅 {todayFa()}</span>
-     <span className="chip chip-mine">{settings.name}</span>
-    </div>
-   </header>
+     <span className="chip chip-mine">{settings.mine?.name}</span>
+    </div></header>
    <div className="topbar-edge hazard-anim"/>
    <Ticker/>
-   <div className="content" key={view}>
+   <div className="content" key={view+':'+(profileId||'')}>
     {view==='dashboard'&&<Dashboard data={data} settings={settings} jump={setView}/>}
-    {mod&&<ModuleView mod={mod} rows={data[mod.id]||[]} onAdd={addItem} onUpdate={updateItem} onDelete={deleteItem}/>}
+    {view==='profile'&&profilePerson&&<PersonProfile person={profilePerson} data={data}
+     onBack={()=>setView('personnel')} onUpdate={updateItem} onDeletePerson={deletePerson}/>}
+    {view==='profile'&&!profilePerson&&<div className="empty"><span>👤</span><p>فرد یافت نشد</p></div>}
+    {mod&&<ModuleView mod={mod} rows={data[mod.id]||[]} people={people}
+     onAdd={addItem} onUpdate={updateItem} onDelete={deleteItem} onOpenPerson={openPerson}/>}
     {view==='settings'&&<SettingsView settings={settings} setSettings={setSettings} data={data} setData={setData} toast={toast} ask={ask}/>}
    </div>
-   <footer className="foot">معدن‌بان — سامانه مدیریت HSE و محیط زیست معادن · داده‌ها به‌صورت محلی در مرورگر ذخیره می‌شوند</footer>
+   <footer className="foot">معدن‌بان · داده‌ها در دیتابیس {isDesktop?'SQLite (محلی)':'مرورگر'} ذخیره می‌شوند · حالت {isDesktop?'آفلاین صنعتی':'دمو'}</footer>
   </main>
   <div className="toasts">{toasts.map(t=><div key={t.id} className={'toast t-'+t.type}>{t.type==='err'?'🗑️':'✅'} {t.msg}</div>)}</div>
   {confirmBox&&<div className="overlay" onMouseDown={e=>{if(e.target===e.currentTarget)setConfirmBox(null)}}>
@@ -776,8 +998,7 @@ function App(){
     <div className="modal-foot">
      <button className="btn btn-ghost" onClick={()=>setConfirmBox(null)}>انصراف</button>
      <button className="btn btn-red" onClick={()=>{confirmBox.onYes();setConfirmBox(null)}}>بله، انجام شود</button>
-    </div>
-   </div></div>}
+    </div></div></div>}
  </div>}
 ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 </script>

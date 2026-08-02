@@ -1,0 +1,3 @@
+npm install        # نصب وابستگی‌ها (better-sqlite3 هم بیلد می‌شود)
+npm start          # اجرای برنامه روی سیستم
+npm run dist       # خروجی: dist\MineHSE Panel Setup 1.0.0.exe (نصب‌ساز)

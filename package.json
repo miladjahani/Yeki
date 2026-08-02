@@ -1,0 +1,40 @@
+{
+  "name": "minehse-panel",
+  "productName": "معدن‌بان",
+  "version": "1.0.0",
+  "description": "سامانه صنعتی مدیریت HSE و محیط زیست معادن",
+  "main": "main.js",
+  "license": "COMMERCIAL",
+  "scripts": {
+    "start": "electron .",
+    "postinstall": "electron-builder install-app-deps",
+    "dist": "electron-builder --win",
+    "dist:portable": "electron-builder --win portable"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.5.0"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.minehse.panel",
+    "productName": "MineHSE Panel",
+    "directories": { "output": "dist" },
+    "files": ["main.js", "preload.js", "database.js", "index.html", "assets/**/*"],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "معدن‌بان"
+    }
+  }
+}
