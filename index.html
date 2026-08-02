@@ -101,13 +101,11 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 10px}
 .kpi-big .kpi-num{font-size:54px;color:var(--green)}
 .dash-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
 .dash-grid>*{grid-column:span 6;animation:pageIn .5s both}
-.dash-grid>*:nth-child(2){animation-delay:.06s}.dash-grid>*:nth-child(3){animation-delay:.12s}
-.dash-grid>*:nth-child(4){animation-delay:.18s}.dash-grid>*:nth-child(5){animation-delay:.24s}
 @media(min-width:780px){.sp2{grid-column:span 2!important}.sp4{grid-column:span 4!important}}
 .donut-wrap{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
 .legend{list-style:none;flex:1;min-width:150px}
-.legend li{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--mut);padding:7px 2px;border-bottom:1px dashed var(--line)}
-.legend li:last-child{border:none}.legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.legend li{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--mut);padding:7px 2px;border-bottom:1px dashed var(--line)}
+.legend li:last-child{border:none}.legend i{width:11px;height:11px;border-radius:3px;display:inline-block;flex-shrink:0}
 .legend b{margin-inline-start:auto;color:var(--text)}
 .gauge{display:flex;justify-content:center}
 .score-note{font-size:10.5px;color:var(--faint);text-align:center;margin-top:8px}
@@ -164,6 +162,7 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 10px}
 .fitem input,.fitem select,.fitem textarea{background:#141a21;border:1px solid var(--line);border-radius:9px;padding:9px 12px;color:var(--text);font:inherit;font-size:13px;transition:.2s;width:100%}
 .fitem textarea{resize:vertical;min-height:64px}
 .fitem input:focus,.fitem select:focus,.fitem textarea:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(255,182,46,.13)}
+.form-head{grid-column:1/-1;font-size:12.5px;font-weight:800;color:var(--amber2);border-bottom:1px dashed var(--line2);padding-bottom:6px;margin-top:8px}
 .form-err{margin:12px 0 0;padding:9px 12px;background:rgba(255,93,93,.1);border:1px solid rgba(255,93,93,.35);border-radius:9px;color:#ff9c9c;font-size:12px}
 .modal .form-err{margin:0 20px 10px}
 .modal-foot{display:flex;justify-content:flex-start;gap:10px;padding:0 20px 20px}
@@ -180,7 +179,6 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 10px}
 .stat-line{font-size:12px;color:var(--mut)}.mut-txt{font-size:12px;color:var(--mut);margin-bottom:6px}
 .about{list-style:none;font-size:12.5px;color:var(--mut)}
 .about li{padding:7px 0;border-bottom:1px dashed var(--line);display:flex;gap:8px}.about li:last-child{border:none}
-/* احراز هویت و راه‌اندازی */
 .auth{min-height:100vh;display:grid;place-items:center;padding:24px}
 .auth-card{width:min(430px,100%);background:linear-gradient(180deg,#1c232d,#181f27);border:1px solid var(--line2);border-radius:18px;padding:30px 28px;animation:pop .4s cubic-bezier(.22,1,.36,1);box-shadow:0 30px 80px -30px rgba(0,0,0,.8)}
 .auth-card.wide{width:min(680px,100%)}
@@ -201,7 +199,6 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 10px}
 .summary ul{list-style:none}
 .summary li{font-size:12px;color:var(--mut);padding:4px 0;border-bottom:1px dashed var(--line)}
 .summary li:last-child{border:none}
-/* پروفایل فرد */
 .profile-hero{display:flex;gap:18px;align-items:center;padding:22px;margin-bottom:14px;flex-wrap:wrap}
 .avatar{width:72px;height:72px;border-radius:20px;background:linear-gradient(160deg,var(--amber2),var(--amber));display:grid;place-items:center;font-family:var(--ff-disp);font-size:30px;color:#221a04;box-shadow:0 10px 26px -10px rgba(255,182,46,.6)}
 .ph-info h2{font-family:var(--ff-disp);font-weight:400;font-size:26px;line-height:1.2}
@@ -211,17 +208,44 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 10px}
 .mini-tbl th{color:var(--faint);font-size:10.5px;text-align:right;padding:8px 10px;border-bottom:1px solid var(--line)}
 .mini-tbl td{padding:9px 10px;border-bottom:1px solid #212a34;text-align:right}
 .mini-tbl tr:last-child td{border-bottom:none}
+.mini-tbl tr.clickable{cursor:pointer;transition:background .15s}
+.mini-tbl tr.clickable:hover{background:rgba(255,182,46,.05)}
 .empty-row{color:var(--faint);font-size:12px;text-align:center;padding:18px 0}
+.sub-h{font-size:12px;font-weight:800;color:var(--mut);margin:16px 0 8px}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:10px}
+.metric{background:#151b22;border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:3px;transition:.15s}
+.metric:hover{border-color:var(--line2);transform:translateY(-2px)}
+.metric-v{font-family:var(--ff-disp);font-size:20px;line-height:1.2}
+.metric-l{font-size:10px;color:var(--faint)}
+.m-green .metric-v{color:var(--green)}.m-amber .metric-v{color:var(--amber2)}
+.m-red .metric-v{color:var(--red)}.m-mut .metric-v{color:var(--faint)}
+.exam-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+/* تقویم شمسی */
+.date-box{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#141a21;border:1px solid var(--line);border-radius:9px;padding:9px 12px;cursor:pointer;transition:.2s;font-size:13px}
+.date-box:hover{border-color:var(--amber)}
+.date-val.dim{color:var(--faint)}
+.date-ico{font-size:13px;opacity:.7}
+.cal{width:302px;background:var(--panel2);border:1px solid var(--line2);border-radius:16px;padding:14px;animation:pop .25s cubic-bezier(.22,1,.36,1);box-shadow:0 30px 80px -30px rgba(0,0,0,.9)}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:6px}
+.cal-title{font-family:var(--ff-disp);font-size:18px;color:var(--amber2)}
+.cal-nav{width:30px;height:30px;border-radius:8px;background:#ffffff08;border:1px solid var(--line);color:var(--text);cursor:pointer;font-size:15px;transition:.15s}
+.cal-nav:hover{border-color:var(--amber);background:#ffffff12}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-wd{text-align:center;font-size:10.5px;color:var(--faint);font-weight:800;padding:4px 0}
+.cal-d{aspect-ratio:1;border-radius:8px;border:1px solid transparent;background:none;color:var(--text);cursor:pointer;font-size:12.5px;transition:.15s}
+.cal-d:hover{background:#ffffff10;border-color:var(--line2)}
+.cal-d.today{border-color:var(--green);color:var(--green);font-weight:800}
+.cal-d.sel{background:linear-gradient(180deg,var(--amber2),var(--amber));color:#221a04;font-weight:800}
+.cal-foot{display:flex;gap:8px;margin-top:12px}
+.cal-foot .btn{flex:1;justify-content:center;padding:7px}
 .splash{min-height:100vh;display:grid;place-items:center;text-align:center}
 .splash-logo{font-size:52px;animation:float 2s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 @media(max-width:960px){.kpi-band{grid-template-columns:1fr 1fr}.kpi-big{grid-column:1/-1}.set-grid{grid-template-columns:1fr}.prof-band{grid-template-columns:1fr 1fr}}
 @media(max-width:900px){
   .sidebar{position:fixed;inset-block:0;right:0;z-index:180;transform:translateX(100%);transition:transform .3s cubic-bezier(.22,1,.36,1);box-shadow:-20px 0 60px rgba(0,0,0,.5)}
-  .sidebar.open{transform:none}
-  .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:170}
-  .burger{display:grid}
-  .topbar{padding:14px}.content{padding:14px}.ticker{margin:10px 14px 0}.topbar-edge{margin:0 14px}}
+  .sidebar.open{transform:none}.backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:170}
+  .burger{display:grid}.topbar{padding:14px}.content{padding:14px}.ticker{margin:10px 14px 0}.topbar-edge{margin:0 14px}}
 @media(max-width:640px){.kpi-band{grid-template-columns:1fr}.fgrid{grid-template-columns:1fr}.pw-grid{grid-template-columns:1fr}.tb-side{width:100%}.prof-band{grid-template-columns:1fr}}
 @media print{.sidebar,.topbar,.ticker,.toasts,.no-print,.foot,.topbar-edge,.backdrop{display:none!important}
   body{background:#fff;color:#000}.card{border-color:#bbb;background:#fff}
@@ -230,7 +254,6 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 10px}
 </head>
 <body>
 <div id="root"></div>
-<!-- کتابخانه‌ها: اول محلی (آفلاین)، در نبود فایل به‌صورت خودکار از CDN -->
 <script src="assets/react.production.min.js"></script>
 <script>window.React||document.write('<script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"><\/script>')</script>
 <script src="assets/react-dom.production.min.js"></script>
@@ -238,24 +261,110 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 10px}
 <script src="assets/babel.min.js"></script>
 <script>window.Babel||document.write('<script src="https://unpkg.com/@babel/standalone@7/babel.min.js"><\/script>')</script>
 <script type="text/babel" data-presets="react">
-const {useState,useEffect,useMemo}=React;
-/* ═══════ ابزارها و ذخیره‌سازی ═══════ */
-const KEY='minesafe-hse-v2';
+const {useState,useEffect}=React;
+/* ═══════ تقویم جلالی ═══════ */
+const _div=(a,b)=>~~(a/b), _mod=(a,b)=>a-~~(a/b)*b;
+function jalCal(jy){
+ const breaks=[-61,9,38,199,426,686,756,818,1111,1181,1210,1635,2060,2097,2192,2262,2324,2394,2456,3178];
+ const bl=breaks.length, gy=jy+621; let leapJ=-14, jp=breaks[0], jump=0, i;
+ for(i=1;i<bl;i+=1){const jm=breaks[i];jump=jm-jp;if(jy<jm)break;
+  leapJ=leapJ+_div(jump,33)*8+_div(_mod(jump,33),4);jp=jm}
+ let n=jy-jp;
+ leapJ=leapJ+_div(n,33)*8+_div(_mod(n,33)+3,4);
+ if(_mod(jump,33)===4&&jump-n===4)leapJ+=1;
+ const leapG=_div(gy,4)-_div((_div(gy,100)+1)*3,4)-150;
+ const march=20+leapJ-leapG;
+ if(jump-n<6)n=n-jump+_div(jump+4,33)*33;
+ let leap=_mod(_mod(n+1,33)-1,4); if(leap===-1)leap=4;
+ return{leap,gy,march}}
+function g2d(gy,gm,gd){
+ let d=_div((gy+_div(gm-8,6)+100100)*1461,4)+_div(153*_mod(gm+9,12)+2,5)+gd-34840408;
+ d=d-_div(_div(gy+100100+_div(gm-8,6),100)*3,4)+752;return d}
+function d2g(jdn){
+ let j=4*jdn+139361631;
+ j=j+_div(_div(4*jdn+183187720,146097)*3,4)*4-3908;
+ const i=_div(_mod(j,1461),4)*5+308;
+ const gd=_div(_mod(i,153),5)+1, gm=_mod(_div(i,153),12)+1, gy=_div(j,1461)-100100+_div(8-gm,6);
+ return{gy,gm,gd}}
+function j2d(jy,jm,jd){const r=jalCal(jy);return g2d(r.gy,3,r.march)+(jm-1)*31-_div(jm,7)*(jm-7)+jd-1}
+function d2j(jdn){
+ const gy=d2g(jdn).gy; let jy=gy-621; const r=jalCal(jy); const jdn1f=g2d(gy,3,r.march);
+ let k=jdn-jdn1f, jd, jm;
+ if(k>=0){if(k<=185){jm=1+_div(k,31);jd=_mod(k,31)+1;return{jy,jm,jd}}else k-=186}
+ else{jy-=1;k+=179;if(r.leap===1)k+=1}
+ jm=7+_div(k,30);jd=_mod(k,30)+1;return{jy,jm,jd}}
+const gregToJal=(gy,gm,gd)=>d2j(g2d(gy,gm,gd));
+const jalToGreg=(jy,jm,jd)=>d2g(j2d(jy,jm,jd));
+const isJalLeap=jy=>jalCal(jy).leap===0;
+const jalMonthLen=(jy,jm)=> jm<=6?31 : jm<=11?30 : (isJalLeap(jy)?30:29);
+const JAL_MONTHS=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+const JAL_WEEK=['ش','ی','د','س','چ','پ','ج'];
+const toFa=s=>String(s).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+const toEn=s=>String(s).replace(/[۰-۹]/g,d=>String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d)));
+function parseJal(str){if(!str)return null;const p=toEn(str).split('/').map(Number);
+ return (p.length===3&&p.every(x=>!isNaN(x)&&x>0))?p:null}
+function todayJal(){const n=new Date();return gregToJal(n.getFullYear(),n.getMonth()+1,n.getDate())}
+function daysWithout(jal){const p=parseJal(jal);if(!p)return 0;
+ const g=jalToGreg(p[0],p[1],p[2]);const d=new Date(g.gy,g.gm-1,g.gd);
+ return isNaN(d)?0:Math.max(0,Math.floor((Date.now()-d.getTime())/864e5))}
+function DateInput({value,onChange,placeholder}){
+ const[open,setOpen]=useState(false);
+ const cur=parseJal(value);const today=todayJal();
+ const[y,setY]=useState(cur?cur[0]:today.jy);
+ const[m,setM]=useState(cur?cur[1]:today.jm);
+ useEffect(()=>{if(open){const c=parseJal(value);if(c){setY(c[0]);setM(c[1])}}},[open]);
+ const pick=(jy,jm,jd)=>{onChange(`${jy}/${String(jm).padStart(2,'0')}/${String(jd).padStart(2,'0')}`);setOpen(false)};
+ const g=jalToGreg(y,m,1);
+ const startIdx=(new Date(g.gy,g.gm-1,g.gd).getDay()+1)%7;
+ const len=jalMonthLen(y,m);
+ const isToday=d=>y===today.jy&&m===today.jm&&d===today.jd;
+ const isSel=d=>!!cur&&cur[0]===y&&cur[1]===m&&cur[2]===d;
+ const prev=()=>{if(m===1){setM(12);setY(y-1)}else setM(m-1)};
+ const next=()=>{if(m===12){setM(1);setY(y+1)}else setM(m+1)};
+ return <>
+  <div className="date-box" onClick={()=>setOpen(true)}>
+   <span className={'date-val'+(value?'':' dim')}>{value?toFa(value):(placeholder||'انتخاب تاریخ…')}</span>
+   <span className="date-ico">📅</span></div>
+  {open&&<div className="overlay" style={{zIndex:220}} onMouseDown={e=>{if(e.target===e.currentTarget)setOpen(false)}}>
+   <div className="cal">
+    <div className="cal-head">
+     <button className="cal-nav" title="سال قبل" onClick={()=>setY(y-1)}>«</button>
+     <button className="cal-nav" title="ماه قبل" onClick={prev}>‹</button>
+     <div className="cal-title">{JAL_MONTHS[m-1]} {toFa(y)}</div>
+     <button className="cal-nav" title="ماه بعد" onClick={next}>›</button>
+     <button className="cal-nav" title="سال بعد" onClick={()=>setY(y+1)}>»</button>
+    </div>
+    <div className="cal-grid">
+     {JAL_WEEK.map(w=><div key={w} className="cal-wd">{w}</div>)}
+     {Array.from({length:startIdx}).map((_,i)=><div key={'e'+i}/>)}
+     {Array.from({length:len}).map((_,i)=><button key={i}
+      className={'cal-d'+(isToday(i+1)?' today':'')+(isSel(i+1)?' sel':'')}
+      onClick={()=>pick(y,m,i+1)}>{toFa(i+1)}</button>)}
+    </div>
+    <div className="cal-foot">
+     <button className="btn btn-amber" onClick={()=>pick(today.jy,today.jm,today.jd)}>امروز</button>
+     <button className="btn btn-ghost" onClick={()=>{onChange('');setOpen(false)}}>پاک کردن</button>
+    </div>
+   </div></div>}
+ </>}
+/* ═══════ ابزارها ═══════ */
+const KEY='minesafe-hse-v3';
 const isDesktop=typeof window.api!=='undefined';
 const uid=()=>Math.random().toString(36).slice(2,9)+Date.now().toString(36);
 const faNum=n=>Number(n||0).toLocaleString('fa-IR');
 const todayFa=()=>new Intl.DateTimeFormat('fa-IR-u-ca-persian',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date());
-function faDate(iso){try{return new Intl.DateTimeFormat('fa-IR-u-ca-persian',{year:'numeric',month:'long',day:'numeric'}).format(new Date(iso))}catch(e){return iso||'—'}}
-function daysWithout(iso){if(!iso)return 0;const d=new Date(iso);return isNaN(d)?0:Math.max(0,Math.floor((Date.now()-d.getTime())/864e5))}
 function weakHash(s){let h1=0xdeadbeef,h2=0x41c6ce57;for(let i=0;i<s.length;i++){const ch=s.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return (4294967296*(2097151&h2)+(h1>>>0)).toString(36)}
 const RISK_LEVELS=[{name:'بحرانی',min:16,color:'#ff5d5d'},{name:'زیاد',min:10,color:'#ff9f43'},{name:'متوسط',min:5,color:'#ffd23f'},{name:'کم',min:0,color:'#3ecf8e'}];
 function riskInfo(sev,prob){const sc=(+sev||0)*(+prob||0);const lvl=RISK_LEVELS.find(l=>sc>=l.min)||RISK_LEVELS[3];return{sc,name:lvl.name,color:lvl.color}}
 function toneOf(v){const s=String(v==null?'':v);
  if(!s||s==='—')return'mut';
  if(/بحرانی|منقضی|عدم|معیوب|خارج از خدمت|تاخیر|فوت|کمبود|نیازمند خرید|اصلاحی باز|^باز$|فاقد بیمه|نیازمند معاینه/.test(s))return'red';
- if(/شبه|برنامه‌ریزی|نیازمند ارزیابی|در حال صدور|در حال بررسی|محیط‌زیستی|نیازمند تمدید|مشروط|در انتظار/.test(s))return'blue';
+ if(/شبه|برنامه‌ریزی|نیازمند ارزیابی|در حال صدور|در حال بررسی|محیط‌زیستی|نیازمند تمدید|مشروط|در انتظار|انسدادی|محدودکننده/.test(s))return'blue';
  if(/زیاد|متوسط|در حال|نیازمند|جرحی|خسارتی|^ب$|^ج$|مستهلک/.test(s))return'amber';
  return'green'}
+const toneHigh=(v,amber,red)=>(v==null||v===''||+v===0)?'mut':(+v>=red?'red':+v>=amber?'amber':'green');
+const toneLow=(v,amber,red)=>(v==null||v===''||+v===0)?'mut':(+v<=red?'red':+v<=amber?'amber':'green');
+const fmt=v=>(v==null||v===''||+v===0)?'':toFa(v);
 function loadLocal(){try{const r=localStorage.getItem(KEY);if(r)return JSON.parse(r)}catch(e){}return null}
 function saveLocal(st){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
 const store={
@@ -276,46 +385,67 @@ const store={
   f.hash=weakHash(f.salt+'::'+next);saveLocal(st);return true},
  async info(){return isDesktop?await window.api.info():{dbPath:'localStorage مرورگر (حالت دمو)',version:'web',platform:'web'}}
 };
-/* ═══════ تعریف ماژول‌ها ═══════ */
+/* ═══════ ماژول‌ها ═══════ */
 const LOCATIONS=['سینه‌کار استخراج','تونل دسترسی','سنگ‌شکن','بارگیری و حمل','کارگاه تعمیرات','محل دپوی باطله','انبار و تاسیسات'];
 const UNITS=['استخراج','بارگیری و حمل','سنگ‌شکن و فرآوری','تعمیر و نگهداری','HSE','بهداشت','اداری','انبار','برق و تاسیسات'];
 const MODULES=[
- {id:'personnel',name:'پرسنل و افراد',icon:'👷',group:'پرسنل',desc:'ثبت و مدیریت کارکنان معدن — برای مشاهده فرم کامل هر فرد روی 👤 کلیک کنید',fields:[
+ {id:'personnel',name:'پرسنل و افراد',icon:'👷',group:'پرسنل',desc:'ثبت و مدیریت کارکنان — برای فرم کامل هر فرد روی 👤 کلیک کنید',fields:[
   {key:'fname',label:'نام',type:'text',col:true,req:true},
   {key:'lname',label:'نام خانوادگی',type:'text',col:true,req:true},
   {key:'pid',label:'کد ملی',type:'text',col:true},
   {key:'code',label:'کد پرسنلی',type:'text',col:true},
   {key:'job',label:'شغل',type:'select',options:['اپراتور ماشین‌آلات','معدنچی','تکنسین تعمیرات','مهندس ناظر','سرپرست','راننده','کارگر عمومی','اداری'],col:true,filter:true},
   {key:'unit',label:'واحد سازمانی',type:'select',options:UNITS,col:true},
-  {key:'hire',label:'تاریخ استخدام',type:'text',ph:'۱۴۰۴-۰۲-۰۱'},
+  {key:'hire',label:'تاریخ استخدام',type:'date'},
   {key:'contract',label:'نوع قرارداد',type:'select',options:['رسمی','قراردادی','پیمانی','فصلی']},
   {key:'phone',label:'شماره تماس',type:'text'},
   {key:'emergency',label:'تماس اضطراری',type:'text'},
   {key:'insurance',label:'وضعیت بیمه',type:'select',options:['فعال','نیازمند تمدید','فاقد بیمه'],badge:true},
   {key:'medical',label:'وضعیت معاینات',type:'select',options:['تایید شده','در انتظار','نیازمند معاینه'],badge:true},
   {key:'note',label:'توضیحات',type:'textarea'}]},
- {id:'exams',name:'معاینات شغلی افراد',icon:'🩺',group:'پرسنل',desc:'معاینات بدو استخدام، ادواری و خروج از کار به تفکیک هر فرد',fields:[
+ {id:'exams',name:'معاینات طب کار',icon:'🩺',group:'پرسنل',desc:'پرونده کامل طب کار هر فرد با جزئیات بالینی (خون، ریه، شنوایی، بینایی)',fields:[
   {key:'personId',label:'فرد',type:'person',col:true,req:true,filter:true},
   {key:'kind',label:'نوع معاینه',type:'select',options:['بدو استخدام','ادواری (سالانه)','خروج از کار','موردی'],col:true},
-  {key:'date',label:'تاریخ',type:'text',col:true},
+  {key:'date',label:'تاریخ معاینه',type:'date',col:true},
   {key:'center',label:'مرکز طب کار',type:'text',col:true},
-  {key:'result',label:'نتیجه',type:'select',options:['تایید سلامت','مشروط','عدم تایید','در انتظار جواب'],col:true,badge:true},
   {key:'doctor',label:'پزشک معاین',type:'text'},
-  {key:'note',label:'یافته‌ها',type:'textarea'}]},
- {id:'persontraining',name:'سوابق آموزشی افراد',icon:'📖',group:'پرسنل',desc:'دوره‌های گذرانده‌شده هر فرد به همراه گواهینامه',fields:[
+  {key:'result',label:'نتیجه نهایی',type:'select',options:['تایید سلامت','مشروط','عدم تایید','در انتظار جواب'],col:true,badge:true},
+  {key:'h1',type:'head',label:'🫀 علائم حیاتی و آنتروپومتری'},
+  {key:'height',label:'قد (cm)',type:'number'},
+  {key:'weight',label:'وزن (kg)',type:'number'},
+  {key:'sbp',label:'فشار سیستولیک (mmHg)',type:'number'},
+  {key:'dbp',label:'فشار دیاستولیک (mmHg)',type:'number'},
+  {key:'h2',type:'head',label:'🩸 آزمایش خون'},
+  {key:'fbs',label:'قند خون FBS (mg/dL)',type:'number'},
+  {key:'tg',label:'تری‌گلیسرید (mg/dL)',type:'number'},
+  {key:'chol',label:'کلسترول (mg/dL)',type:'number'},
+  {key:'lead',label:'سرب خون (µg/dL)',type:'number'},
+  {key:'hgb',label:'هموگلوبین (g/dL)',type:'number'},
+  {key:'h3',type:'head',label:'🫁 ریه و اسپیرومتری'},
+  {key:'fvc',label:'FVC (%)',type:'number'},
+  {key:'fev1',label:'FEV1 (%)',type:'number'},
+  {key:'lung',label:'نتیجه ریه',type:'select',options:['نرمال','محدودکننده (Restrictive)','انسدادی (Obstructive)','نیازمند بررسی']},
+  {key:'h4',type:'head',label:'👂 شنوایی‌سنجی'},
+  {key:'earR',label:'افت شنوایی راست (dB)',type:'number'},
+  {key:'earL',label:'افت شنوایی چپ (dB)',type:'number'},
+  {key:'h5',type:'head',label:'👁️ بینایی‌سنجی'},
+  {key:'eyeR',label:'بینایی راست (از ۱۰)',type:'number'},
+  {key:'eyeL',label:'بینایی چپ (از ۱۰)',type:'number'},
+  {key:'note',label:'یافته‌ها و توصیه‌های پزشک',type:'textarea'}]},
+ {id:'persontraining',name:'سوابق آموزشی افراد',icon:'📖',group:'پرسنل',desc:'دوره‌های گذرانده‌شده هر فرد',fields:[
   {key:'personId',label:'فرد',type:'person',col:true,req:true,filter:true},
   {key:'course',label:'دوره آموزشی',type:'text',col:true,req:true},
-  {key:'date',label:'تاریخ',type:'text',col:true},
+  {key:'date',label:'تاریخ',type:'date',col:true},
   {key:'hours',label:'ساعت',type:'number',col:true},
   {key:'cert',label:'گواهینامه',type:'select',options:['صادر شد','در حال صدور','نیاز به تمدید'],badge:true,col:true},
-  {key:'expire',label:'اعتبار تا',type:'text'},
+  {key:'expire',label:'اعتبار تا',type:'date'},
   {key:'note',label:'توضیحات',type:'textarea'}]},
- {id:'ppedelivery',name:'تجهیزات تحویلی افراد',icon:'🦺',group:'پرسنل',desc:'PPE تحویل‌شده به هر فرد و تاریخ تعویض',fields:[
+ {id:'ppedelivery',name:'تجهیزات تحویلی افراد',icon:'🦺',group:'پرسنل',desc:'PPE تحویل‌شده به هر فرد',fields:[
   {key:'personId',label:'فرد',type:'person',col:true,req:true,filter:true},
   {key:'item',label:'تجهیز',type:'text',col:true,req:true},
   {key:'qty',label:'تعداد',type:'number',col:true},
-  {key:'date',label:'تاریخ تحویل',type:'text',col:true},
-  {key:'expire',label:'انقضا/تعویض',type:'text',col:true},
+  {key:'date',label:'تاریخ تحویل',type:'date',col:true},
+  {key:'expire',label:'انقضا/تعویض',type:'date',col:true},
   {key:'status',label:'وضعیت',type:'select',options:['تحویل شد','در انتظار','مستهلک/تعویض'],badge:true},
   {key:'note',label:'توضیحات',type:'textarea'}]},
  {id:'risks',name:'ارزیابی ریسک',icon:'⚠️',group:'ایمنی',desc:'شناسایی خطرات و ارزیابی ریسک با ماتریس شدت × احتمال',fields:[
@@ -327,24 +457,24 @@ const MODULES=[
   {key:'ctrl',label:'اقدام کنترلی',type:'text'},
   {key:'owner',label:'مسئول پیگیری',type:'text'},
   {key:'status',label:'وضعیت',type:'select',options:['باز','در حال کنترل','رفع شده'],col:true,badge:true,filter:true},
-  {key:'date',label:'تاریخ ارزیابی',type:'text'},
+  {key:'date',label:'تاریخ ارزیابی',type:'date'},
   {key:'note',label:'توضیحات',type:'textarea'}]},
- {id:'incidents',name:'حوادث و رویدادها',icon:'🚨',group:'ایمنی',desc:'ثبت و پیگیری حوادث، شبه‌حوادث و رویدادهای HSE',fields:[
+ {id:'incidents',name:'حوادث و رویدادها',icon:'🚨',group:'ایمنی',desc:'ثبت و پیگیری حوادث و شبه‌حوادث',fields:[
   {key:'title',label:'شرح رویداد',type:'text',col:true,req:true},
   {key:'type',label:'نوع',type:'select',options:['شبه‌حادثه','جرحی','خسارتی','محیط‌زیستی','منجر به فوت'],col:true,badge:true,filter:true},
-  {key:'date',label:'تاریخ',type:'text',col:true},
+  {key:'date',label:'تاریخ',type:'date',col:true},
   {key:'loc',label:'محل',type:'select',options:LOCATIONS,col:true},
-  {key:'personId',label:'فرد مصدوم/مرتبط',type:'person'},
+  {key:'personId',label:'فرد مرتبط',type:'person'},
   {key:'shift',label:'شیفت',type:'select',options:['روزکاری','عصرکاری','شب‌کاری']},
   {key:'cause',label:'علت ریشه‌ای',type:'text',col:true},
   {key:'status',label:'وضعیت پرونده',type:'select',options:['در حال بررسی','اقدام اصلاحی باز','بسته شده'],col:true,badge:true},
   {key:'note',label:'اقدامات انجام‌شده',type:'textarea'}]},
- {id:'inspections',name:'بازرسی و ممیزی',icon:'🔍',group:'ایمنی',desc:'بازرسی‌های دوره‌ای، موردی و ممیزی‌های HSE',fields:[
+ {id:'inspections',name:'بازرسی و ممیزی',icon:'🔍',group:'ایمنی',desc:'بازرسی‌های دوره‌ای و ممیزی‌ها',fields:[
   {key:'title',label:'موضوع بازرسی',type:'text',col:true,req:true},
   {key:'kind',label:'نوع',type:'select',options:['دوره‌ای','موردی','مشترک کمیته','ممیزی پیمانکار'],col:true,filter:true},
   {key:'inspector',label:'بازرس',type:'text',col:true},
   {key:'loc',label:'محل',type:'select',options:LOCATIONS},
-  {key:'date',label:'تاریخ',type:'text',col:true},
+  {key:'date',label:'تاریخ',type:'date',col:true},
   {key:'finds',label:'موارد یافت‌شده',type:'number',col:true},
   {key:'fixed',label:'موارد رفع‌شده',type:'number'},
   {key:'status',label:'وضعیت',type:'select',options:['تکمیل شده','در حال پیگیری','برنامه‌ریزی‌شده'],col:true,badge:true},
@@ -353,8 +483,8 @@ const MODULES=[
   {key:'title',label:'موضوع',type:'text',col:true,req:true},
   {key:'kind',label:'نوع',type:'select',options:['تجهیزات اطفاء','مانور اضطراری','سیستم اعلام حریق','تیم واکنش','پناهگاه و مسیر خروج'],col:true,filter:true},
   {key:'loc',label:'محل',type:'select',options:LOCATIONS,col:true},
-  {key:'date',label:'تاریخ بازرسی/برگزاری',type:'text',col:true},
-  {key:'next',label:'بازرسی بعدی',type:'text'},
+  {key:'date',label:'تاریخ بازرسی/برگزاری',type:'date',col:true},
+  {key:'next',label:'بازرسی بعدی',type:'date'},
   {key:'status',label:'وضعیت',type:'select',options:['سالم و آماده','نیازمند سرویس','معیوب','برگزار شد'],col:true,badge:true},
   {key:'note',label:'توضیحات',type:'textarea'}]},
  {id:'ppe',name:'انبار تجهیزات حفاظت فردی',icon:'🧰',group:'ایمنی',desc:'موجودی PPE با هشدار نقطه سفارش',fields:[
@@ -362,16 +492,16 @@ const MODULES=[
   {key:'unit',label:'واحد استفاده‌کننده',type:'text',col:true},
   {key:'stock',label:'موجودی',type:'number',col:true},
   {key:'min',label:'نقطه سفارش',type:'number',col:true},
-  {key:'expire',label:'تاریخ انقضا',type:'text',col:true},
+  {key:'expire',label:'تاریخ انقضا',type:'date',col:true},
   {key:'supplier',label:'تأمین‌کننده',type:'text'},
   {key:'status',label:'وضعیت',type:'select',options:['موجود کافی','نیازمند خرید','در حال خرید'],badge:true,filter:true},
   {key:'note',label:'توضیحات',type:'textarea'}]},
- {id:'machinery',name:'ماشین‌آلات معدنی',icon:'🚜',group:'ایمنی',desc:'ناوگان معدنی، معاینه فنی و وضعیت ایمنی',fields:[
+ {id:'machinery',name:'ماشین‌آلات معدنی',icon:'🚜',group:'ایمنی',desc:'ناوگان معدنی و معاینه فنی',fields:[
   {key:'title',label:'ماشین‌آلات',type:'text',col:true,req:true},
   {key:'code',label:'کد فنی',type:'text',col:true},
   {key:'kind',label:'نوع',type:'select',options:['دامپتراک','بیل مکانیکی','لودر','بولدوزر','دریل واگن','کمپرسور','سایر'],col:true,filter:true},
   {key:'op',label:'اپراتور',type:'text',col:true},
-  {key:'service',label:'سرویس بعدی',type:'text'},
+  {key:'service',label:'سرویس بعدی',type:'date'},
   {key:'inspect',label:'معاینه فنی',type:'select',options:['معتبر','منقضی شده','در حال اقدام'],col:true,badge:true},
   {key:'status',label:'وضعیت ایمنی',type:'select',options:['سالم','نیازمند تعمیر','خارج از خدمت'],col:true,badge:true},
   {key:'note',label:'توضیحات',type:'textarea'}]},
@@ -380,7 +510,7 @@ const MODULES=[
   {key:'kind',label:'نوع فعالیت',type:'select',options:['پایش عوامل زیان‌آور','بیماری شغلی','آموزش بهداشت','بهداشت عمومی کارگاه'],col:true,filter:true},
   {key:'agent',label:'عامل زیان‌آور',type:'select',options:['گردوغبار','صدا','ارتعاش','مواد شیمیایی','روشنایی','ارگونومی'],col:true},
   {key:'count',label:'تعداد نفرات',type:'number',col:true},
-  {key:'date',label:'تاریخ',type:'text',col:true},
+  {key:'date',label:'تاریخ',type:'date',col:true},
   {key:'result',label:'نتیجه',type:'text'},
   {key:'status',label:'وضعیت',type:'select',options:['انجام شد','در حال انجام','برنامه‌ریزی‌شده'],badge:true},
   {key:'note',label:'توضیحات',type:'textarea'}]},
@@ -388,43 +518,43 @@ const MODULES=[
   {key:'title',label:'موضوع',type:'text',col:true,req:true},
   {key:'area',label:'حوزه',type:'select',options:['مدیریت پسماند','پساب و منابع آب','هوای محیط و غبار','بازپروری و بازسازی','خاک و باطله','تنوع زیستی'],col:true,filter:true},
   {key:'loc',label:'محل',type:'select',options:LOCATIONS},
-  {key:'date',label:'تاریخ پایش',type:'text',col:true},
+  {key:'date',label:'تاریخ پایش',type:'date',col:true},
   {key:'comply',label:'انطباق با حد مجاز',type:'select',options:['منطبق','نیازمند اقدام','عدم انطباق'],col:true,badge:true},
   {key:'action',label:'اقدام انجام‌شده',type:'text',col:true},
   {key:'status',label:'وضعیت',type:'select',options:['در حال انجام','تکمیل شد','نیازمند بودجه'],badge:true},
   {key:'note',label:'توضیحات',type:'textarea'}]},
- {id:'training',name:'دوره‌های آموزشی',icon:'🎓',group:'سازمانی',desc:'تعریف دوره‌ها و ساعات آموزش HSE',fields:[
+ {id:'training',name:'دوره‌های آموزشی',icon:'🎓',group:'سازمانی',desc:'تعریف دوره‌های HSE',fields:[
   {key:'title',label:'عنوان دوره',type:'text',col:true,req:true},
   {key:'kind',label:'نوع',type:'select',options:['ایمنی عمومی','تخصصی معدن','امداد و نجات','محیط زیست','بدو استخدام'],col:true,filter:true},
   {key:'teacher',label:'مدرس',type:'text'},
   {key:'count',label:'نفرات',type:'number',col:true},
   {key:'hours',label:'ساعت',type:'number',col:true},
-  {key:'date',label:'تاریخ',type:'text',col:true},
+  {key:'date',label:'تاریخ',type:'date',col:true},
   {key:'cert',label:'گواهینامه',type:'select',options:['صادر شد','در حال صدور','نیاز به تمدید'],badge:true},
   {key:'note',label:'توضیحات',type:'textarea'}]},
- {id:'contractors',name:'پیمانکاران',icon:'🤝',group:'سازمانی',desc:'ارزیابی و پایش HSE پیمانکاران',fields:[
+ {id:'contractors',name:'پیمانکاران',icon:'🤝',group:'سازمانی',desc:'ارزیابی HSE پیمانکاران',fields:[
   {key:'title',label:'نام شرکت',type:'text',col:true,req:true},
   {key:'field',label:'حوزه فعالیت',type:'text',col:true},
   {key:'count',label:'نفرات',type:'number',col:true},
   {key:'hse',label:'مسئول HSE',type:'text'},
-  {key:'start',label:'شروع قرارداد',type:'text',col:true},
-  {key:'end',label:'پایان قرارداد',type:'text',col:true},
+  {key:'start',label:'شروع قرارداد',type:'date',col:true},
+  {key:'end',label:'پایان قرارداد',type:'date',col:true},
   {key:'grade',label:'ارزیابی HSE',type:'select',options:['الف','ب','ج','نیازمند ارزیابی'],badge:true,filter:true},
   {key:'note',label:'توضیحات',type:'textarea'}]},
- {id:'committee',name:'کمیته حفاظت فنی',icon:'🛡️',group:'سازمانی',desc:'مصوبات جلسات کمیته حفاظت فنی',fields:[
+ {id:'committee',name:'کمیته حفاظت فنی',icon:'🛡️',group:'سازمانی',desc:'مصوبات جلسات کمیته',fields:[
   {key:'title',label:'موضوع جلسه/مصوبه',type:'text',col:true,req:true},
   {key:'no',label:'شماره مصوبه',type:'text',col:true},
-  {key:'date',label:'تاریخ جلسه',type:'text',col:true},
+  {key:'date',label:'تاریخ جلسه',type:'date',col:true},
   {key:'owner',label:'مسئول پیگیری',type:'text',col:true},
-  {key:'due',label:'مهلت اقدام',type:'text',col:true},
+  {key:'due',label:'مهلت اقدام',type:'date',col:true},
   {key:'status',label:'وضعیت',type:'select',options:['در حال اقدام','انجام شد','تاخیردار'],col:true,badge:true,filter:true},
   {key:'note',label:'متن مصوبه',type:'textarea'}]},
- {id:'docs',name:'مستندات و مدارک',icon:'📁',group:'سازمانی',desc:'دستورالعمل‌ها، روش‌های اجرایی و مجوزها',fields:[
+ {id:'docs',name:'مستندات و مدارک',icon:'📁',group:'سازمانی',desc:'دستورالعمل‌ها و مجوزها',fields:[
   {key:'title',label:'عنوان سند',type:'text',col:true,req:true},
   {key:'kind',label:'نوع',type:'select',options:['دستورالعمل','روش اجرایی','فرم','گزارش','مجوز قانونی'],col:true,filter:true},
   {key:'code',label:'کد سند',type:'text',col:true},
   {key:'ver',label:'نسخه',type:'text',col:true},
-  {key:'date',label:'تاریخ انتشار',type:'text',col:true},
+  {key:'date',label:'تاریخ انتشار',type:'date',col:true},
   {key:'status',label:'وضعیت',type:'select',options:['معتبر','نیازمند بازنگری','بایگانی'],badge:true},
   {key:'owner',label:'نگهدارنده',type:'text'},
   {key:'note',label:'توضیحات',type:'textarea'}]}
@@ -432,31 +562,33 @@ const MODULES=[
 const emptyData=()=>Object.fromEntries(MODULES.map(m=>[m.id,[]]));
 function buildSeed(){const d=emptyData();
  d.personnel=[
-  {id:'p1',fname:'علی',lname:'محمدی',pid:'0089234567',code:'101',job:'اپراتور ماشین‌آلات',unit:'بارگیری و حمل',hire:'۱۴۰۲-۰۳-۱۰',contract:'قراردادی',phone:'0912xxxxxxx',insurance:'فعال',medical:'تایید شده'},
-  {id:'p2',fname:'رضا',lname:'کریمی',pid:'0078123456',code:'102',job:'اپراتور ماشین‌آلات',unit:'استخراج',hire:'۱۴۰۱-۰۷-۰۱',contract:'رسمی',insurance:'فعال',medical:'تایید شده'},
-  {id:'p3',fname:'حسین',lname:'نادری',pid:'0067345678',code:'103',job:'راننده',unit:'بارگیری و حمل',hire:'۱۴۰۳-۰۱-۱۵',contract:'پیمانی',insurance:'نیازمند تمدید',medical:'در انتظار'},
-  {id:'p4',fname:'مهدی',lname:'توکلی',pid:'0056456789',code:'104',job:'تکنسین تعمیرات',unit:'تعمیر و نگهداری',hire:'۱۴۰۲-۱۱-۰۵',contract:'قراردادی',insurance:'فعال',medical:'نیازمند معاینه'}];
+  {id:'p1',fname:'علی',lname:'محمدی',pid:'0089234567',code:'101',job:'اپراتور ماشین‌آلات',unit:'بارگیری و حمل',hire:'1402-03-10',contract:'قراردادی',insurance:'فعال',medical:'تایید شده'},
+  {id:'p2',fname:'رضا',lname:'کریمی',pid:'0078123456',code:'102',job:'اپراتور ماشین‌آلات',unit:'استخراج',hire:'1401-07-01',contract:'رسمی',insurance:'فعال',medical:'تایید شده'},
+  {id:'p3',fname:'حسین',lname:'نادری',pid:'0067345678',code:'103',job:'راننده',unit:'بارگیری و حمل',hire:'1403-01-15',contract:'پیمانی',insurance:'نیازمند تمدید',medical:'در انتظار'},
+  {id:'p4',fname:'مهدی',lname:'توکلی',pid:'0056456789',code:'104',job:'تکنسین تعمیرات',unit:'تعمیر و نگهداری',hire:'1402-11-05',contract:'قراردادی',insurance:'فعال',medical:'نیازمند معاینه'}];
  d.exams=[
-  {id:uid(),personId:'p1',kind:'ادواری (سالانه)',date:'۱۴۰۵-۰۲-۱۸',center:'مرکز طب کار استان',result:'تایید سلامت',doctor:'دکتر حسنی'},
-  {id:uid(),personId:'p2',kind:'ادواری (سالانه)',date:'۱۴۰۵-۰۲-۱۸',center:'مرکز طب کار استان',result:'مشروط',doctor:'دکتر حسنی',note:'پیگیری شنوایی‌سنجی'},
-  {id:uid(),personId:'p3',kind:'بدو استخدام',date:'۱۴۰۳-۰۱-۱۰',center:'مرکز طب کار استان',result:'تایید سلامت'}];
+  {id:uid(),personId:'p1',kind:'ادواری (سالانه)',date:'1405-02-18',center:'مرکز طب کار استان',doctor:'دکتر حسنی',result:'تایید سلامت',height:178,weight:82,sbp:130,dbp:85,fbs:95,tg:160,chol:210,lead:12,hgb:15.2,fvc:92,fev1:88,lung:'نرمال',earR:20,earL:25,eyeR:10,eyeL:9},
+  {id:uid(),personId:'p1',kind:'ادواری (سالانه)',date:'1404-02-20',center:'مرکز طب کار استان',doctor:'دکتر حسنی',result:'تایید سلامت',sbp:125,dbp:82,fbs:92,tg:150,chol:205,lead:10,hgb:15.4,fvc:94,fev1:90,lung:'نرمال',earR:15,earL:20},
+  {id:uid(),personId:'p2',kind:'ادواری (سالانه)',date:'1405-02-18',center:'مرکز طب کار استان',doctor:'دکتر حسنی',result:'مشروط',height:170,weight:75,sbp:118,dbp:78,fbs:128,tg:210,chol:245,lead:18,hgb:14.1,fvc:84,fev1:76,lung:'محدودکننده (Restrictive)',earR:35,earL:40,eyeR:9,eyeL:9,note:'پیگیری شنوایی‌سنجی و کنترل قند'},
+  {id:uid(),personId:'p3',kind:'بدو استخدام',date:'1403-01-10',center:'مرکز طب کار استان',doctor:'دکتر موسوی',result:'تایید سلامت',sbp:115,dbp:75,fbs:89,tg:120,chol:180,lead:9,hgb:15.8,fvc:95,fev1:93,lung:'نرمال',earR:15,earL:15},
+  {id:uid(),personId:'p4',kind:'ادواری (سالانه)',date:'1404-12-10',center:'مرکز طب کار استان',doctor:'دکتر موسوی',result:'مشروط',height:168,weight:80,sbp:142,dbp:92,fbs:102,tg:180,chol:225,lead:34,hgb:13.2,fvc:88,fev1:81,lung:'نرمال',earR:30,earL:28,note:'سرب خون بالاتر از حد مجاز — پایش ماهانه'}];
  d.persontraining=[
-  {id:uid(),personId:'p1',course:'ایمنی کار با دامپتراک',date:'۱۴۰۵-۰۴-۱۴',hours:16,cert:'صادر شد',expire:'۱۴۰۷-۰۴-۱۴'},
-  {id:uid(),personId:'p2',course:'کمک‌های اولیه',date:'۱۴۰۵-۰۳-۲۵',hours:8,cert:'صادر شد'},
-  {id:uid(),personId:'p4',course:'LOTO و ایمنی برق',date:'۱۴۰۴-۱۲-۱۰',hours:8,cert:'نیاز به تمدید'}];
+  {id:uid(),personId:'p1',course:'ایمنی کار با دامپتراک',date:'1405-04-14',hours:16,cert:'صادر شد',expire:'1407-04-14'},
+  {id:uid(),personId:'p2',course:'کمک‌های اولیه',date:'1405-03-25',hours:8,cert:'صادر شد'},
+  {id:uid(),personId:'p4',course:'LOTO و ایمنی برق',date:'1404-12-01',hours:8,cert:'نیاز به تمدید'}];
  d.ppedelivery=[
-  {id:uid(),personId:'p1',item:'کلاه ایمنی + گوشی',qty:2,date:'۱۴۰۵-۰۱-۲۰',expire:'۱۴۰۶-۰۱-۲۰',status:'تحویل شد'},
-  {id:uid(),personId:'p2',item:'ماسک FFP3',qty:10,date:'۱۴۰۵-۰۲-۰۵',expire:'۱۴۰۵-۰۸-۰۵',status:'تحویل شد'},
-  {id:uid(),personId:'p4',item:'دستکش ضد برش',qty:4,date:'۱۴۰۵-۰۳-۰۱',expire:'—',status:'تحویل شد'}];
+  {id:uid(),personId:'p1',item:'کلاه ایمنی + گوشی',qty:2,date:'1405-01-20',expire:'1406-01-20',status:'تحویل شد'},
+  {id:uid(),personId:'p2',item:'ماسک FFP3',qty:10,date:'1405-02-05',expire:'1405-08-05',status:'تحویل شد'},
+  {id:uid(),personId:'p4',item:'دستکش ضد برش',qty:4,date:'1405-03-01',expire:'',status:'تحویل شد'}];
  d.risks=[
-  {id:uid(),title:'ریزش سنگ از جبهه‌کار',loc:'سینه‌کار استخراج',sev:5,prob:4,ctrl:'پیچ‌سنگ و شاتکریت',owner:'مهندس رضایی',status:'در حال کنترل',date:'۱۴۰۵-۰۴-۱۰'},
-  {id:uid(),title:'استنشاق گردوغبار سیلیس',loc:'سنگ‌شکن',sev:4,prob:4,ctrl:'آب‌پاشی و ماسک FFP3',owner:'واحد بهداشت',status:'در حال کنترل',date:'۱۴۰۵-۰۴-۱۵'},
-  {id:uid(),title:'واژگونی دامپتراک در رمپ',loc:'بارگیری و حمل',sev:5,prob:3,ctrl:'دیواره حفاظتی، محدودیت سرعت',owner:'سرپرست حمل',status:'باز',date:'۱۴۰۵-۰۵-۰۲'}];
+  {id:uid(),title:'ریزش سنگ از جبهه‌کار',loc:'سینه‌کار استخراج',sev:5,prob:4,ctrl:'پیچ‌سنگ و شاتکریت',owner:'مهندس رضایی',status:'در حال کنترل',date:'1405-04-10'},
+  {id:uid(),title:'استنشاق گردوغبار سیلیس',loc:'سنگ‌شکن',sev:4,prob:4,ctrl:'آب‌پاشی و ماسک FFP3',owner:'واحد بهداشت',status:'در حال کنترل',date:'1405-04-15'},
+  {id:uid(),title:'واژگونی دامپتراک در رمپ',loc:'بارگیری و حمل',sev:5,prob:3,ctrl:'دیواره حفاظتی و محدودیت سرعت',owner:'سرپرست حمل',status:'باز',date:'1405-05-02'}];
  d.incidents=[
-  {id:uid(),title:'ریزش جزئی سنگ بدون آسیب',type:'شبه‌حادثه',date:'۱۴۰۵-۰۴-۲۸',loc:'سینه‌کار استخراج',personId:'p2',cause:'فاصله از پیچ‌سنگ',status:'بسته شده'},
-  {id:uid(),title:'نشت روغن هیدرولیک لودر',type:'محیط‌زیستی',date:'۱۴۰۵-۰۵-۰۶',loc:'کارگاه تعمیرات',personId:'p4',cause:'پارگی شیلنگ',status:'در حال بررسی'}];
- d.ppe=[{id:uid(),title:'کلاه ایمنی',unit:'کلیه واحدها',stock:46,min:20,expire:'۱۴۰۶-۰۶-۰۱',supplier:'ایمن‌کلاه',status:'موجود کافی'},
-  {id:uid(),title:'ماسک FFP3',unit:'سنگ‌شکن و حفاری',stock:15,min:60,expire:'۱۴۰۵-۱۱-۳۰',supplier:'پاک‌دم',status:'نیازمند خرید'}];
+  {id:uid(),title:'ریزش جزئی سنگ بدون آسیب',type:'شبه‌حادثه',date:'1405-04-28',loc:'سینه‌کار استخراج',personId:'p2',cause:'فاصله از پیچ‌سنگ',status:'بسته شده'},
+  {id:uid(),title:'نشت روغن هیدرولیک لودر',type:'محیط‌زیستی',date:'1405-05-06',loc:'کارگاه تعمیرات',personId:'p4',cause:'پارگی شیلنگ',status:'در حال بررسی'}];
+ d.ppe=[{id:uid(),title:'کلاه ایمنی',unit:'کلیه واحدها',stock:46,min:20,expire:'1406-06-01',supplier:'ایمن‌کلاه',status:'موجود کافی'},
+  {id:uid(),title:'ماسک FFP3',unit:'سنگ‌شکن و حفاری',stock:15,min:60,expire:'1405-11-30',supplier:'پاک‌دم',status:'نیازمند خرید'}];
  return d}
 /* ═══════ اجزای پایه ═══════ */
 function useCountUp(target,dur=900){const[v,setV]=useState(0);
@@ -504,19 +636,42 @@ function Gauge({value,size=150,stroke=13}){
    style={{transition:'stroke-dasharray 1.2s cubic-bezier(.22,1,.36,1)'}}/>
   <text x="50%" y="48%" textAnchor="middle" fontFamily="Lalezar" fontSize="34" fill={color}>{faNum(value)}</text>
   <text x="50%" y="65%" textAnchor="middle" fontSize="11" fill="#8b98a5">از ۱۰۰ — {label}</text></svg></div>}
-const TICKS=['کلاه ایمنی، اولین همکار هر معدنچی است ⛑️','گزارش شبه‌حادثه امروز = پیشگیری از حادثه فردا','قبل از ورود به تونل، تهویه و گازسنجی را کنترل کنید','هیچ تولیدی ارزش به‌خطر انداختن جان انسان را ندارد','معاینات ادواری سالانه، الزام قانونی است','قانون LOTO: اول قطع انرژی، بعد تعمیر'];
+const TICKS=['کلاه ایمنی، اولین همکار هر معدنچی است ⛑️','گزارش شبه‌حادثه امروز = پیشگیری از حادثه فردا','معاینات ادواری سالانه، الزام قانونی طب کار است','هیچ تولیدی ارزش به‌خطر انداختن جان انسان را ندارد','پایش سرب خون در واحدهای در معرض، الزامی است','قانون LOTO: اول قطع انرژی، بعد تعمیر'];
 function Ticker(){const[i,setI]=useState(0);
  useEffect(()=>{const t=setInterval(()=>setI(x=>(x+1)%TICKS.length),6000);return()=>clearInterval(t)},[]);
  return <div className="ticker"><span>🛡️</span><span key={i} className="tick-msg">{TICKS[i]}</span></div>}
-function MiniTable({headers,rows,empty}){
+function MiniTable({headers,rows,empty,onRow}){
  if(!rows.length)return <div className="empty-row">{empty||'موردی ثبت نشده است'}</div>;
  return <div style={{overflowX:'auto'}}><table className="mini-tbl">
   <thead><tr>{headers.map(h=><th key={h}>{h}</th>)}</tr></thead>
-  <tbody>{rows.map((r,i)=><tr key={i}>{r.map((c,j)=><td key={j}>{c}</td>)}</tr>)}</tbody></table></div>}
+  <tbody>{rows.map((r,i)=><tr key={i} className={onRow?'clickable':''} onClick={onRow?()=>onRow(i):undefined}>
+   {r.map((c,j)=><td key={j}>{c}</td>)}</tr>)}</tbody></table></div>}
+function MetricChip({label,value,unit,tone}){
+ return <div className={`metric m-${tone||'mut'}`}>
+  <span className="metric-v">{value==null||value===''?'—':value}</span>
+  <span className="metric-l">{label}{unit?` · ${unit}`:''}</span></div>}
+function ExamMetrics({e}){
+ const bmi=(e.height&&e.weight)?(e.weight/Math.pow(e.height/100,2)).toFixed(1):null;
+ return <div className="metrics-grid">
+  <MetricChip label="فشار خون" value={e.sbp&&e.dbp?`${toFa(e.sbp)}/${toFa(e.dbp)}`:''} tone={toneHigh(e.sbp,120,140)}/>
+  <MetricChip label="BMI" value={bmi?toFa(bmi):''} tone={bmi?toneHigh(bmi,25,30):'mut'}/>
+  <MetricChip label="قند خون FBS" unit="mg/dL" value={fmt(e.fbs)} tone={toneHigh(e.fbs,100,126)}/>
+  <MetricChip label="تری‌گلیسرید" unit="mg/dL" value={fmt(e.tg)} tone={toneHigh(e.tg,150,200)}/>
+  <MetricChip label="کلسترول" unit="mg/dL" value={fmt(e.chol)} tone={toneHigh(e.chol,200,240)}/>
+  <MetricChip label="سرب خون" unit="µg/dL" value={fmt(e.lead)} tone={toneHigh(e.lead,15,30)}/>
+  <MetricChip label="هموگلوبین" unit="g/dL" value={fmt(e.hgb)} tone={toneLow(e.hgb,13,12)}/>
+  <MetricChip label="ریه FEV1" unit="٪" value={fmt(e.fev1)} tone={toneLow(e.fev1,79,60)}/>
+  <MetricChip label="ریه FVC" unit="٪" value={fmt(e.fvc)} tone={toneLow(e.fvc,79,60)}/>
+  <MetricChip label="شنوایی راست" unit="dB" value={fmt(e.earR)} tone={toneHigh(e.earR,25,40)}/>
+  <MetricChip label="شنوایی چپ" unit="dB" value={fmt(e.earL)} tone={toneHigh(e.earL,25,40)}/>
+  <MetricChip label="بینایی راست" value={fmt(e.eyeR)} tone={toneLow(e.eyeR,8,6)}/>
+  <MetricChip label="بینایی چپ" value={fmt(e.eyeL)} tone={toneLow(e.eyeL,8,6)}/>
+ </div>}
 /* ═══════ داشبورد ═══════ */
 function Dashboard({data,settings,jump}){
  const risks=data.risks||[],incidents=data.incidents||[],inspections=data.inspections||[],training=data.training||[],
-       ppe=data.ppe||[],machinery=data.machinery||[],committee=data.committee||[],personnel=data.personnel||[],exams=data.exams||[];
+       ppe=data.ppe||[],machinery=data.machinery||[],committee=data.committee||[],
+       personnel=data.personnel||[],exams=data.exams||[];
  const scoreOf=r=>(+r.sev||0)*(+r.prob||0);
  const days=daysWithout(settings.lastIncident);const dAnim=useCountUp(days,1200);
  const openRisks=risks.filter(r=>r.status!=='رفع شده');
@@ -530,6 +685,20 @@ function Dashboard({data,settings,jump}){
  const lowPPE=ppe.filter(p=>(+p.stock||0)<(+p.min||0));
  const expired=machinery.filter(m=>m.inspect==='منقضی شده');
  const needMed=personnel.filter(p=>p.medical==='نیازمند معاینه');
+ /* آخرین معاینه هر فرد */
+ const latest={};
+ exams.forEach(e=>{const k=e.personId;const dt=String(e.date||'');
+  if(!latest[k]||dt>String(latest[k].date||''))latest[k]=e});
+ const personsWithExam=personnel.filter(p=>latest[p.id]);
+ const avg=arr=>arr.length?Math.round(arr.reduce((a,b)=>a+ +b,0)/arr.length):null;
+ const units=[...new Set(personsWithExam.map(p=>p.unit||'نامشخص'))];
+ const unitRows=units.map(u=>{
+  const ps=personsWithExam.filter(p=>(p.unit||'نامشخص')===u);
+  const pick=f=>ps.map(p=>latest[p.id][f]).filter(v=>v!=null&&v!=='');
+  return {u,n:ps.length,fbs:avg(pick('fbs')),tg:avg(pick('tg')),chol:avg(pick('chol')),
+   lead:avg(pick('lead')),fev1:avg(pick('fev1')),ear:avg([...pick('earR'),...pick('earL')])}});
+ const LUNG_COLOR={'نرمال':'#3ecf8e','محدودکننده (Restrictive)':'#ff9f43','انسدادی (Obstructive)':'#ff5d5d','نیازمند بررسی':'#4cc3ff'};
+ const lungDist=Object.keys(LUNG_COLOR).map(k=>({label:k,value:Object.values(latest).filter(e=>e.lung===k).length,color:LUNG_COLOR[k]})).filter(d=>d.value>0);
  let score=100-critical.length*12-high.length*6-openInc.length*5-lowPPE.length*3-expired.length*4-needMed.length*2;
  score=Math.max(5,Math.min(99,Math.round(score)));
  const dist=RISK_LEVELS.map(l=>({label:l.name,color:l.color,value:risks.filter(r=>riskInfo(r.sev,r.prob).name===l.name).length}));
@@ -541,6 +710,11 @@ function Dashboard({data,settings,jump}){
  const alerts=[];
  critical.forEach(r=>alerts.push({tone:'red',icon:'⚠️',text:r.title,sub:`ریسک بحرانی · ${r.loc||''}`}));
  high.slice(0,2).forEach(r=>alerts.push({tone:'amber',icon:'🔶',text:r.title,sub:`ریسک زیاد · ${r.loc||''}`}));
+ Object.values(latest).forEach(e=>{const p=personnel.find(x=>x.id===e.personId);if(!p)return;const nm=`${p.fname} ${p.lname}`;
+  if(+e.lead>=30)alerts.push({tone:'red',icon:'🩸',text:`سرب خون ${nm}: ${toFa(e.lead)}`,sub:'بالاتر از حد مجاز'});
+  if(+e.fbs>=126)alerts.push({tone:'red',icon:'🍬',text:`قند خون ${nm}: ${toFa(e.fbs)}`,sub:'در محدوده دیابت'});
+  if(e.fev1&&+e.fev1<60)alerts.push({tone:'red',icon:'🫁',text:`افت ریه ${nm} (FEV1 ${toFa(e.fev1)}٪)`,sub:''});
+  if(Math.max(+e.earR||0,+e.earL||0)>40)alerts.push({tone:'amber',icon:'👂',text:`افت شنوایی ${nm}`,sub:'نیازمند پیگیری'})});
  needMed.forEach(p=>alerts.push({tone:'red',icon:'🩺',text:`${p.fname} ${p.lname} نیازمند معاینه شغلی`,sub:'الزام طب کار'}));
  lowPPE.forEach(p=>alerts.push({tone:'amber',icon:'🦺',text:`کمبود ${p.title}`,sub:`موجودی ${faNum(p.stock)} کمتر از نقطه سفارش`}));
  expired.forEach(m=>alerts.push({tone:'red',icon:'🚜',text:`معاینه فنی «${m.title}» منقضی شده`,sub:'اقدام فوری'}));
@@ -555,9 +729,9 @@ function Dashboard({data,settings,jump}){
    <div className="kpi kpi-big"><div className="kpi-edge hazard-anim"/>
     <div style={{display:'flex',flexDirection:'column',gap:4}}>
      <span className="kpi-label">🕐 روزهای بدون حادثه</span>
-     <span className="kpi-num">{faNum(dAnim)}</span>
-     <span className="kpi-sub">آخرین حادثه: {faDate(settings.lastIncident)}</span></div></div>
-   <Stat icon="👷" label="پرسنل ثبت‌شده" value={personnel.length} sub={`${faNum(exams.length)} معاینه ثبت‌شده`} tone="amber" onClick={()=>jump('personnel')}/>
+     <span className="kpi-num">{settings.lastIncident?faNum(dAnim):'—'}</span>
+     <span className="kpi-sub">{settings.lastIncident?`آخرین حادثه: ${toFa(settings.lastIncident)}`:'هنوز حادثه‌ای ثبت نشده 🎉'}</span></div></div>
+   <Stat icon="👷" label="پرسنل ثبت‌شده" value={personnel.length} sub={`${faNum(exams.length)} معاینه طب کار`} tone="amber" onClick={()=>jump('personnel')}/>
    <Stat icon="⚠️" label="ریسک‌های باز" value={openRisks.length} sub={`${faNum(critical.length)} بحرانی · ${faNum(high.length)} زیاد`} tone={critical.length?'red':'amber'} onClick={()=>jump('risks')}/>
    <Stat icon="🚨" label="حوادث در جریان" value={openInc.length} sub={`از ${faNum(incidents.length)} حادثه`} tone="red" onClick={()=>jump('incidents')}/>
    <Stat icon="🎓" label="ساعات آموزش" value={totalHours} sub={`${faNum(training.length)} دوره`} tone="blue" onClick={()=>jump('training')}/>
@@ -569,11 +743,29 @@ function Dashboard({data,settings,jump}){
      <ul className="legend">{dist.map(d=><li key={d.label}><i style={{background:d.color}}/>{d.label}<b>{faNum(d.value)}</b></li>)}</ul></div></Card>
    <Card className="sp2" icon="🛡️" title="شاخص وضعیت HSE"><Gauge value={score}/>
     <p className="score-note">برآورد خودکار از ریسک‌ها، حوادث، کمبودها و معاینات</p></Card>
+   <Card className="sp4" icon="🧪" title="پایش تجمیعی سلامت به تفکیک واحد (بر اساس آخرین معاینه هر فرد)">
+    {unitRows.length===0?<EmptyNote/>:
+    <div className="table-wrap"><table className="tbl"><thead><tr>
+     <th>واحد</th><th>نفرات</th><th>میانگین قند</th><th>تری‌گلیسرید</th><th>کلسترول</th><th>سرب خون</th><th>ریه FEV1</th><th>افت شنوایی</th></tr></thead>
+     <tbody>{unitRows.map(r=><tr key={r.u}>
+      <td className="cell-title">{r.u}</td><td>{faNum(r.n)}</td>
+      <td>{r.fbs==null?'—':<Badge tone={toneHigh(r.fbs,100,126)}>{toFa(r.fbs)}</Badge>}</td>
+      <td>{r.tg==null?'—':<Badge tone={toneHigh(r.tg,150,200)}>{toFa(r.tg)}</Badge>}</td>
+      <td>{r.chol==null?'—':<Badge tone={toneHigh(r.chol,200,240)}>{toFa(r.chol)}</Badge>}</td>
+      <td>{r.lead==null?'—':<Badge tone={toneHigh(r.lead,15,30)}>{toFa(r.lead)}</Badge>}</td>
+      <td>{r.fev1==null?'—':<Badge tone={toneLow(r.fev1,79,60)}>{toFa(r.fev1)}٪</Badge>}</td>
+      <td>{r.ear==null?'—':<Badge tone={toneHigh(r.ear,25,40)}>{toFa(r.ear)} dB</Badge>}</td>
+     </tr>)}</tbody></table></div>}</Card>
+   <Card className="sp2" icon="🫁" title="وضعیت ریه کارکنان">
+    {lungDist.length?<div className="donut-wrap" style={{flexDirection:'column'}}>
+     <Donut data={lungDist} size={130} centerValue={Object.keys(latest).length} centerLabel="معاینه‌شده"/>
+     <ul className="legend" style={{width:'100%',minWidth:0}}>{lungDist.map(d=><li key={d.label}><i style={{background:d.color}}/>{d.label}<b>{faNum(d.value)}</b></li>)}</ul>
+    </div>:<EmptyNote/>}</Card>
    <Card className="sp2" icon="🚨" title="حوادث به تفکیک نوع">{incByType.length?<HBars data={incByType}/>:<EmptyNote/>}</Card>
    <Card className="sp2" icon="🎓" title="ساعات آموزش به تفکیک نوع">{trByKind.length?<VBars data={trByKind}/>:<EmptyNote/>}</Card>
    <Card className="sp2" icon="🔔" title="هشدارهای فعال">
     {alerts.length===0?<div className="empty-mini">✅ وضعیت پایدار است</div>:
-     alerts.slice(0,7).map((a,i)=><div key={i} className={`alert-item al-${a.tone}`} style={{animationDelay:i*60+'ms'}}>
+     alerts.slice(0,8).map((a,i)=><div key={i} className={`alert-item al-${a.tone}`} style={{animationDelay:i*60+'ms'}}>
       <span className="alert-ico">{a.icon}</span><div><b>{a.text}</b><small>{a.sub}</small></div></div>)}</Card>
   </div>
  </div>}
@@ -586,10 +778,12 @@ function Cell({f,row,people}){
  if(f.badge&&v)return <Badge tone={toneOf(v)}>{v}</Badge>;
  if(v==null||v==='')return <span className="dim">—</span>;
  if(f.type==='number')return <span>{faNum(v)}</span>;
+ if(f.type==='date')return <span style={{whiteSpace:'nowrap'}}>{toFa(v)}</span>;
  if(f.key==='title'||f.key==='fname'||f.key==='lname')return <span className="cell-title">{v}</span>;
  return <span>{String(v)}</span>}
 function FormModal({mod,initial,people,onSave,onClose}){
- const[f,setF]=useState(()=>initial?{...initial}:Object.fromEntries(mod.fields.filter(x=>x.type!=='computed').map(x=>[x.key,x.type==='number'?0:''])));
+ const[f,setF]=useState(()=>initial?{...initial}:Object.fromEntries(
+  mod.fields.filter(x=>x.type!=='computed'&&x.type!=='head').map(x=>[x.key,''])));
  const[err,setErr]=useState('');
  const set=(k,v)=>setF(p=>({...p,[k]:v}));
  const ri=mod.id==='risks'?riskInfo(f.sev,f.prob):null;
@@ -601,7 +795,8 @@ function FormModal({mod,initial,people,onSave,onClose}){
     <button className="ico-btn" onClick={onClose}>✕</button></div>
    {ri&&<div className="risk-prev"><span>شاخص ریسک (شدت × احتمال):</span><b>{faNum(ri.sc)}</b><Badge tone={toneOf(ri.name)}>{ri.name}</Badge></div>}
    <div className="fgrid">
-    {mod.fields.filter(fd=>fd.type!=='computed').map(fd=>(
+    {mod.fields.filter(fd=>fd.type!=='computed').map(fd=>
+     fd.type==='head'?<div key={fd.key} className="form-head">{fd.label}</div>:
      <div key={fd.key} className={'fitem'+(fd.type==='textarea'?' wide':'')}>
       <label>{fd.label}{fd.req&&<i className="req">*</i>}</label>
       {fd.type==='person'?<>
@@ -610,14 +805,16 @@ function FormModal({mod,initial,people,onSave,onClose}){
          {people.map(p=><option key={p.id} value={p.id}>{p.fname} {p.lname}{p.code?` — ${p.code}`:''}</option>)}
         </select>
         {!people.length&&<small style={{color:'var(--orange)',fontSize:10.5}}>ابتدا فرد را در ماژول «پرسنل و افراد» ثبت کنید</small>}
-       </>:fd.type==='select'?
+       </>:fd.type==='date'?
+       <DateInput value={f[fd.key]||''} onChange={v=>set(fd.key,v)}/>:
+       fd.type==='select'?
        <select value={f[fd.key]||''} onChange={e=>set(fd.key,e.target.value)}>
         <option value="">انتخاب کنید…</option>{fd.options.map(o=><option key={o}>{o}</option>)}
        </select>:
        fd.type==='textarea'?
-       <textarea rows="3" value={f[fd.key]||''} placeholder={fd.ph||''} onChange={e=>set(fd.key,e.target.value)}/>:
-       <input type={fd.type==='number'?'number':'text'} value={f[fd.key]??''} placeholder={fd.ph||''} onChange={e=>set(fd.key,e.target.value)}/>}
-     </div>))}
+       <textarea rows="3" value={f[fd.key]||''} onChange={e=>set(fd.key,e.target.value)}/>:
+       <input type={fd.type==='number'?'number':'text'} value={f[fd.key]??''} onChange={e=>set(fd.key,e.target.value)}/>}
+     </div>)}
    </div>
    {err&&<div className="form-err">⚠️ {err}</div>}
    <div className="modal-foot">
@@ -665,11 +862,14 @@ function ModuleView({mod,rows,people,onAdd,onUpdate,onDelete,onOpenPerson}){
   </div>
   {modal&&<FormModal mod={mod} initial={modal.row} people={people} onSave={save} onClose={()=>setModal(null)}/>}
  </div>}
-/* ═══════ پروفایل کامل فرد ═══════ */
+/* ═══════ پروفایل فرد ═══════ */
 function PersonProfile({person,data,onBack,onUpdate,onDeletePerson}){
  const[edit,setEdit]=useState(false);
+ const[selExam,setSelExam]=useState(null);
  const personnelMod=MODULES.find(m=>m.id==='personnel');
  const exams=(data.exams||[]).filter(x=>x.personId===person.id);
+ const sorted=[...exams].sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')));
+ const shownExam=selExam||sorted[0];
  const trs=(data.persontraining||[]).filter(x=>x.personId===person.id);
  const ppe=(data.ppedelivery||[]).filter(x=>x.personId===person.id);
  const incs=(data.incidents||[]).filter(x=>x.personId===person.id);
@@ -679,8 +879,14 @@ function PersonProfile({person,data,onBack,onUpdate,onDeletePerson}){
  if(person.medical==='نیازمند معاینه')alerts.push({tone:'red',icon:'⏳',text:'وضعیت معاینات: نیازمند معاینه',sub:'پیگیری طب کار'});
  if(person.insurance==='فاقد بیمه')alerts.push({tone:'red',icon:'🛡️',text:'فاقد بیمه',sub:'قبل از اشتغال الزامی است'});
  if(person.insurance==='نیازمند تمدید')alerts.push({tone:'amber',icon:'🛡️',text:'بیمه نیازمند تمدید',sub:''});
- if(trs.some(t=>t.cert==='نیاز به تمدید'))alerts.push({tone:'amber',icon:'🎓',text:'گواهینامه آموزشی منقضی/نیازمند تمدید',sub:''});
- const chip=(t)=> <span className="chip">{t}</span>;
+ if(trs.some(t=>t.cert==='نیاز به تمدید'))alerts.push({tone:'amber',icon:'🎓',text:'گواهینامه آموزشی نیازمند تمدید',sub:''});
+ if(shownExam){
+  if(+shownExam.lead>=30)alerts.push({tone:'red',icon:'🩸',text:`سرب خون ${toFa(shownExam.lead)} µg/dL — بالاتر از حد مجاز`,sub:'پایش ماهانه'});
+  if(+shownExam.fbs>=126)alerts.push({tone:'red',icon:'🍬',text:`قند خون ${toFa(shownExam.fbs)} — در محدوده دیابت`,sub:'ارجاع به پزشک'});
+  if(+shownExam.sbp>=140)alerts.push({tone:'red',icon:'🫀',text:`فشار خون ${toFa(shownExam.sbp)}/${toFa(shownExam.dbp)} — بالا`,sub:''});
+  if(shownExam.fev1&&+shownExam.fev1<60)alerts.push({tone:'red',icon:'🫁',text:`افت شدید ریه (FEV1 ${toFa(shownExam.fev1)}٪)`,sub:''});
+  if(Math.max(+shownExam.earR||0,+shownExam.earL||0)>40)alerts.push({tone:'amber',icon:'👂',text:'افت شنوایی بیش از حد مجاز',sub:'نیازمند گوشی حفاظتی'})}
+ const chip=t=><span className="chip">{t}</span>;
  return <div>
   <div className="page-head">
    <button className="btn btn-ghost" onClick={onBack}>→ بازگشت به فهرست پرسنل</button>
@@ -697,7 +903,7 @@ function PersonProfile({person,data,onBack,onUpdate,onDeletePerson}){
      {person.unit&&chip('🏭 '+person.unit)}
      {person.code&&chip('کد پرسنلی: '+person.code)}
      {person.pid&&chip('کد ملی: '+person.pid)}
-     {person.hire&&chip('استخدام: '+person.hire)}
+     {person.hire&&chip('استخدام: '+toFa(person.hire))}
      {person.contract&&chip(person.contract)}
      {person.phone&&chip('📞 '+person.phone)}
      {person.insurance&&<Badge tone={toneOf(person.insurance)}>بیمه: {person.insurance}</Badge>}
@@ -714,18 +920,33 @@ function PersonProfile({person,data,onBack,onUpdate,onDeletePerson}){
     <span className="alert-ico">{a.icon}</span><div><b>{a.text}</b>{a.sub&&<small>{a.sub}</small>}</div></div>)}
   </Card>}
   <div className="dash-grid" style={{marginTop:14}}>
-   <Card className="sp2" icon="🩺" title="معاینات شغلی">
-    <MiniTable headers={['نوع','تاریخ','مرکز','نتیجه']}
-     rows={exams.map(e=>[e.kind,e.date||'—',e.center||'—',<Badge tone={toneOf(e.result)}>{e.result}</Badge>])}/></Card>
+   <Card className="sp4" icon="🩺" title="پرونده طب کار">
+    {shownExam?<>
+     <div className="exam-meta">
+      <Badge tone={toneOf(shownExam.kind)}>{shownExam.kind}</Badge>
+      <span className="chip">📅 {toFa(shownExam.date)}</span>
+      {shownExam.center&&<span className="chip">🏥 {shownExam.center}</span>}
+      {shownExam.doctor&&<span className="chip">👨‍⚕️ {shownExam.doctor}</span>}
+      {shownExam.result&&<Badge tone={toneOf(shownExam.result)}>{shownExam.result}</Badge>}
+      {shownExam.lung&&<Badge tone={toneOf(shownExam.lung)}>ریه: {shownExam.lung}</Badge>}
+     </div>
+     <ExamMetrics e={shownExam}/>
+     {shownExam.note&&<p className="mut-txt" style={{marginTop:12}}>📝 {shownExam.note}</p>}
+     <div className="sub-h">تاریخچه معاینات — برای مشاهده جزئیات، روی هر ردیف کلیک کنید</div>
+     <MiniTable headers={['نوع','تاریخ','مرکز','نتیجه']}
+      rows={sorted.map(e=>[e.kind,toFa(e.date),e.center||'—',<Badge tone={toneOf(e.result)}>{e.result}</Badge>])}
+      onRow={i=>setSelExam(sorted[i])}/>
+    </>:<div className="empty-row">هنوز معاینه‌ای برای این فرد ثبت نشده است</div>}
+   </Card>
    <Card className="sp2" icon="🎓" title="سوابق آموزشی">
     <MiniTable headers={['دوره','تاریخ','ساعت','گواهینامه']}
-     rows={trs.map(t=>[t.course,t.date||'—',faNum(t.hours),<Badge tone={toneOf(t.cert)}>{t.cert}</Badge>])}/></Card>
+     rows={trs.map(t=>[t.course,toFa(t.date),faNum(t.hours),<Badge tone={toneOf(t.cert)}>{t.cert}</Badge>])}/></Card>
    <Card className="sp2" icon="🦺" title="تجهیزات تحویلی">
     <MiniTable headers={['تجهیز','تعداد','تحویل','انقضا','وضعیت']}
-     rows={ppe.map(p=>[p.item,faNum(p.qty),p.date||'—',p.expire||'—',<Badge tone={toneOf(p.status)}>{p.status}</Badge>])}/></Card>
+     rows={ppe.map(p=>[p.item,faNum(p.qty),toFa(p.date),p.expire?toFa(p.expire):'—',<Badge tone={toneOf(p.status)}>{p.status}</Badge>])}/></Card>
    <Card className="sp2" icon="🚨" title="حوادث مرتبط">
     <MiniTable headers={['شرح','نوع','تاریخ','وضعیت']}
-     rows={incs.map(i=>[i.title,<Badge tone={toneOf(i.type)}>{i.type}</Badge>,i.date||'—',<Badge tone={toneOf(i.status)}>{i.status}</Badge>])}/></Card>
+     rows={incs.map(i=>[i.title,<Badge tone={toneOf(i.type)}>{i.type}</Badge>,toFa(i.date),<Badge tone={toneOf(i.status)}>{i.status}</Badge>])}/></Card>
   </div>
   {edit&&<FormModal mod={personnelMod} initial={person} people={data.personnel||[]}
    onSave={row=>{onUpdate('personnel',row);setEdit(false)}} onClose={()=>setEdit(false)}/>}
@@ -761,13 +982,14 @@ function SettingsView({settings,setSettings,data,setData,toast,ask}){
      <div className="fitem wide"><label>نام معدن / کارگاه</label><input value={mine.name||''} onChange={e=>setM('name',e.target.value)}/></div>
      <div className="fitem"><label>نوع بهره‌برداری</label>
       <select value={mine.type||''} onChange={e=>setM('type',e.target.value)}>
-       {['روباز سنگ‌آهن','زیرزمینی زغال‌سنگ','روباز مس','زیرزمینی فلزی','شن و ماسه و سنگ لاشه','سایر'].map(o=><option key={o}>{o}</option>)}</select></div>
+       <option value="">انتخاب کنید…</option>
+       {['روباز','زیرزمینی','روباز و زیرزمینی','شن و ماسه و سنگ لاشه','سایر'].map(o=><option key={o}>{o}</option>)}</select></div>
      <div className="fitem"><label>استان</label><input value={mine.province||''} onChange={e=>setM('province',e.target.value)}/></div>
      <div className="fitem"><label>شهر</label><input value={mine.city||''} onChange={e=>setM('city',e.target.value)}/></div>
      <div className="fitem"><label>شماره پروانه بهره‌برداری</label><input value={mine.license||''} onChange={e=>setM('license',e.target.value)}/></div>
      <div className="fitem"><label>تعداد کارکنان</label><input type="number" value={mine.employees||''} onChange={e=>setM('employees',e.target.value)}/></div>
      <div className="fitem"><label>تاریخ آخرین حادثه (مبنای روزهای بدون حادثه)</label>
-      <input type="date" value={settings.lastIncident||''} onChange={e=>setSettings({...settings,lastIncident:e.target.value})}/></div>
+      <DateInput value={settings.lastIncident||''} onChange={v=>setSettings({...settings,lastIncident:v})}/></div>
     </div>
     <button className="btn btn-amber" onClick={()=>{setSettings({...settings,mine});toast('شناسنامه معدن ذخیره شد')}}>ذخیره تغییرات</button>
    </div>
@@ -805,7 +1027,7 @@ function SettingsView({settings,setSettings,data,setData,toast,ask}){
      <li>⛏️ معدن‌بان — سامانه صنعتی مدیریت HSE و محیط زیست معادن</li>
      <li>🔌 کاملاً آفلاین؛ بدون نیاز به اینترنت و سرور</li>
      <li>🗃️ دیتابیس SQLite با تاریخچه تغییرات (جدول audit)</li>
-     <li>📦 پشتیبان‌گیری/بازیابی کامل با یک فایل JSON</li>
+     <li>📅 تقویم شمسی داخلی برای همه تاریخ‌ها</li>
      <li>🔐 رمز عبور به‌صورت هش SHA-256 با salt ذخیره می‌شود</li>
     </ul>
    </div>
@@ -846,8 +1068,8 @@ function Login({settings,onSuccess}){
   <div className="auth-hazard hazard-anim"/>
   <div className="auth-sub">ورود به سامانه «{settings.mine?.name}»</div>
   <div className="fgrid fgrid-flat" style={{gridTemplateColumns:'1fr'}}>
-   <div className="fitem"><label>نام کاربری</label><input value={u} onChange={e=>setU(e.target.value)} placeholder="نام کاربری مدیر"/></div>
-   <div className="fitem"><label>رمز عبور</label><input type="password" value={p} onChange={e=>setP(e.target.value)} onKeyDown={e=>e.key==='Enter'&&submit()} placeholder="••••••••"/></div>
+   <div className="fitem"><label>نام کاربری</label><input value={u} onChange={e=>setU(e.target.value)} style={{direction:'ltr',textAlign:'left'}}/></div>
+   <div className="fitem"><label>رمز عبور</label><input type="password" value={p} onChange={e=>setP(e.target.value)} onKeyDown={e=>e.key==='Enter'&&submit()} style={{direction:'ltr',textAlign:'left'}}/></div>
   </div>
   {err&&<div className="form-err">⚠️ {err}</div>}
   <button className="btn btn-amber btn-block" style={{marginTop:16}} onClick={submit} disabled={busy}>{busy?'در حال بررسی…':'🔓 ورود به سامانه'}</button>
@@ -855,7 +1077,7 @@ function Login({settings,onSuccess}){
  </div></div>}
 function Setup({onDone}){
  const[step,setStep]=useState(1);const[err,setErr]=useState('');const[busy,setBusy]=useState(false);
- const[mine,setMine]=useState({name:'',type:'روباز سنگ‌آهن',province:'',city:'',license:'',employees:'',startYear:''});
+ const[mine,setMine]=useState({name:'',type:'',province:'',city:'',license:'',employees:'',startYear:''});
  const[admin,setAdmin]=useState({name:'',username:'',password:'',confirm:''});
  const setM=(k,v)=>setMine(x=>({...x,[k]:v}));const setA=(k,v)=>setAdmin(x=>({...x,[k]:v}));
  const next=()=>{setErr('');
@@ -869,7 +1091,7 @@ function Setup({onDone}){
   onDone(settings,{name:admin.name,username:admin.username,role:'admin'})};
  return <div className="auth"><div className="auth-card wide">
   <div className="auth-brand"><div className="brand-mark">⛏️</div>
-   <div><b>راه‌اندازی معدن‌بان</b><div style={{fontSize:9,letterSpacing:2,color:'var(--faint)'}}>FIRST-RUN SETUP</div></div></div>
+   <div><b>راه‌اندازی سامانه</b><div style={{fontSize:9,letterSpacing:2,color:'var(--faint)'}}>FIRST-RUN SETUP</div></div></div>
   <div className="auth-hazard hazard-anim"/>
   <div className="steps">
    <div className={'step-dot'+(step>=1?' on':'')}>{step>1?'✓':'۱'}</div><div className="step-line"/>
@@ -879,15 +1101,16 @@ function Setup({onDone}){
    <div className="step-title">🏔️ گام اول — شناسنامه معدن</div>
    <p className="auth-sub">این اطلاعات در سربرگ، گزارش‌ها و چاپ‌ها نمایش داده می‌شود.</p>
    <div className="pw-grid">
-    <div className="fitem wide"><label>نام معدن / کارگاه<i className="req">*</i></label><input value={mine.name} onChange={e=>setM('name',e.target.value)} placeholder="مثلاً معدن سنگ‌آهن چادرملو"/></div>
+    <div className="fitem wide"><label>نام معدن / کارگاه<i className="req">*</i></label><input value={mine.name} onChange={e=>setM('name',e.target.value)} placeholder="نام معدن یا کارگاه خود را وارد کنید"/></div>
     <div className="fitem"><label>نوع بهره‌برداری</label>
      <select value={mine.type} onChange={e=>setM('type',e.target.value)}>
-      {['روباز سنگ‌آهن','زیرزمینی زغال‌سنگ','روباز مس','زیرزمینی فلزی','شن و ماسه و سنگ لاشه','سایر'].map(o=><option key={o}>{o}</option>)}</select></div>
-    <div className="fitem"><label>استان<i className="req">*</i></label><input value={mine.province} onChange={e=>setM('province',e.target.value)}/></div>
-    <div className="fitem"><label>شهر</label><input value={mine.city} onChange={e=>setM('city',e.target.value)}/></div>
-    <div className="fitem"><label>شماره پروانه بهره‌برداری</label><input value={mine.license} onChange={e=>setM('license',e.target.value)}/></div>
-    <div className="fitem"><label>تعداد کارکنان</label><input type="number" value={mine.employees} onChange={e=>setM('employees',e.target.value)}/></div>
-    <div className="fitem"><label>سال شروع بهره‌برداری</label><input value={mine.startYear} onChange={e=>setM('startYear',e.target.value)} placeholder="۱۴۰۰"/></div>
+      <option value="">انتخاب کنید…</option>
+      {['روباز','زیرزمینی','روباز و زیرزمینی','شن و ماسه و سنگ لاشه','سایر'].map(o=><option key={o}>{o}</option>)}</select></div>
+    <div className="fitem"><label>استان<i className="req">*</i></label><input value={mine.province} onChange={e=>setM('province',e.target.value)} placeholder="نام استان"/></div>
+    <div className="fitem"><label>شهر</label><input value={mine.city} onChange={e=>setM('city',e.target.value)} placeholder="نام شهر"/></div>
+    <div className="fitem"><label>شماره پروانه بهره‌برداری</label><input value={mine.license} onChange={e=>setM('license',e.target.value)} placeholder="در صورت وجود"/></div>
+    <div className="fitem"><label>تعداد کارکنان</label><input type="number" value={mine.employees} onChange={e=>setM('employees',e.target.value)} placeholder="تعداد نفرات"/></div>
+    <div className="fitem"><label>سال شروع بهره‌برداری</label><input value={mine.startYear} onChange={e=>setM('startYear',e.target.value)} placeholder="مثلاً ۱۴۰۰"/></div>
    </div></>}
   {step===2&&<>
    <div className="step-title">🔐 گام دوم — حساب مدیریت</div>
@@ -902,13 +1125,13 @@ function Setup({onDone}){
    <div className="step-title">🧾 گام سوم — بازبینی و افتتاح</div>
    <div className="pw-grid">
     <div className="summary"><h4>مشخصات معدن</h4><ul>
-     <li>نام: {mine.name}</li><li>نوع: {mine.type}</li>
+     <li>نام: {mine.name}</li><li>نوع: {mine.type||'—'}</li>
      <li>موقعیت: {mine.province}{mine.city?` — ${mine.city}`:''}</li>
      <li>پروانه: {mine.license||'—'}</li><li>کارکنان: {mine.employees||'—'} نفر</li></ul></div>
     <div className="summary"><h4>حساب مدیریت</h4><ul>
      <li>مدیر: {admin.name}</li><li>نام کاربری: {admin.username}</li><li>نقش: مدیر سامانه</li></ul></div>
    </div>
-   <p className="auth-sub" style={{marginTop:14}}>پس از افتتاح، دیتابیس محقی ساخته شده و سامانه فقط با رمز عبور قابل دسترسی است.</p></>}
+   <p className="auth-sub" style={{marginTop:14}}>پس از افتتاح، دیتابیس محلی ساخته شده و سامانه فقط با رمز عبور قابل دسترسی است.</p></>}
   {err&&<div className="form-err">⚠️ {err}</div>}
   <div className="setup-actions">
    <button className="btn btn-ghost" onClick={()=>setStep(s=>Math.max(1,s-1))} disabled={step===1}>→ قبلی</button>
@@ -951,7 +1174,7 @@ function App(){
   setProfileId(null);setViewRaw('personnel');toast('فرد و سوابق مرتبط حذف شد','err')});
  const setupDone=(st,u)=>{setSettings({...st,lastIncident:st.lastIncident||''});setData(emptyData());
   setUser(u);setPhase('ready');setViewRaw('personnel');
-  toast('به معدن‌بان خوش آمدید؛ ابتدا کارکنان را ثبت کنید')};
+  toast('به سامانه خوش آمدید؛ ابتدا کارکنان را ثبت کنید')};
  if(phase==='boot')return <div className="splash"><div>
   <div className="splash-logo">⛏️</div>
   <div style={{fontFamily:'var(--ff-disp)',fontSize:28,color:'var(--amber2)'}}>معدن‌بان</div>
