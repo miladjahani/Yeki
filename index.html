@@ -36,6 +36,8 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 10px}
 .nav-item{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;border-radius:10px;background:none;border:1px solid transparent;color:var(--mut);font-size:13px;cursor:pointer;transition:.18s;text-align:right}
 .nav-item:hover{background:#ffffff07;color:var(--text);transform:translateX(-2px)}
 .nav-item.active{background:linear-gradient(270deg,rgba(255,182,46,.13),rgba(255,182,46,.03));color:var(--amber2);border-color:rgba(255,182,46,.28)}
+.nav-item.locked{opacity:.45}
+.nav-item.locked:hover{background:rgba(255,93,93,.06);color:#ff9c9c}
 .nav-ico{width:30px;height:30px;flex-shrink:0;display:grid;place-items:center;background:#ffffff08;border-radius:8px;font-size:15px}
 .nav-item.active .nav-ico{background:rgba(255,182,46,.16)}
 .nav-name{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -53,6 +55,8 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 10px}
 .tb-side{margin-inline-start:auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .chip{background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:7px 14px;font-size:12px;color:var(--mut)}
 .chip-mine{border-color:rgba(255,182,46,.35);color:var(--amber2);background:rgba(255,182,46,.07)}
+.chip-lic-ok{border-color:rgba(62,207,142,.4);color:#5fe0a8;background:rgba(62,207,142,.07)}
+.chip-lic-trial{border-color:rgba(255,210,63,.4);color:#ffd166;background:rgba(255,210,63,.07)}
 .burger{display:none;width:40px;height:40px;place-items:center;background:#ffffff08;border:1px solid var(--line);border-radius:10px;color:var(--text);font-size:17px;cursor:pointer}
 .topbar-edge{height:6px;margin:0 26px;border-radius:99px;opacity:.85}
 .hazard-anim{background:repeating-linear-gradient(-45deg,var(--amber2) 0 10px,#15181c 10px 20px);animation:hzmove 2.4s linear infinite}
@@ -240,7 +244,14 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 10px}
 .splash{min-height:100vh;display:grid;place-items:center;text-align:center}
 .splash-logo{font-size:52px;animation:float 2s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-/* گزارش‌گیری */
+/* لایسنس */
+.lic-plans{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.lic-plan{border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;font-size:11px;color:var(--mut)}
+.lic-plan b{display:block;font-size:12.5px;color:var(--text);margin-bottom:3px}
+.mc-box{background:#141a21;border:1px dashed var(--line2);border-radius:10px;padding:10px 12px;font-family:monospace;direction:ltr;font-size:11px;word-break:break-all;color:var(--amber2);margin:6px 0;text-align:center}
+.lic-status-row{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:12px;color:var(--mut)}
+.lic-status-row:last-child{border:none}
+.lic-status-row b{color:var(--text)}
 .rep-types{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
 .rt{display:flex;align-items:center;gap:6px;background:#ffffff06;border:1px solid var(--line);color:var(--mut);border-radius:10px;padding:8px 12px;font-size:12px;cursor:pointer;transition:.15s}
 .rt:hover{border-color:var(--line2);color:var(--text);transform:translateY(-1px)}
@@ -260,7 +271,6 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 10px}
 .picker-item:hover{background:#ffffff08}
 .picker-item small{margin-inline-start:auto;color:var(--faint);font-size:10px}
 .paper-preview{background:#fff;color:#111;border-radius:12px;padding:16px}
-/* چاپ و گزارش رسمی */
 .print-overlay{position:fixed;inset:0;background:rgba(7,10,13,.88);z-index:400;overflow:auto;padding:20px}
 .print-bar{max-width:210mm;margin:0 auto 14px;display:flex;gap:10px;align-items:center}
 .report-sheet{max-width:210mm;margin:0 auto 16px;background:#fff;color:#111;border-radius:8px;padding:22px 24px;box-shadow:0 30px 80px -20px #000}
@@ -299,7 +309,7 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 10px}
   .page-break{page-break-after:always;break-after:page}
   @page{size:A4;margin:10mm}
 }
-@media(max-width:960px){.kpi-band{grid-template-columns:1fr 1fr}.kpi-big{grid-column:1/-1}.set-grid{grid-template-columns:1fr}.prof-band{grid-template-columns:1fr 1fr}.rep-body{grid-template-columns:1fr}}
+@media(max-width:960px){.kpi-band{grid-template-columns:1fr 1fr}.kpi-big{grid-column:1/-1}.set-grid{grid-template-columns:1fr}.prof-band{grid-template-columns:1fr 1fr}.rep-body{grid-template-columns:1fr}.lic-plans{grid-template-columns:1fr}}
 @media(max-width:900px){
   .sidebar{position:fixed;inset-block:0;right:0;z-index:180;transform:translateX(100%);transition:transform .3s cubic-bezier(.22,1,.36,1);box-shadow:-20px 0 60px rgba(0,0,0,.5)}
   .sidebar.open{transform:none}.backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:170}
@@ -366,6 +376,9 @@ function jalAddDays(jstr,n){const p=parseJal(jstr);if(!p)return '';
 function daysWithout(jal){const p=parseJal(jal);if(!p)return 0;
  const g=jalToGreg(p[0],p[1],p[2]);const d=new Date(g.gy,g.gm-1,g.gd);
  return isNaN(d)?0:Math.max(0,Math.floor((Date.now()-d.getTime())/864e5))}
+function faDateShort(iso){try{const p=toEn(String(iso||'')).split('/').map(Number);
+ const g=jalToGreg(p[0],p[1],p[2]);
+ return new Intl.DateTimeFormat('fa-IR',{year:'numeric',month:'long',day:'numeric'}).format(new Date(g.gy,g.gm-1,g.gd))}catch(e){return iso}}
 function DateInput({value,onChange,placeholder}){
  const[open,setOpen]=useState(false);
  const cur=parseJal(value);const today=todayJal();
@@ -444,7 +457,7 @@ const store={
   f.hash=weakHash(f.salt+'::'+next);saveLocal(st);return true},
  async info(){return isDesktop?await window.api.info():{dbPath:'localStorage مرورگر (حالت دمو)',version:'web',platform:'web'}}
 };
-/* ═══════ ماژول‌ها ═══════ */
+/* ═══════ ماژول‌ها و نسخه‌های لایسنس ═══════ */
 const LOCATIONS=['سینه‌کار استخراج','تونل دسترسی','سنگ‌شکن','بارگیری و حمل','کارگاه تعمیرات','محل دپوی باطله','انبار و تاسیسات'];
 const UNITS=['استخراج','بارگیری و حمل','سنگ‌شکن و فرآوری','تعمیر و نگهداری','HSE','بهداشت','اداری','انبار','برق و تاسیسات'];
 const JOBS=['اپراتور ماشین‌آلات','معدنچی','تکنسین تعمیرات','مهندس ناظر','سرپرست','راننده','کارگر عمومی','اداری'];
@@ -619,6 +632,15 @@ const MODULES=[
   {key:'owner',label:'نگهدارنده',type:'text'},
   {key:'note',label:'توضیحات',type:'textarea'}]}
 ];
+const EDITIONS={
+ Basic:{fa:'پایه',modules:['personnel','risks','incidents','inspections','ppe','training','docs']},
+ Pro:{fa:'حرفه‌ای',modules:['personnel','exams','persontraining','ppedelivery','risks','incidents','inspections','ppe','health','environment','emergency','training','docs']},
+ Enterprise:{fa:'سازمانی',modules:'*'}
+};
+function allowedModules(edition){
+ if(!isDesktop)return '*';
+ const e=EDITIONS[edition]||EDITIONS.Basic;
+ return e.modules}
 const emptyData=()=>Object.fromEntries(MODULES.map(m=>[m.id,[]]));
 function buildSeed(){const d=emptyData();
  d.personnel=[
@@ -927,7 +949,7 @@ function ModuleView({mod,rows,people,onAdd,onUpdate,onDelete,onOpenPerson,settin
   </div>
   {modal&&<FormModal mod={mod} initial={modal.row} people={people} onSave={save} onClose={()=>setModal(null)}/>}
  </div>}
-/* ═══════ سیستم چاپ و گزارش ═══════ */
+/* ═══════ سیستم چاپ ═══════ */
 function ReportShell({settings,user,title,sub,filterText,signs,children}){
  const now=new Intl.DateTimeFormat('fa-IR-u-ca-persian',{dateStyle:'full'}).format(new Date());
  const sg=signs||['امضاء مسئول HSE','امضاء سرپرست معدن','مهر و امضاء مدیریت'];
@@ -946,7 +968,7 @@ function ReportShell({settings,user,title,sub,filterText,signs,children}){
   {children}
   <div className="rep-sign">{sg.map(s=><div key={s}>{s}</div>)}</div>
   <div className="rep-foot">این گزارش به‌صورت خودکار توسط سامانه معدن‌بان تولید شده است · {now}</div>
- </div>}
+ </ReportShell>}
 function cellText(f,row,people){
  if(f.type==='computed'){const ri=riskInfo(row.sev,row.prob);return `${ri.name} (${faNum(ri.sc)})`}
  const v=row[f.key];
@@ -1261,6 +1283,58 @@ function ReportsView({data,people,settings,user,toast,openPrint}){
    </Card>
   </div>
  </div>}
+/* ═══════ صفحه فعال‌سازی لایسنس ═══════ */
+function LicenseGate({status,onActivated,toast}){
+ const[key,setKey]=useState('');
+ const[busy,setBusy]=useState(false);
+ const[err,setErr]=useState('');
+ const mc=status.machineCode||'';
+ const activate=async()=>{
+  if(!key.trim()){setErr('کلید لایسنس را وارد کنید');return}
+  setBusy(true);setErr('');
+  const res=await window.api.licActivate(key.trim());
+  setBusy(false);
+  if(res.ok){toast('🎉 لایسنس با موفقیت فعال شد');onActivated()}
+  else setErr(res.msg||'فعال‌سازی ناموفق بود')};
+ const startTrial=async()=>{
+  setBusy(true);
+  const res=await window.api.licTrial();
+  setBusy(false);
+  if(res.ok){toast('دوره آزمایشی ۳۰ روزه آغاز شد');onActivated()}
+  else setErr(res.msg||'خطا در شروع دوره آزمایشی')};
+ const copyMc=()=>{try{navigator.clipboard.writeText(mc);toast('کد ماشین کپی شد')}catch(e){setErr('کپی ناموفق — کد را دستی انتخاب و کپی کنید')}};
+ const expired=status.mode==='expired'||status.mode==='expired-trial';
+ return <div className="auth"><div className="auth-card wide">
+  <div className="auth-brand"><div className="brand-mark">⛏️</div>
+   <div><b>فعال‌سازی معدن‌بان</b><div style={{fontSize:9,letterSpacing:2,color:'var(--faint)'}}>LICENSE ACTIVATION</div></div></div>
+  <div className="auth-hazard hazard-anim"/>
+  {expired&&<div className="form-err" style={{margin:'0 0 14px'}}>
+   ⛔ {status.mode==='expired'?`لایسنس شما در تاریخ ${toFa(status.expire)} منقضی شده است. برای تمدید با فروشنده تماس بگیرید.`:'دوره آزمایشی ۳۰ روزه به پایان رسیده است. برای ادامه، لایسنس تهیه کنید.'}</div>}
+  {!expired&&<p className="auth-sub">برای فعال‌سازی، «کد ماشین» زیر را برای فروشنده ارسال کنید و کلید دریافتی را وارد نمایید. یا دوره آزمایشی ۳۰ روزه را آغاز کنید.</p>}
+  <div className="lic-plans">
+   <div className="lic-plan"><b>🥉 پایه</b>پرسنل، ریسک، حوادث، بازرسی، آموزش</div>
+   <div className="lic-plan"><b>🥈 حرفه‌ای</b>+ طب کار کامل، محیط زیست، PPE و بهداشت</div>
+   <div className="lic-plan"><b>🥇 سازمانی</b>تمام ماژول‌ها بدون محدودیت</div>
+  </div>
+  <div className="flt-group">
+   <span className="flt-label">🖥️ کد ماشین این سیستم (برای ارسال به فروشنده)</span>
+   <div className="mc-box">{mc.slice(0,40)+'…'}</div>
+   <div style={{display:'flex',gap:8}}>
+    <button className="btn btn-ghost" style={{flex:1,justifyContent:'center'}} onClick={copyMc}>📋 کپی کد ماشین</button>
+   </div>
+  </div>
+  <div className="flt-group" style={{marginTop:14}}>
+   <span className="flt-label">🔑 کلید لایسنس</span>
+   <input className="search" style={{minWidth:0,direction:'ltr',textAlign:'center',fontFamily:'monospace'}}
+    value={key} onChange={e=>setKey(e.target.value)} placeholder="MHSE.XXXXXXXXXXXX.EDITION.YYYY/MM/DD.SIGNATURE"/>
+  </div>
+  {err&&<div className="form-err">⚠️ {err}</div>}
+  <div className="btn-row" style={{marginTop:14}}>
+   <button className="btn btn-amber" style={{flex:1,justifyContent:'center'}} onClick={activate} disabled={busy}>🔓 فعال‌سازی</button>
+   {status.mode==='none'&&<button className="btn btn-ghost" style={{flex:1,justifyContent:'center'}} onClick={startTrial} disabled={busy}>⏳ شروع دوره آزمایشی ۳۰ روزه</button>}
+  </div>
+  <div className="auth-foot">🔐 لایسنس با امضای دیجیتال ed25519 اعتبارسنجی می‌شود · کاملاً آفلاین</div>
+ </div></div>}
 /* ═══════ پروفایل فرد ═══════ */
 function PersonProfile({person,data,onBack,onUpdate,onDeletePerson,settings,user,openPrint}){
  const[edit,setEdit]=useState(false);
@@ -1352,7 +1426,7 @@ function PersonProfile({person,data,onBack,onUpdate,onDeletePerson,settings,user
    onSave={row=>{onUpdate('personnel',row);setEdit(false)}} onClose={()=>setEdit(false)}/>}
  </div>}
 /* ═══════ تنظیمات ═══════ */
-function SettingsView({settings,setSettings,data,setData,toast,ask}){
+function SettingsView({settings,setSettings,data,setData,toast,ask,lic,refreshLic}){
  const[mine,setMine]=useState(settings.mine||{});
  const[cp,setCp]=useState({cur:'',next:'',confirm:''});
  const[info,setInfo]=useState(null);
@@ -1373,8 +1447,10 @@ function SettingsView({settings,setSettings,data,setData,toast,ask}){
   if(cp.next!==cp.confirm){toast('تکرار رمز مطابقت ندارد','err');return}
   const ok=await store.changePass(cp.cur,cp.next);
   if(ok){setCp({cur:'',next:'',confirm:''});toast('رمز عبور تغییر کرد')}else toast('رمز فعلی اشتباه است','err')};
+ const deactivate=()=>ask('لایسنس از این سیستم حذف و برنامه به حالت فعال‌سازی بازمی‌گردد. ادامه می‌دهید؟',
+  async()=>{await window.api.licDeactivate();toast('لایسنس حذف شد','err');refreshLic()});
  return <div>
-  <div className="page-head"><div><h2>⚙️ تنظیمات، دیتابیس و پشتیبان‌گیری</h2><p>مدیریت صنعتی داده‌ها و حساب کاربری</p></div></div>
+  <div className="page-head"><div><h2>⚙️ تنظیمات، دیتابیس و پشتیبان‌گیری</h2><p>مدیریت صنعتی داده‌ها، حساب کاربری و لایسنس</p></div></div>
   <div className="set-grid">
    <div className="card pad">
     <h3 className="card-h">🏔️ شناسنامه معدن</h3>
@@ -1412,6 +1488,21 @@ function SettingsView({settings,setSettings,data,setData,toast,ask}){
     <div className="stat-line">کل رکوردهای ذخیره‌شده: <b>{faNum(total)}</b></div>
    </div>
    <div className="card pad">
+    <h3 className="card-h">🔑 لایسنس و اشتراک</h3>
+    {!isDesktop?<p className="mut-txt">در حالت دموی مرورگر، همه نسخه‌ها بدون محدودیت باز هستند. لایسنس در نسخه دسکتاپ اعمال می‌شود.</p>:<>
+     <div className="lic-status-row"><span>وضعیت</span>
+      <b>{lic?.mode==='active'?'✅ فعال':lic?.mode==='trial'?`⏳ آزمایشی — ${faNum(lic.daysLeft)} روز مانده`:lic?.mode==='expired'?'⛔ منقضی شده':lic?.mode==='expired-trial'?'⛔ پایان دوره آزمایشی':'فعال‌نشده'}</b></div>
+     <div className="lic-status-row"><span>نسخه</span>
+      <b>{lic&&lic.edition&&EDITIONS[lic.edition]?`${EDITIONS[lic.edition].fa} (${lic.edition})`:'—'}</b></div>
+     {lic&&lic.expire&&<div className="lic-status-row"><span>اعتبار تا</span><b>{toFa(lic.expire)} ({faDateShort(lic.expire)})</b></div>}
+     {lic&&lic.machineCode&&<div className="lic-status-row"><span>کد ماشین</span>
+      <b style={{direction:'ltr',unicodeBidi:'embed',fontSize:10.5}}>{lic.machineCode.slice(0,18)}…</b></div>}
+     <div className="btn-row" style={{marginTop:10}}>
+      {lic&&lic.mode!=='active'&&<button className="btn btn-amber" onClick={refreshLic}>🔓 فعال‌سازی / تمدید</button>}
+      {lic&&lic.mode==='active'&&<button className="btn btn-red" onClick={deactivate}>حذف لایسنس از این سیستم</button>}
+     </div></>}
+   </div>
+   <div className="card pad">
     <h3 className="card-h">🗄️ دیتابیس و نسخه</h3>
     <ul className="about">
      <li>📍 محل دیتابیس: <b style={{direction:'ltr',unicodeBidi:'embed',fontSize:11.5}}>{info?info.dbPath:'…'}</b></li>
@@ -1419,26 +1510,32 @@ function SettingsView({settings,setSettings,data,setData,toast,ask}){
      <li>🖥️ پلتفرم / نسخه: {info?`${info.platform} — ${info.version}`:'…'}</li>
     </ul>
     {isDesktop&&<button className="btn btn-ghost" style={{marginTop:10}} onClick={()=>window.api.revealDB()}>📂 نمایش پوشه دیتابیس در ویندوز</button>}
-    {!isDesktop&&<p className="mut-txt" style={{marginTop:10}}>⚠️ برای دیتابیس واقعی و خروجی exe، نسخه Electron را اجرا کنید.</p>}
    </div>
    <div className="card pad">
     <h3 className="card-h">ℹ️ درباره سامانه</h3>
     <ul className="about">
      <li>⛏️ معدن‌بان — سامانه صنعتی مدیریت HSE و محیط زیست معادن</li>
      <li>🔌 کاملاً آفلاین؛ بدون نیاز به اینترنت و سرور</li>
+     <li>🔐 لایسنس با امضای دیجیتال ed25519 و قفل سخت‌افزاری</li>
      <li>🖨️ گزارش‌گیری رسمی A4 با سربرگ و خانه امضاء</li>
      <li>📅 تقویم شمسی داخلی برای همه تاریخ‌ها</li>
-     <li>🔐 رمز عبور به‌صورت هش SHA-256 با salt ذخیره می‌شود</li>
     </ul>
    </div>
   </div>
  </div>}
+/* ═══════ ماژول قفل‌شده ═══════ */
+function LockedModule({name,icon}){
+ return <div className="empty"><span>{icon}</span>
+  <h3 style={{fontFamily:'var(--ff-disp)',fontWeight:400,fontSize:20,marginBottom:8}}>🔒 {name}</h3>
+  <p>این ماژول در نسخه فعلی لایسنس شما قفل است.<br/>برای ارتقاء به نسخه بالاتر با فروشنده تماس بگیرید و کلید جدید دریافت کنید.</p>
+ </div>}
 /* ═══════ سایدبار ═══════ */
-function Sidebar({activeId,setView,counts,critN,open,close,user,onLogout}){
+function Sidebar({activeId,setView,counts,critN,open,close,user,onLogout,allowed,lic}){
  const items=[{id:'dashboard',name:'داشبورد',icon:'📊',group:'نمای کلی'},
   ...MODULES.map(m=>({id:m.id,name:m.name,icon:m.icon,group:m.group})),
   {id:'reports',name:'گزارش‌گیری و چاپ',icon:'🖨️',group:'سیستم'},
   {id:'settings',name:'تنظیمات و دیتابیس',icon:'⚙️',group:'سیستم'}];
+ const isLocked=id=>allowed!=='*'&&!allowed.includes(id);
  const groups=['نمای کلی','پرسنل','ایمنی','بهداشت','محیط زیست','سازمانی','سیستم'];
  return <aside className={'sidebar'+(open?' open':'')}>
   <div className="brand"><div className="brand-mark">⛏️</div>
@@ -1446,16 +1543,18 @@ function Sidebar({activeId,setView,counts,critN,open,close,user,onLogout}){
   <div className="brand-hazard hazard-anim"/>
   <nav>{groups.map(g=><div key={g}>
    <div className="nav-label">{g}</div>
-   {items.filter(i=>i.group===g).map(i=>(
-    <button key={i.id} className={'nav-item'+(activeId===i.id?' active':'')} onClick={()=>{setView(i.id);close()}}>
-     <span className="nav-ico">{i.icon}</span><span className="nav-name">{i.name}</span>
-     {counts[i.id]!=null&&<span className={'nav-cnt'+(i.id==='risks'&&critN>0?' hot':'')}>{faNum(counts[i.id])}</span>}
-    </button>))}</div>)}</nav>
+   {items.filter(i=>i.group===g).map(i=>{
+    const locked=isLocked(i.id);
+    return <button key={i.id} className={'nav-item'+(activeId===i.id?' active':'')+(locked?' locked':'')}
+     onClick={()=>locked?setView('settings'):setView(i.id)}>
+     <span className="nav-ico">{locked?'🔒':i.icon}</span><span className="nav-name">{i.name}</span>
+     {counts[i.id]!=null&&!locked&&<span className={'nav-cnt'+(i.id==='risks'&&critN>0?' hot':'')}>{faNum(counts[i.id])}</span>}
+    </button>})}</div>)}</nav>
   <div className="side-foot">
    <div className="user-row"><span className="user-avatar">{(user?.name||'؟')[0]}</span>
     <div><b>{user?.name}</b><small>{user?.role==='admin'?'مدیر سامانه':'کاربر'}</small></div></div>
    <button className="btn btn-ghost btn-block" onClick={onLogout}>🔒 خروج از حساب</button>
-   <span className="ver">نسخه ۱٫۰ · دیتابیس: {isDesktop?'SQLite':'دمو مرورگر'}</span>
+   <span className="ver">نسخه {lic&&lic.mode==='active'?`${EDITIONS[lic.edition]?EDITIONS[lic.edition].fa:''} · تا ${toFa(lic.expire)}`:lic&&lic.mode==='trial'?`آزمایشی · ${faNum(lic.daysLeft)} روز مانده`:'۱٫۰'}</span>
   </div>
  </aside>}
 /* ═══════ ورود و راه‌اندازی ═══════ */
@@ -1546,13 +1645,20 @@ function App(){
  const[settings,setSettings]=useState(null);
  const[data,setData]=useState(null);
  const[user,setUser]=useState(null);
+ const[lic,setLic]=useState(null);
  const[view,setViewRaw]=useState('dashboard');
  const[profileId,setProfileId]=useState(null);
  const[open,setOpen]=useState(false);
  const[toasts,setToasts]=useState([]);
  const[confirmBox,setConfirmBox]=useState(null);
  const[printNode,setPrintNode]=useState(null);
+ const toast=(msg,type='ok')=>{const id=uid();setToasts(t=>[...t,{id,msg,type}]);
+  setTimeout(()=>setToasts(t=>t.filter(x=>x.id!==id)),3200)};
+ const refreshLic=async()=>{if(isDesktop)setLic(await window.api.licStatus())};
  useEffect(()=>{(async()=>{
+  const licInfo=isDesktop?await window.api.licStatus():null;
+  setLic(licInfo);
+  if(isDesktop&&!(licInfo.mode==='active'||licInfo.mode==='trial')){setPhase('license');return}
   const st=await store.load();
   if(!st||!st.settings||!st.settings.mine){setPhase('setup')}
   else{setSettings(st.settings);setData({...emptyData(),...(st.data||{})});setPhase('login')}
@@ -1560,8 +1666,6 @@ function App(){
  useEffect(()=>{if(phase!=='ready'||!settings||!data)return;
   const t=setTimeout(()=>store.save({settings,data}),400);return()=>clearTimeout(t)},[settings,data,phase]);
  const setView=v=>{setProfileId(null);setViewRaw(v);window.scrollTo({top:0,behavior:'smooth'})};
- const toast=(msg,type='ok')=>{const id=uid();setToasts(t=>[...t,{id,msg,type}]);
-  setTimeout(()=>setToasts(t=>t.filter(x=>x.id!==id)),3200)};
  const ask=(msg,onYes)=>setConfirmBox({msg,onYes});
  const addItem=(mid,row)=>{setData(d=>({...d,[mid]:[row,...(d[mid]||[])]}));toast('با موفقیت ثبت شد')};
  const updateItem=(mid,row)=>{setData(d=>({...d,[mid]:(d[mid]||[]).map(r=>r.id===row.id?row:r)}));toast('تغییرات ذخیره شد')};
@@ -1577,30 +1681,40 @@ function App(){
  const setupDone=(st,u)=>{setSettings({...st,lastIncident:st.lastIncident||''});setData(emptyData());
   setUser(u);setPhase('ready');setViewRaw('personnel');
   toast('به سامانه خوش آمدید؛ ابتدا کارکنان را ثبت کنید')};
+ const licActivated=async()=>{await refreshLic();
+  const st=await store.load();
+  if(!st||!st.settings||!st.settings.mine)setPhase('setup');
+  else{setSettings(st.settings);setData({...emptyData(),...(st.data||{})});setPhase('login')}};
  if(phase==='boot')return <div className="splash"><div>
   <div className="splash-logo">⛏️</div>
   <div style={{fontFamily:'var(--ff-disp)',fontSize:28,color:'var(--amber2)'}}>معدن‌بان</div>
-  <div className="mut-txt">در حال اتصال به دیتابیس…</div></div></div>;
+  <div className="mut-txt">در حال بررسی لایسنس و اتصال به دیتابیس…</div></div></div>;
+ if(phase==='license')return <><LicenseGate status={lic||{}} onActivated={licActivated} toast={toast}/>
+  <div className="toasts">{toasts.map(t=><div key={t.id} className={'toast t-'+t.type}>{t.msg}</div>)}</div></>;
  if(phase==='setup')return <><Setup onDone={setupDone}/>
   <div className="toasts">{toasts.map(t=><div key={t.id} className={'toast t-'+t.type}>{t.msg}</div>)}</div></>;
  if(phase==='login')return <><Login settings={settings} onSuccess={u=>{setUser(u);setPhase('ready');toast(`خوش آمدید، ${u.name}`)}}/>
   <div className="toasts">{toasts.map(t=><div key={t.id} className={'toast t-'+t.type}>{t.msg}</div>)}</div></>;
+ const allowed=allowedModules(lic?lic.edition:null);
  const counts=Object.fromEntries(MODULES.map(m=>[m.id,(data[m.id]||[]).length]));
  const critN=(data.risks||[]).filter(r=>r.status!=='رفع شده'&&(+r.sev||0)*(+r.prob||0)>=16).length;
  const people=data.personnel||[];
  const mod=MODULES.find(m=>m.id===view);
+ const locked=mod&&allowed!=='*'&&!allowed.includes(mod.id);
  const profilePerson=profileId?people.find(p=>p.id===profileId):null;
  const activeId=view==='profile'?'personnel':view;
  return <>
   <div className="app">
    {open&&<div className="backdrop" onClick={()=>setOpen(false)}/>}
    <Sidebar activeId={activeId} setView={setView} counts={counts} critN={critN} open={open} close={()=>setOpen(false)}
-    user={user} onLogout={()=>{setUser(null);setPhase('login')}}/>
+    user={user} onLogout={()=>{setUser(null);setPhase('login')}} allowed={allowed} lic={lic}/>
    <main className="main">
     <header className="topbar">
      <button className="burger no-print" onClick={()=>setOpen(true)}>☰</button>
      <div className="tb-title"><h1>⛏️ معدن‌بان</h1><span>سامانه صنعتی HSE و محیط زیست معادن</span></div>
      <div className="tb-side">
+      {isDesktop&&lic&&lic.mode==='trial'&&<span className="chip chip-lic-trial">⏳ آزمایشی: {faNum(lic.daysLeft)} روز مانده</span>}
+      {isDesktop&&lic&&lic.mode==='active'&&<span className="chip chip-lic-ok">🔑 {(EDITIONS[lic.edition]||{}).fa||lic.edition} · تا {toFa(lic.expire)}</span>}
       <span className="chip">📅 {todayFa()}</span>
       <span className="chip chip-mine">{settings.mine?.name}</span>
      </div></header>
@@ -1612,12 +1726,14 @@ function App(){
       onBack={()=>setView('personnel')} onUpdate={updateItem} onDeletePerson={deletePerson}
       settings={settings} user={user} openPrint={setPrintNode}/>}
      {view==='profile'&&!profilePerson&&<div className="empty"><span>👤</span><p>فرد یافت نشد</p></div>}
-     {mod&&<ModuleView mod={mod} rows={data[mod.id]||[]} people={people}
+     {mod&&locked&&<LockedModule name={mod.name} icon={mod.icon}/>}
+     {mod&&!locked&&<ModuleView mod={mod} rows={data[mod.id]||[]} people={people}
       onAdd={addItem} onUpdate={updateItem} onDelete={deleteItem} onOpenPerson={openPerson}
       settings={settings} user={user} openPrint={setPrintNode}/>}
      {view==='reports'&&<ReportsView data={data} people={people} settings={settings} user={user}
       toast={toast} openPrint={setPrintNode}/>}
-     {view==='settings'&&<SettingsView settings={settings} setSettings={setSettings} data={data} setData={setData} toast={toast} ask={ask}/>}
+     {view==='settings'&&<SettingsView settings={settings} setSettings={setSettings} data={data} setData={setData}
+      toast={toast} ask={ask} lic={lic} refreshLic={async()=>{await refreshLic();setPhase('license')}}/>}
     </div>
     <footer className="foot">معدن‌بان · داده‌ها در دیتابیس {isDesktop?'SQLite (محلی)':'مرورگر'} ذخیره می‌شوند · حالت {isDesktop?'آفلاین صنعتی':'دمو'}</footer>
    </main>

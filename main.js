@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain, shell } = require('electron');
 const path = require('path');
 const crypto = require('crypto');
 const store = require('./database');
+const license = require('./license');
 
 let win;
 const hashPass = (pass, salt) => crypto.createHash('sha256').update(`${salt}::${pass}`).digest('hex');
@@ -23,15 +24,19 @@ app.whenReady().then(() => {
   store.init(app.getPath('userData'));
   store.audit('app-start');
 
+  /* لایسنس */
+  ipcMain.handle('lic:status',    () => license.status(store));
+  ipcMain.handle('lic:machine',   () => license.machineCode());
+  ipcMain.handle('lic:activate',  (e, key) => license.activate(store, key));
+  ipcMain.handle('lic:trial',     () => license.startTrial(store));
+  ipcMain.handle('lic:deactivate',() => license.deactivate(store));
+
+  /* داده و احراز هویت */
   ipcMain.handle('app:load', () => ({ settings: store.kvGet('settings'), data: store.kvGet('data') }));
-  ipcMain.handle('app:save', (e, state) => {
-    store.kvSet('settings', state.settings); store.kvSet('data', state.data); return true;
-  });
+  ipcMain.handle('app:save', (e, state) => { store.kvSet('settings', state.settings); store.kvSet('data', state.data); return true; });
   ipcMain.handle('app:setup', (e, { mine, admin }) => {
     const settings = { mine, users: [makeUser(admin.name, admin.username, admin.password)], createdAt: new Date().toISOString() };
-    store.kvSet('settings', settings);
-    store.audit('mine-setup', mine.name);
-    return settings;
+    store.kvSet('settings', settings); store.audit('mine-setup', mine.name); return settings;
   });
   ipcMain.handle('auth:login', (e, { username, password }) => {
     const s = store.kvGet('settings'); if (!s || !s.users) return null;
