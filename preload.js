@@ -7,8 +7,5 @@ contextBridge.exposeInMainWorld('api', {
   changePass:(c)  => ipcRenderer.invoke('auth:changePass', c),
   info:      ()   => ipcRenderer.invoke('app:info'),
   revealDB:  ()   => ipcRenderer.invoke('app:revealDB'),
-  licStatus:     ()  => ipcRenderer.invoke('lic:status'),
-  licActivate:   (k) => ipcRenderer.invoke('lic:activate', k),
-  licTrial:      ()  => ipcRenderer.invoke('lic:trial'),
-  licDeactivate: ()  => ipcRenderer.invoke('lic:deactivate')
+  pdfSave:   (p)  => ipcRenderer.invoke('export:pdf', p)
 });
