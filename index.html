@@ -240,6 +240,7 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 10px}
 .splash{min-height:100vh;display:grid;place-items:center;text-align:center}
 .splash-logo{font-size:52px;animation:float 2s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+/* گزارش‌گیری */
 .rep-types{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
 .rt{display:flex;align-items:center;gap:6px;background:#ffffff06;border:1px solid var(--line);color:var(--mut);border-radius:10px;padding:8px 12px;font-size:12px;cursor:pointer;transition:.15s}
 .rt:hover{border-color:var(--line2);color:var(--text);transform:translateY(-1px)}
@@ -259,8 +260,9 @@ nav{flex:1;overflow-y:auto;padding:4px 14px 10px}
 .picker-item:hover{background:#ffffff08}
 .picker-item small{margin-inline-start:auto;color:var(--faint);font-size:10px}
 .paper-preview{background:#fff;color:#111;border-radius:12px;padding:16px}
+/* چاپ و گزارش رسمی */
 .print-overlay{position:fixed;inset:0;background:rgba(7,10,13,.88);z-index:400;overflow:auto;padding:20px}
-.print-bar{max-width:210mm;margin:0 auto 14px;display:flex;gap:10px;align-items:center;font-size:11.5px;color:var(--mut)}
+.print-bar{max-width:210mm;margin:0 auto 14px;display:flex;gap:10px;align-items:center}
 .report-sheet{max-width:210mm;margin:0 auto 16px;background:#fff;color:#111;border-radius:8px;padding:22px 24px;box-shadow:0 30px 80px -20px #000}
 .rep-head{display:flex;align-items:center;gap:12px;border-bottom:3px solid #111;padding-bottom:10px}
 .rep-brand{width:46px;height:46px;border:2px solid #111;border-radius:10px;display:grid;place-items:center;font-size:24px}
@@ -879,7 +881,7 @@ function FormModal({mod,initial,people,onSave,onClose}){
     <button className="btn btn-amber" onClick={submit}>{initial?'ذخیره تغییرات':'ثبت رکورد'}</button>
    </div>
   </div></div>}
-function ModuleView({mod,rows,people,onAdd,onUpdate,onDelete,onOpenPerson,settings,user,openPrint,toast}){
+function ModuleView({mod,rows,people,onAdd,onUpdate,onDelete,onOpenPerson,settings,user,openPrint}){
  const[q,setQ]=useState('');const[fv,setFv]=useState('');const[modal,setModal]=useState(null);
  const filterField=mod.fields.find(f=>f.filter);
  const cols=mod.fields.filter(f=>f.col);
@@ -892,16 +894,12 @@ function ModuleView({mod,rows,people,onAdd,onUpdate,onDelete,onOpenPerson,settin
    filterText={`${q?`جستجو: ${q} · `:''}${fv&&filterField?`${filterField.label}: ${fv} · `:''}نتیجه: ${faNum(shown.length)} رکورد`}>
    {shown.length>0?<ModuleTable mod={mod} rows={shown} people={people}/>:<div className="empty-row">رکوردی یافت نشد</div>}
    <div className="rep-sumrow">تعداد رکوردها: {faNum(shown.length)}</div>
-  </ReportShell>, `گزارش ${mod.name}`);
- const excelCurrent=()=>{
-  if(shown.length===0){toast('رکوردی برای خروجی وجود ندارد','err');return}
-  exportCSV(mod,shown,people,`گزارش-${mod.name}`);toast('فایل Excel ذخیره شد')};
+  </ReportShell>);
  return <div>
   <div className="page-head">
    <div><h2>{mod.icon} {mod.name}</h2><p>{mod.desc}</p></div>
    <div className="ph-actions no-print">
-    <button className="btn btn-ghost" onClick={printCurrent}>🖨️ چاپ/PDF</button>
-    <button className="btn btn-ghost" onClick={excelCurrent}>📊 Excel</button>
+    <button className="btn btn-ghost" onClick={printCurrent}>🖨️ چاپ</button>
     <button className="btn btn-amber" onClick={()=>setModal({})}>＋ ثبت جدید</button></div>
   </div>
   <div className="toolbar no-print">
@@ -929,7 +927,7 @@ function ModuleView({mod,rows,people,onAdd,onUpdate,onDelete,onOpenPerson,settin
   </div>
   {modal&&<FormModal mod={mod} initial={modal.row} people={people} onSave={save} onClose={()=>setModal(null)}/>}
  </div>}
-/* ═══════ چاپ، PDF و Excel ═══════ */
+/* ═══════ سیستم چاپ و گزارش ═══════ */
 function ReportShell({settings,user,title,sub,filterText,signs,children}){
  const now=new Intl.DateTimeFormat('fa-IR-u-ca-persian',{dateStyle:'full'}).format(new Date());
  const sg=signs||['امضاء مسئول HSE','امضاء سرپرست معدن','مهر و امضاء مدیریت'];
@@ -948,7 +946,7 @@ function ReportShell({settings,user,title,sub,filterText,signs,children}){
   {children}
   <div className="rep-sign">{sg.map(s=><div key={s}>{s}</div>)}</div>
   <div className="rep-foot">این گزارش به‌صورت خودکار توسط سامانه معدن‌بان تولید شده است · {now}</div>
- </ReportShell>}
+ </div>}
 function cellText(f,row,people){
  if(f.type==='computed'){const ri=riskInfo(row.sev,row.prob);return `${ri.name} (${faNum(ri.sc)})`}
  const v=row[f.key];
@@ -963,28 +961,6 @@ function ModuleTable({mod,rows,people}){
   <thead><tr>{cols.map(c=><th key={c.key}>{c.label}</th>)}</tr></thead>
   <tbody>{rows.map(r=><tr key={r.id}>{cols.map(c=><td key={c.key}>{cellText(c,r,people)}</td>)}</tr>)}</tbody>
  </table>}
-/* ── خروجی Excel (CSV سازگار با Excel، فارسی کامل) ── */
-function csvCell(v){return `"${String(v==null?'':v).replace(/"/g,'""')}"`}
-function downloadCSV(headers,rows,filename){
- const csv='\ufeff'+[headers.map(csvCell).join(','),...rows.map(r=>r.map(csvCell).join(','))].join('\r\n');
- const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
- const a=document.createElement('a');a.href=URL.createObjectURL(blob);
- a.download=filename+'-'+fmtJal(todayJal())+'.csv';a.click();
- setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
-function exportCSV(mod,rows,people,filename){
- const cols=mod.fields.filter(f=>f.col);
- downloadCSV(cols.map(c=>c.label),rows.map(r=>cols.map(c=>cellText(c,r,people))),filename)}
-function buildUnitRows(data,unitsFilter){
- const personnel=data.personnel||[],exams=data.exams||[];
- const latest={};exams.forEach(e=>{const k=e.personId;const dt=String(e.date||'');if(!latest[k]||dt>String(latest[k].date||''))latest[k]=e});
- let pwe=personnel.filter(p=>latest[p.id]);
- if(unitsFilter&&unitsFilter.length)pwe=pwe.filter(p=>unitsFilter.includes(p.unit||'نامشخص'));
- const avg=arr=>arr.length?Math.round(arr.reduce((a,b)=>a+ +b,0)/arr.length):null;
- const un=[...new Set(pwe.map(p=>p.unit||'نامشخص'))];
- return un.map(u=>{const ps=pwe.filter(p=>(p.unit||'نامشخص')===u);
-  const pick=f=>ps.map(p=>latest[p.id][f]).filter(v=>v!=null&&v!=='');
-  return {u,n:ps.length,fbs:avg(pick('fbs')),tg:avg(pick('tg')),chol:avg(pick('chol')),
-   lead:avg(pick('lead')),fev1:avg(pick('fev1')),ear:avg([...pick('earR'),...pick('earL')])}})}
 function PersonFormSheet({person,data,settings,user}){
  const exams=(data.exams||[]).filter(x=>x.personId===person.id).sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')));
  const trs=(data.persontraining||[]).filter(x=>x.personId===person.id);
@@ -1041,7 +1017,7 @@ function PersonFormSheet({person,data,settings,user}){
   {incs.length>0?<table className="rep-tbl"><thead><tr><th>شرح</th><th>نوع</th><th>تاریخ</th><th>وضعیت</th></tr></thead>
    <tbody>{incs.map(i=><tr key={i.id}><td>{i.title}</td><td>{i.type}</td><td>{i.date?toFa(i.date):'—'}</td><td>{i.status||'—'}</td></tr>)}</tbody></table>
    :<div className="empty-row">ثبت نشده</div>}
- </ReportSheetFix></ReportShell>}
+ </ReportShell>}
 function SummarySheet({data,settings,user}){
  const risks=data.risks||[],incidents=data.incidents||[],training=data.training||[],inspections=data.inspections||[],
   ppe=data.ppe||[],machinery=data.machinery||[],personnel=data.personnel||[];
@@ -1083,47 +1059,37 @@ function SummarySheet({data,settings,user}){
    {needMed===0&&exp===0&&low===0&&<li>هشدار فعالی وجود ندارد</li>}
   </ul>
  </ReportShell>}
-function HealthAggSheet({rows,settings,user,filterText}){
+function HealthAggSheet({data,settings,user,units}){
+ const personnel=data.personnel||[],exams=data.exams||[];
+ const latest={};exams.forEach(e=>{const k=e.personId;const dt=String(e.date||'');if(!latest[k]||dt>String(latest[k].date||''))latest[k]=e});
+ let pwe=personnel.filter(p=>latest[p.id]);
+ if(units&&units.length)pwe=pwe.filter(p=>units.includes(p.unit||'نامشخص'));
+ const avg=arr=>arr.length?Math.round(arr.reduce((a,b)=>a+ +b,0)/arr.length):null;
+ const un=[...new Set(pwe.map(p=>p.unit||'نامشخص'))];
+ const unitRows=un.map(u=>{
+  const ps=pwe.filter(p=>(p.unit||'نامشخص')===u);
+  const pick=f=>ps.map(p=>latest[p.id][f]).filter(v=>v!=null&&v!=='');
+  return {u,n:ps.length,fbs:avg(pick('fbs')),tg:avg(pick('tg')),chol:avg(pick('chol')),lead:avg(pick('lead')),fev1:avg(pick('fev1')),ear:avg([...pick('earR'),...pick('earL')])}});
  return <ReportShell settings={settings} user={user} title="گزارش پایش تجمیعی سلامت کارکنان"
-  sub="میانگین شاخص‌ها بر اساس آخرین معاینه طب کار هر فرد" filterText={filterText}>
-  {rows.length>0?<table className="rep-tbl"><thead><tr>
+  sub="میانگین شاخص‌ها بر اساس آخرین معاینه طب کار هر فرد"
+  filterText={units&&units.length?`واحدها: ${units.join('، ')}`:''}>
+  {unitRows.length>0?<table className="rep-tbl"><thead><tr>
    <th>واحد</th><th>نفرات</th><th>میانگین قند</th><th>تری‌گلیسرید</th><th>کلسترول</th><th>سرب خون</th><th>ریه FEV1</th><th>افت شنوایی</th></tr></thead>
-   <tbody>{rows.map(r=><tr key={r.u}>
+   <tbody>{unitRows.map(r=><tr key={r.u}>
     <td>{r.u}</td><td>{faNum(r.n)}</td><td>{r.fbs==null?'—':faNum(r.fbs)}</td><td>{r.tg==null?'—':faNum(r.tg)}</td>
     <td>{r.chol==null?'—':faNum(r.chol)}</td><td>{r.lead==null?'—':faNum(r.lead)}</td>
     <td>{r.fev1==null?'—':faNum(r.fev1)+'٪'}</td><td>{r.ear==null?'—':faNum(r.ear)+' dB'}</td></tr>)}</tbody></table>
    :<div className="empty-row">داده‌ای برای نمایش وجود ندارد</div>}
  </ReportShell>}
-function PrintPreview({doc,onClose}){
- const[msg,setMsg]=useState('');const[busy,setBusy]=useState(false);
+function PrintPreview({node,onClose}){
  useEffect(()=>{const h=e=>{if(e.key==='Escape')onClose()};window.addEventListener('keydown',h);return()=>window.removeEventListener('keydown',h)},[]);
- const savePdf=async()=>{
-  const area=document.getElementById('print-area');
-  if(!area)return;
-  const styles=[...document.querySelectorAll('style')].map(s=>s.outerHTML).join('');
-  const html=`<!DOCTYPE html><html lang="fa" dir="rtl"><head><meta charset="utf-8">${styles}
-   <style>body{background:#fff!important;margin:0;padding:8mm}
-   .print-overlay{position:static;background:none;padding:0;overflow:visible}
-   .report-sheet{box-shadow:none;border-radius:0;margin:0 auto 8mm}
-   .page-break{page-break-after:always;break-after:page}@page{size:A4;margin:8mm}</style>
-   </head><body>${area.innerHTML}</body></html>`;
-  if(!isDesktop){setMsg('در حالت مرورگر: روی «چاپ» بزنید و مقصد را Save as PDF انتخاب کنید');return}
-  setBusy(true);setMsg('');
-  const res=await window.api.pdfSave({html,title:doc.title||'گزارش معدن‌بان'});
-  setBusy(false);
-  if(res&&res.ok)setMsg('✅ ذخیره شد: '+res.filePath);
-  else if(res&&res.filePath===undefined&&!res.ok&&res.msg)setMsg('خطا: '+res.msg);
-  else setMsg('ذخیره لغو شد')};
  return <div className="print-overlay">
   <div className="print-bar">
-   <span style={{maxWidth:'46ch',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap',direction:'ltr'}}>
-    {msg||'پیش‌نمایش گزارش — برای بستن Esc'}</span>
-   <span style={{flex:1}}/>
+   <span style={{color:'var(--mut)',fontSize:12,marginLeft:'auto'}}>پیش‌نمایش چاپ — برای بستن Esc</span>
    <button className="btn btn-amber" onClick={()=>window.print()}>🖨️ چاپ</button>
-   <button className="btn btn-ghost" onClick={savePdf} disabled={busy}>{busy?'در حال ساخت…':'📄 ذخیره PDF'}</button>
    <button className="btn btn-ghost" onClick={onClose}>✕ بستن</button>
   </div>
-  <div id="print-area">{doc.node}</div>
+  {node}
  </div>}
 /* ═══════ گزارش‌گیری ═══════ */
 function PersonPicker({people,sel,onChange}){
@@ -1195,46 +1161,21 @@ function ReportsView({data,people,settings,user,toast,openPrint}){
   return parts.join(' · ')||'بدون فیلتر';
  }
  const doPrint=()=>{
-  if(rep==='summary'){openPrint(<SummarySheet data={data} settings={settings} user={user}/>,'گزارش جامع مدیریتی');return}
-  if(rep==='healthAgg'){
-   const ur=buildUnitRows(data,flt.units);
-   openPrint(<HealthAggSheet rows={ur} settings={settings} user={user}
-    filterText={flt.units.length?`واحدها: ${flt.units.join('، ')}`:''}/>, 'پایش تجمیعی سلامت');return}
+  if(rep==='summary'){openPrint(<SummarySheet data={data} settings={settings} user={user}/>);return}
+  if(rep==='healthAgg'){openPrint(<HealthAggSheet data={data} settings={settings} user={user} units={flt.units}/>);return}
   if(rep==='personForm'){
    const persons=people.filter(p=>flt.persons.includes(p.id));
    if(persons.length===0){toast('ابتدا حداقل یک فرد انتخاب کنید','err');return}
    openPrint(<div>{persons.map(p=><div key={p.id} className="page-break">
-    <PersonFormSheet person={p} data={data} settings={settings} user={user}/></div>)}</div>,'برگه‌های مشخصات فردی');return}
+    <PersonFormSheet person={p} data={data} settings={settings} user={user}/></div>)}</div>);return}
   openPrint(<ReportShell settings={settings} user={user} title={`گزارش ${mod.name}`} sub={mod.desc}
    filterText={filterText()+` · نتیجه: ${faNum(rows.length)} رکورد`}>
    {rows.length>0?<ModuleTable mod={mod} rows={rows} people={people}/>:<div className="empty-row">با فیلترهای اعمال‌شده رکوردی یافت نشد</div>}
    <div className="rep-sumrow">تعداد رکوردها: {faNum(rows.length)}</div>
-  </ReportShell>, `گزارش ${mod.name}`)};
- const doExcel=()=>{
-  if(rep==='personForm'){toast('برای برگه فردی از خروجی PDF استفاده کنید','err');return}
-  if(mod){
-   if(rows.length===0){toast('رکوردی برای خروجی وجود ندارد','err');return}
-   exportCSV(mod,rows,people,`گزارش-${mod.name}`);toast('فایل Excel ذخیره شد');return}
-  if(rep==='healthAgg'){
-   const ur=buildUnitRows(data,flt.units);
-   if(ur.length===0){toast('داده‌ای برای خروجی وجود ندارد','err');return}
-   downloadCSV(['واحد','نفرات','میانگین قند','تری‌گلیسرید','کلسترول','سرب خون','ریه FEV1','افت شنوایی'],
-    ur.map(r=>[r.u,r.n,r.fbs??'',r.tg??'',r.chol??'',r.lead??'',r.fev1??'',r.ear??'']),'پایش-تجمیعی-سلامت');
-   toast('فایل Excel ذخیره شد');return}
-  if(rep==='summary'){
-   const risks=data.risks||[],incidents=data.incidents||[],training=data.training||[],personnel=data.personnel||[];
-   const scoreOf=r=>(+r.sev||0)*(+r.prob||0);
-   const openR=risks.filter(r=>r.status!=='رفع شده');
-   downloadCSV(['شاخص','مقدار'],[
-    ['روزهای بدون حادثه',settings.lastIncident?daysWithout(settings.lastIncident):''],
-    ['کل پرسنل',personnel.length],['ریسک‌های باز',openR.length],
-    ['ریسک بحرانی',openR.filter(r=>scoreOf(r)>=16).length],
-    ['حوادث در جریان',(incidents||[]).filter(i=>i.status!=='بسته شده').length],
-    ['ساعات آموزش',training.reduce((a,t)=>a+(+t.hours||0),0)]
-   ],'گزارش-جامع-مدیریتی');toast('فایل Excel ذخیره شد')}};
+  </ReportShell>)};
  return <div>
   <div className="page-head">
-   <div><h2>🖨️ گزارش‌گیری و چاپ</h2><p>گزارش‌های تجمیعی و فردی با فیلترهای ترکیبی — خروجی چاپ، PDF و Excel</p></div>
+   <div><h2>🖨️ گزارش‌گیری و چاپ</h2><p>گزارش‌های تجمیعی و فردی با فیلترهای ترکیبی — آماده چاپ رسمی روی کاغذ A4</p></div>
   </div>
   <div className="rep-types">
    {reportTypes.map(t=><button key={t.id} className={'rt'+(rep===t.id?' on':'')} onClick={()=>chooseRep(t.id)}>
@@ -1292,20 +1233,14 @@ function ReportsView({data,people,settings,user,toast,openPrint}){
      <button className="btn btn-ghost btn-block" onClick={()=>setFlt({q:'',from:'',to:'',limit:'',sel:{},persons:[],units:[],jobs:[]})}>♻️ حذف همه فیلترها</button>
     </>}
    </Card>
-   <Card icon="👁️" title="پیش‌نمایش و خروجی">
+   <Card icon="👁️" title="پیش‌نمایش و چاپ">
     {rep==='summary'&&<>
      <p className="mut-txt">شاخص‌های کلیدی، ریسک‌های باز مهم، حوادث در جریان و هشدارها در یک برگه رسمی.</p>
-     <div className="btn-row">
-      <button className="btn btn-amber" onClick={doPrint}>🖨️ پیش‌نمایش / چاپ / PDF</button>
-      <button className="btn btn-ghost" onClick={doExcel}>📊 خروجی Excel</button>
-     </div></>}
+     <button className="btn btn-amber" onClick={doPrint}>🖨️ تهیه گزارش</button></>}
     {rep==='healthAgg'&&<>
      <p className="mut-txt">میانگین قند، چربی، کلسترول، سرب خون، وضعیت ریه و شنوایی به تفکیک واحد.</p>
      {flt.units.length>0&&<div style={{marginBottom:10}}><span className="count-chip">فیلتر: {flt.units.join('، ')}</span></div>}
-     <div className="btn-row">
-      <button className="btn btn-amber" onClick={doPrint}>🖨️ پیش‌نمایش / چاپ / PDF</button>
-      <button className="btn btn-ghost" onClick={doExcel}>📊 خروجی Excel</button>
-     </div></>}
+     <button className="btn btn-amber" onClick={doPrint}>🖨️ تهیه گزارش</button></>}
     {rep==='personForm'&&<>
      <p className="mut-txt">هر فرد انتخاب‌شده روی یک برگه A4 جداگانه (با سربرگ و خانه امضاء) چاپ می‌شود.</p>
      <div className="chips" style={{marginBottom:10}}>
@@ -1313,14 +1248,12 @@ function ReportsView({data,people,settings,user,toast,openPrint}){
      </div>
      {flt.persons.length===0&&<div className="empty-row">فردی انتخاب نشده است</div>}
      <button className="btn btn-amber" onClick={doPrint} disabled={flt.persons.length===0}>
-      🖨️ چاپ / PDF {flt.persons.length>0?faNum(flt.persons.length)+' برگه':''}</button></>}
+      🖨️ چاپ {flt.persons.length>0?faNum(flt.persons.length)+' برگه':''}</button></>}
     {mod&&<>
      <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:10,flexWrap:'wrap'}}>
       <span className="count-chip">{faNum(rows.length)} رکورد</span>
       <span className="mut-txt" style={{fontSize:11}}>{filterText()}</span>
-      <span style={{flex:1}}/>
-      <button className="btn btn-ghost" onClick={doExcel} disabled={rows.length===0}>📊 Excel</button>
-      <button className="btn btn-amber" onClick={doPrint} disabled={rows.length===0}>🖨️ چاپ / PDF</button>
+      <button className="btn btn-amber" style={{marginInlineStart:'auto'}} onClick={doPrint} disabled={rows.length===0}>🖨️ چاپ گزارش</button>
      </div>
      {rows.length>0?<div className="table-wrap paper-preview"><ModuleTable mod={mod} rows={rows} people={people}/></div>
       :<div className="empty-row">با فیلترهای اعمال‌شده رکوردی یافت نشد</div>}
@@ -1357,7 +1290,7 @@ function PersonProfile({person,data,onBack,onUpdate,onDeletePerson,settings,user
   <div className="page-head">
    <button className="btn btn-ghost" onClick={onBack}>→ بازگشت به فهرست پرسنل</button>
    <div className="ph-actions no-print">
-    <button className="btn btn-ghost" onClick={()=>openPrint(<PersonFormSheet person={person} data={data} settings={settings} user={user}/>,`برگه-${person.fname}-${person.lname}`)}>🖨️ چاپ/PDF برگه فرد</button>
+    <button className="btn btn-ghost" onClick={()=>openPrint(<PersonFormSheet person={person} data={data} settings={settings} user={user}/>)}>🖨️ چاپ برگه فرد</button>
     <button className="btn btn-ghost" onClick={()=>setEdit(true)}>✏️ ویرایش</button>
     <button className="btn btn-red" onClick={()=>onDeletePerson(person)}>🗑️ حذف</button>
    </div></div>
@@ -1482,19 +1415,20 @@ function SettingsView({settings,setSettings,data,setData,toast,ask}){
     <h3 className="card-h">🗄️ دیتابیس و نسخه</h3>
     <ul className="about">
      <li>📍 محل دیتابیس: <b style={{direction:'ltr',unicodeBidi:'embed',fontSize:11.5}}>{info?info.dbPath:'…'}</b></li>
-     <li>⚙️ موتور ذخیره‌سازی: {isDesktop?'SQLite (فایل محلی، مناسب ممیزی)':'localStorage مرورگر (حالت دمو)'}</li>
+     <li>⚙️ موتور ذخیره‌سازی: {isDesktop?'SQLite (فایل محلی، مناسب فروش و ممیزی)':'localStorage مرورگر (حالت دمو)'}</li>
      <li>🖥️ پلتفرم / نسخه: {info?`${info.platform} — ${info.version}`:'…'}</li>
     </ul>
     {isDesktop&&<button className="btn btn-ghost" style={{marginTop:10}} onClick={()=>window.api.revealDB()}>📂 نمایش پوشه دیتابیس در ویندوز</button>}
-    {!isDesktop&&<p className="mut-txt" style={{marginTop:10}}>⚠️ خروجی PDF واقعی در نسخه دسکتاپ تولید می‌شود؛ در مرورگر از «چاپ ← Save as PDF» استفاده کنید.</p>}
+    {!isDesktop&&<p className="mut-txt" style={{marginTop:10}}>⚠️ برای دیتابیس واقعی و خروجی exe، نسخه Electron را اجرا کنید.</p>}
    </div>
    <div className="card pad">
     <h3 className="card-h">ℹ️ درباره سامانه</h3>
     <ul className="about">
      <li>⛏️ معدن‌بان — سامانه صنعتی مدیریت HSE و محیط زیست معادن</li>
      <li>🔌 کاملاً آفلاین؛ بدون نیاز به اینترنت و سرور</li>
-     <li>📄 خروجی PDF واقعی و Excel برای همه گزارش‌ها</li>
+     <li>🖨️ گزارش‌گیری رسمی A4 با سربرگ و خانه امضاء</li>
      <li>📅 تقویم شمسی داخلی برای همه تاریخ‌ها</li>
+     <li>🔐 رمز عبور به‌صورت هش SHA-256 با salt ذخیره می‌شود</li>
     </ul>
    </div>
   </div>
@@ -1617,7 +1551,7 @@ function App(){
  const[open,setOpen]=useState(false);
  const[toasts,setToasts]=useState([]);
  const[confirmBox,setConfirmBox]=useState(null);
- const[printDoc,setPrintDoc]=useState(null);
+ const[printNode,setPrintNode]=useState(null);
  useEffect(()=>{(async()=>{
   const st=await store.load();
   if(!st||!st.settings||!st.settings.mine){setPhase('setup')}
@@ -1629,7 +1563,6 @@ function App(){
  const toast=(msg,type='ok')=>{const id=uid();setToasts(t=>[...t,{id,msg,type}]);
   setTimeout(()=>setToasts(t=>t.filter(x=>x.id!==id)),3200)};
  const ask=(msg,onYes)=>setConfirmBox({msg,onYes});
- const openPrint=(node,title)=>setPrintDoc({node,title});
  const addItem=(mid,row)=>{setData(d=>({...d,[mid]:[row,...(d[mid]||[])]}));toast('با موفقیت ثبت شد')};
  const updateItem=(mid,row)=>{setData(d=>({...d,[mid]:(d[mid]||[]).map(r=>r.id===row.id?row:r)}));toast('تغییرات ذخیره شد')};
  const deleteItem=(mid,row)=>ask(`رکورد «${row.title||row.fname||''}» حذف شود؟`,
@@ -1677,13 +1610,13 @@ function App(){
      {view==='dashboard'&&<Dashboard data={data} settings={settings} jump={setView}/>}
      {view==='profile'&&profilePerson&&<PersonProfile person={profilePerson} data={data}
       onBack={()=>setView('personnel')} onUpdate={updateItem} onDeletePerson={deletePerson}
-      settings={settings} user={user} openPrint={openPrint}/>}
+      settings={settings} user={user} openPrint={setPrintNode}/>}
      {view==='profile'&&!profilePerson&&<div className="empty"><span>👤</span><p>فرد یافت نشد</p></div>}
      {mod&&<ModuleView mod={mod} rows={data[mod.id]||[]} people={people}
       onAdd={addItem} onUpdate={updateItem} onDelete={deleteItem} onOpenPerson={openPerson}
-      settings={settings} user={user} openPrint={openPrint} toast={toast}/>}
+      settings={settings} user={user} openPrint={setPrintNode}/>}
      {view==='reports'&&<ReportsView data={data} people={people} settings={settings} user={user}
-      toast={toast} openPrint={openPrint}/>}
+      toast={toast} openPrint={setPrintNode}/>}
      {view==='settings'&&<SettingsView settings={settings} setSettings={setSettings} data={data} setData={setData} toast={toast} ask={ask}/>}
     </div>
     <footer className="foot">معدن‌بان · داده‌ها در دیتابیس {isDesktop?'SQLite (محلی)':'مرورگر'} ذخیره می‌شوند · حالت {isDesktop?'آفلاین صنعتی':'دمو'}</footer>
@@ -1696,7 +1629,7 @@ function App(){
       <button className="btn btn-red" onClick={()=>{confirmBox.onYes();setConfirmBox(null)}}>بله، انجام شود</button>
      </div></div></div>}
   </div>
-  {printDoc&&<PrintPreview doc={printDoc} onClose={()=>setPrintDoc(null)}/>}
+  {printNode&&<PrintPreview node={printNode} onClose={()=>setPrintNode(null)}/>}
   <div className="toasts">{toasts.map(t=><div key={t.id} className={'toast t-'+t.type}>{t.type==='err'?'🗑️':'✅'} {t.msg}</div>)}</div>
  </>}
 ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
