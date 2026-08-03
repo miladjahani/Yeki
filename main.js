@@ -1,8 +1,8 @@
-const { app, BrowserWindow, ipcMain, shell } = require('electron');
+const { app, BrowserWindow, ipcMain, shell, dialog } = require('electron');
 const path = require('path');
+const fs = require('fs');
 const crypto = require('crypto');
 const store = require('./database');
-const license = require('./license');
 
 let win;
 const hashPass = (pass, salt) => crypto.createHash('sha256').update(`${salt}::${pass}`).digest('hex');
@@ -23,13 +23,6 @@ function createWindow() {
 app.whenReady().then(() => {
   store.init(app.getPath('userData'));
   store.audit('app-start');
-
-  /* لایسنس */
-  ipcMain.handle('lic:status',    () => license.status(store));
-  ipcMain.handle('lic:machine',   () => license.machineCode());
-  ipcMain.handle('lic:activate',  (e, key) => license.activate(store, key));
-  ipcMain.handle('lic:trial',     () => license.startTrial(store));
-  ipcMain.handle('lic:deactivate',() => license.deactivate(store));
 
   /* داده و احراز هویت */
   ipcMain.handle('app:load', () => ({ settings: store.kvGet('settings'), data: store.kvGet('data') }));
@@ -53,6 +46,32 @@ app.whenReady().then(() => {
   });
   ipcMain.handle('app:info', () => ({ dbPath: store.getDbPath(), version: app.getVersion(), platform: process.platform }));
   ipcMain.handle('app:revealDB', () => shell.showItemInFolder(store.getDbPath()));
+
+  /* ═══ خروجی PDF (موتور چاپ داخلی Electron — کاملاً آفلاین) ═══ */
+  ipcMain.handle('export:pdf', async (e, { html, title }) => {
+    try {
+      const w = new BrowserWindow({
+        show: false, width: 900, height: 1200,
+        webPreferences: { contextIsolation: true, nodeIntegration: false }
+      });
+      await w.loadURL('data:text/html;charset=utf-8,' + encodeURIComponent(html));
+      await new Promise(r => setTimeout(r, 350));   // انتظار برای رندر کامل
+      const pdf = await w.webContents.printToPDF({
+        pageSize: 'A4', printBackground: true,
+        margins: { top: 0.4, bottom: 0.4, left: 0.4, right: 0.4 }
+      });
+      w.destroy();
+      const { canceled, filePath } = await dialog.showSaveDialog(win, {
+        title: 'ذخیره گزارش PDF',
+        defaultPath: path.join(app.getPath('documents'), (title || 'گزارش') + '.pdf'),
+        filters: [{ name: 'PDF File', extensions: ['pdf'] }]
+      });
+      if (canceled || !filePath) return { ok: false };
+      fs.writeFileSync(filePath, pdf);
+      store.audit('pdf-export', title || '');
+      return { ok: true, filePath };
+    } catch (err) { return { ok: false, msg: String(err) }; }
+  });
 
   createWindow();
   app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); });
